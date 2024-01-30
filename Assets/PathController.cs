@@ -2,13 +2,11 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System.Linq;
 
 public class PathController : MonoBehaviour
 {
     public PathController Singleton;
     [SerializeField] private NodeConnection [] nodeConnections;
-    private PathGraph<GameObject> graph;
 
     private void Awake ()
     {
@@ -27,31 +25,14 @@ public class PathController : MonoBehaviour
     {
         var output = new PathRequestOutput ();
 
+
+
         return output;
     }
 
     public void CreateGraphFromNodesConnections ()
     {
-        graph = new PathGraph<GameObject> ();
-        foreach (var node in nodeConnections)
-        {
-            if (graph.nodes.Exists (x => x.realObject == node.node1))
-            {
-                var graphNode = graph.nodes.First (x => x.realObject == node.node1);
-                if (graphNode.connections.Exists (x => x.neighbourNode.realObject == node.node2) == false)
-                {
-                    var newConnection = new PathGraph<GameObject>.PathGraphNodeConnection ();
 
-                    var graphNeighbour = graph.nodes.First (x => x.realObject == node.node2);
-                    if (graphNeighbour == null)
-                    {
-
-                    }
-                    newConnection.neighbourNode = node.node2;
-                    graphNode.connections.Add(new PathGraph<GameObject>.PathGraphNodeConnection)
-                }
-            }
-        }
     }
 
     public class PathRequestOutput
