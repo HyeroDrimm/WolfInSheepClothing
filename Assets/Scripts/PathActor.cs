@@ -1,12 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using Roy_T.AStar.Paths;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PathActor : MonoBehaviour
 {
     [SerializeField] private GameObject startingNode;
-    //[SerializeField] private GameObject endNode;
+    [SerializeField] private GameObject youLostUI;
     [SerializeField] private float movementSpeed;
 
     private Path path;
@@ -78,6 +79,15 @@ public class PathActor : MonoBehaviour
                 path = null;
                 isMoving = false;
             }
+        }
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.transform.CompareTag("Enemy"))
+        {
+            youLostUI.SetActive(true);
+            Destroy(gameObject);
         }
     }
 }

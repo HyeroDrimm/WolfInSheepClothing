@@ -26,7 +26,7 @@ public class PlayerChaser : MonoBehaviour
 
     void Update()
     {
-        if (!isMoving)
+        if (!isMoving && chaseTarget != null)
         {
             // raycast hit this gameobject
             edgeIndex = 0;
