@@ -51,7 +51,7 @@ public class PlayerChaser : MonoBehaviour
                 else
                 {
                     transform.position = Vector3.MoveTowards(transform.position, Helpers.RayTAStarPositionToVec3(currentEdge.End.Position),
-                        movementSpeedProper);
+                        movementSpeedProper * Time.deltaTime * 0.06f);
                 }
             }
             else

@@ -7,7 +7,7 @@ using UnityEngine;
 public class PathActor : MonoBehaviour
 {
     [SerializeField] private GameObject startingNode;
-    [SerializeField] private GameObject youLostUI;
+    [SerializeField] private GameManager gameManager;
     [SerializeField] private float movementSpeed;
 
     private Path path;
@@ -71,7 +71,7 @@ public class PathActor : MonoBehaviour
                 else
                 {
                     transform.position = Vector3.MoveTowards(transform.position, Helpers.RayTAStarPositionToVec3(currentEdge.End.Position),
-                        movementSpeedProper);
+                        movementSpeedProper * Time.deltaTime * 0.06f);
                 }
             }
             else
@@ -86,7 +86,7 @@ public class PathActor : MonoBehaviour
     {
         if (collision.transform.CompareTag("Enemy"))
         {
-            youLostUI.SetActive(true);
+            gameManager.EndGame();
             Destroy(gameObject);
         }
     }
