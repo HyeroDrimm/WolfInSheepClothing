@@ -23,19 +23,34 @@ public class PathController : MonoBehaviour
         }
     }
 
-    public PathRequestOutput GetPath(GameObject startingNode, GameObject endingNode)
+    public PathRequestOutput GetPath (GameObject startingNode, GameObject endingNode)
     {
         var output = new PathRequestOutput ();
 
         return output;
     }
 
-    public void CreateGraphFromNodesConnections()
+    public void CreateGraphFromNodesConnections ()
     {
         graph = new PathGraph<GameObject> ();
         foreach (var node in nodeConnections)
         {
-            graph.nodes.
+            if (graph.nodes.Exists (x => x.realObject == node.node1))
+            {
+                var graphNode = graph.nodes.First (x => x.realObject == node.node1);
+                if (graphNode.connections.Exists (x => x.neighbourNode.realObject == node.node2) == false)
+                {
+                    var newConnection = new PathGraph<GameObject>.PathGraphNodeConnection ();
+
+                    var graphNeighbour = graph.nodes.First (x => x.realObject == node.node2);
+                    if (graphNeighbour == null)
+                    {
+
+                    }
+                    newConnection.neighbourNode = node.node2;
+                    graphNode.connections.Add(new PathGraph<GameObject>.PathGraphNodeConnection)
+                }
+            }
         }
     }
 
@@ -53,7 +68,7 @@ public class PathController : MonoBehaviour
         public GameObject node2;
     }
 
-    private void OnDrawGizmos()
+    private void OnDrawGizmos ()
     {
         Gizmos.color = Color.white;
         foreach (var node in nodeConnections)
