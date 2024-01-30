@@ -9,7 +9,7 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{5A36B738-FD2D-FD14-DC2F-4C808DD9E2C7}</ProjectGuid>
+    <ProjectGuid>{A5F6AD03-12B3-EB25-E50B-61BF19EB2B2C}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>Assembly-CSharp</AssemblyName>
@@ -58,9 +58,13 @@
     <Analyzer Include="C:\Program Files\Unity\Hub\Editor\2022.3.0f1\Editor\Data\Tools\Unity.SourceGenerators\Unity.Properties.SourceGenerator.dll" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\PathController.cs" />
-    <Compile Include="Assets\PathActor.cs" />
-    <Compile Include="Assets\Scripts\PathGraph.cs" />
+    <Compile Include="Assets\Scripts\PathActor.cs" />
+    <Compile Include="Assets\Scripts\PlayerChaser.cs" />
+    <Compile Include="Assets\Scripts\PathController.cs" />
+    <Compile Include="Assets\Scripts\Helpers.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Assets\Packages\RoyT.AStar.3.0.2\lib\netstandard2.0\Roy-T.AStar.dll" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
@@ -317,6 +321,9 @@
     </Reference>
     <Reference Include="Unity.VisualScripting.Antlr3.Runtime">
       <HintPath>Library\PackageCache\com.unity.visualscripting@1.8.0\Runtime\VisualScripting.Flow\Dependencies\NCalc\Unity.VisualScripting.Antlr3.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="Roy-T.AStar">
+      <HintPath>Assets\Packages\RoyT.AStar.3.0.2\lib\netstandard2.0\Roy-T.AStar.dll</HintPath>
     </Reference>
     <Reference Include="netstandard">
       <HintPath>C:\Program Files\Unity\Hub\Editor\2022.3.0f1\Editor\Data\NetStandard\ref\2.1.0\netstandard.dll</HintPath>
@@ -683,6 +690,9 @@
     </Reference>
     <Reference Include="System.Xml.Serialization">
       <HintPath>C:\Program Files\Unity\Hub\Editor\2022.3.0f1\Editor\Data\NetStandard\compat\2.1.0\shims\netfx\System.Xml.Serialization.dll</HintPath>
+    </Reference>
+    <Reference Include="NuGetForUnity">
+      <HintPath>Library\ScriptAssemblies\NuGetForUnity.dll</HintPath>
     </Reference>
     <Reference Include="Unity.2D.IK.Runtime">
       <HintPath>Library\ScriptAssemblies\Unity.2D.IK.Runtime.dll</HintPath>
