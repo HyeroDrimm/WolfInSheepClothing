@@ -6,6 +6,7 @@ using UnityEngine;
 
 public class PathActor : MonoBehaviour
 {
+    [SerializeField] private PathActorAnimator animator;
     [SerializeField] private GameObject startingNode;
     [SerializeField] private GameManager gameManager;
     [SerializeField] private float movementSpeed;
@@ -24,6 +25,10 @@ public class PathActor : MonoBehaviour
     private bool isMoving = false;
     private bool isWaitingAfterMove = false;
     private GameObject currentPosition;
+
+    // Animation Names
+    private const string RUN_ANIMATION = "Run";
+    private const string IDLE_ANIMATION = "Idle";
 
     private void Start()
     {
@@ -48,6 +53,8 @@ public class PathActor : MonoBehaviour
                 path = PathController.Singleton.GetPath(currentPosition, hit.transform.gameObject);
                 currentPosition = hit.transform.gameObject;
                 movementSpeedProper = movementSpeed * path.Distance.Meters;
+
+                animator?.ChangeAnimationState(RUN_ANIMATION);
             }
         }
 
@@ -82,6 +89,7 @@ public class PathActor : MonoBehaviour
                 path = null;
                 isMoving = false;
                 StartCoroutine(WaitAfterMove());
+                animator?.ChangeAnimationState(IDLE_ANIMATION);
             }
         }
     }

@@ -6,11 +6,11 @@ using UnityEngine;
 
 public class PlayerChaser : MonoBehaviour
 {
+    [SerializeField] private PathActorAnimator animator;
     [SerializeField] private PathActor chaseTarget;
     [SerializeField] private GameObject startingNode;
     [SerializeField] private float movementSpeed;
     [SerializeField] private float waitAfterMoveTime;
-
 
     private float movementSpeedProper;
     private Path path;
@@ -18,6 +18,10 @@ public class PlayerChaser : MonoBehaviour
     private int edgeIndex;
     private bool isMoving = false;
     private bool isWaitingAfterMove = false;
+
+    // Animation Names
+    private const string RUN_ANIMATION = "Run";
+    private const string IDLE_ANIMATION = "Idle";
 
 
     private void Start()
@@ -38,6 +42,8 @@ public class PlayerChaser : MonoBehaviour
             path = PathController.Singleton.GetPath(currentPosition, chaseTarget.CurrentPosition);
             currentPosition = chaseTarget.CurrentPosition;
             movementSpeedProper = movementSpeed * path.Distance.Meters;
+
+            animator?.ChangeAnimationState(RUN_ANIMATION);
 
         }
 
@@ -62,6 +68,7 @@ public class PlayerChaser : MonoBehaviour
                 path = null;
                 isMoving = false;
                 StartCoroutine(WaitAfterMove());
+                animator?.ChangeAnimationState(IDLE_ANIMATION);
             }
         }
     }
