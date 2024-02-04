@@ -9,6 +9,7 @@ public class PathActor : MonoBehaviour
     [SerializeField] private GameObject startingNode;
     [SerializeField] private GameManager gameManager;
     [SerializeField] private float movementSpeed;
+    [SerializeField] private float waitAfterMoveTime;
 
     private Path path;
     private float movementSpeedProper;
@@ -21,6 +22,7 @@ public class PathActor : MonoBehaviour
 
     private int edgeIndex;
     private bool isMoving = false;
+    private bool isWaitingAfterMove = false;
     private GameObject currentPosition;
 
     private void Start()
@@ -31,7 +33,7 @@ public class PathActor : MonoBehaviour
 
     private void Update()
     {
-        if (!isMoving && Input.GetKeyDown(KeyCode.Mouse0))
+        if (!isMoving && !isWaitingAfterMove && Input.GetKeyDown(KeyCode.Mouse0))
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit2D hit = Physics2D.GetRayIntersection(ray, Mathf.Infinity, 1 << 6);
@@ -41,6 +43,7 @@ public class PathActor : MonoBehaviour
                 // raycast hit this gameobject
                 edgeIndex = 0;
                 isMoving = true;
+                isWaitingAfterMove = true;
                 transform.position = currentPosition.transform.position;
                 path = PathController.Singleton.GetPath(currentPosition, hit.transform.gameObject);
                 currentPosition = hit.transform.gameObject;
@@ -78,8 +81,15 @@ public class PathActor : MonoBehaviour
             {
                 path = null;
                 isMoving = false;
+                StartCoroutine(WaitAfterMove());
             }
         }
+    }
+
+    private IEnumerator WaitAfterMove()
+    {
+        yield return new WaitForSeconds(waitAfterMoveTime);
+        isWaitingAfterMove = false;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)

@@ -9,13 +9,15 @@ public class PlayerChaser : MonoBehaviour
     [SerializeField] private PathActor chaseTarget;
     [SerializeField] private GameObject startingNode;
     [SerializeField] private float movementSpeed;
+    [SerializeField] private float waitAfterMoveTime;
+
 
     private float movementSpeedProper;
     private Path path;
     private GameObject currentPosition;
     private int edgeIndex;
     private bool isMoving = false;
-
+    private bool isWaitingAfterMove = false;
 
 
     private void Start()
@@ -26,11 +28,12 @@ public class PlayerChaser : MonoBehaviour
 
     void Update()
     {
-        if (!isMoving && chaseTarget != null)
+        if (!isMoving && !isWaitingAfterMove && chaseTarget != null)
         {
             // raycast hit this gameobject
             edgeIndex = 0;
             isMoving = true;
+            isWaitingAfterMove = true;
             transform.position = currentPosition.transform.position;
             path = PathController.Singleton.GetPath(currentPosition, chaseTarget.CurrentPosition);
             currentPosition = chaseTarget.CurrentPosition;
@@ -58,7 +61,14 @@ public class PlayerChaser : MonoBehaviour
             {
                 path = null;
                 isMoving = false;
+                StartCoroutine(WaitAfterMove());
             }
         }
+    }
+
+    private IEnumerator WaitAfterMove()
+    {
+        yield return new WaitForSeconds(waitAfterMoveTime);
+        isWaitingAfterMove = false;
     }
 }

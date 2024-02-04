@@ -1061,7 +1061,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &936736356
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1077,6 +1077,7 @@ MonoBehaviour:
   chaseTarget: {fileID: 1230580093}
   startingNode: {fileID: 865054850}
   movementSpeed: 4
+  waitAfterMoveTime: 1
 --- !u!212 &936736357
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1836,6 +1837,7 @@ MonoBehaviour:
   startingNode: {fileID: 1450146438}
   gameManager: {fileID: 572848620}
   movementSpeed: 5
+  waitAfterMoveTime: 1
 --- !u!4 &1230580094
 Transform:
   m_ObjectHideFlags: 0
