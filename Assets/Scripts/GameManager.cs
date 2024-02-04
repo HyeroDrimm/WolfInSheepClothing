@@ -1,20 +1,36 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
+    public static GameManager instance;
     [SerializeField] private Timer currentTimer;
     [SerializeField] private Timer bestTimer;
     [SerializeField] private GameObject youLostUI;
+    [SerializeField] private CoinCounterUI coinCounterUi;
 
 
     private bool shouldCountTime = true;
     private float startTimestamp;
 
+    private int coinCounter = 0;
+
     private void Awake()
     {
+        if (instance != null)
+        {
+            Debug.Log($"Too many of {this.GetType()} Deleting this one");
+            Destroy(this);
+        }
+        else
+        {
+            instance = this;
+        }
+
+
         startTimestamp = Time.time;
         if (PlayerPrefs.HasKey($"TimeMap{SceneManager.GetActiveScene().name}"))
         {
@@ -52,5 +68,11 @@ public class GameManager : MonoBehaviour
         }
 
         youLostUI.SetActive(true);
+    }
+
+    public void CollectCoin()
+    {
+        coinCounter++;
+        coinCounterUi.UpdateCounter(coinCounter);
     }
 }

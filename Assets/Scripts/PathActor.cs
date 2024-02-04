@@ -34,7 +34,7 @@ public class PathActor : MonoBehaviour
         if (!isMoving && Input.GetKeyDown(KeyCode.Mouse0))
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            RaycastHit2D hit = Physics2D.GetRayIntersection(ray, Mathf.Infinity);
+            RaycastHit2D hit = Physics2D.GetRayIntersection(ray, Mathf.Infinity, 1 << 6);
 
             if (hit.collider != null && hit.collider.transform.CompareTag("PathfindingTargets"))
             {
