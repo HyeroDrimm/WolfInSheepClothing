@@ -159,7 +159,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 10, y: -133.8}
-  m_SizeDelta: {x: 412.80005, y: 50}
+  m_SizeDelta: {x: 466.46, y: 50}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &84047899
 MonoBehaviour:
@@ -183,8 +183,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 'Current Coins: 0'
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 5faaa63fca11f0d4a98deabd87fef8f5, type: 2}
+  m_sharedMaterial: {fileID: 88990510528583371, guid: 5faaa63fca11f0d4a98deabd87fef8f5, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -574,7 +574,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 10, y: -83.8}
-  m_SizeDelta: {x: 412.80005, y: 50}
+  m_SizeDelta: {x: 466.46, y: 50}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &560225343
 MonoBehaviour:
@@ -612,8 +612,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 'Current Time: 00:00'
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 5faaa63fca11f0d4a98deabd87fef8f5, type: 2}
+  m_sharedMaterial: {fileID: 88990510528583371, guid: 5faaa63fca11f0d4a98deabd87fef8f5, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -2404,7 +2404,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 10, y: -33.8}
-  m_SizeDelta: {x: 412.80005, y: 50}
+  m_SizeDelta: {x: 466.46, y: 50}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1559886296
 MonoBehaviour:
@@ -2442,8 +2442,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 'Best Time: 00:00'
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 5faaa63fca11f0d4a98deabd87fef8f5, type: 2}
+  m_sharedMaterial: {fileID: 88990510528583371, guid: 5faaa63fca11f0d4a98deabd87fef8f5, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
