@@ -90,21 +90,20 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    public void PickedDownSpeedChange(float speedChangeMultiplier, float duration)
+    public void PickedUpSpeedChangePowerUp(float speedModifier, float duration)
     {
-        powerUpSpeedModifier = speedChangeMultiplier;
+        powerUpSpeedModifier = speedModifier;
         RecalculateSpeed();
 
-        if (powerUpSpeedCountDown != null)
+        if (IsInvoking("DeleteSpeedPowerUp"))
         {
-            StopCoroutine(powerUpSpeedCountDown);
+            CancelInvoke("DeleteSpeedPowerUp");
         }
-        powerUpSpeedCountDown = StartCoroutine(WaitAndDeleteSpeedPowerUp(duration));
+        Invoke("DeleteSpeedPowerUp", duration);
     }
 
-    private IEnumerator WaitAndDeleteSpeedPowerUp(float duration)
+    private void DeleteSpeedPowerUp()
     {
-        yield return new WaitForSeconds(duration);
         powerUpSpeedModifier = 1;
         RecalculateSpeed();
     }

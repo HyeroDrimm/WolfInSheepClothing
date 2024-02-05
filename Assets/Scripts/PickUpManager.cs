@@ -6,7 +6,6 @@ using UnityEngine;
 
 public class PickUpManager : MonoBehaviour
 {
-    [SerializeField] private Transform[] pickUpPlaces;
     [SerializeField] private PickUpTypeHolder[] pickUpTypesHolders;
 
     private HashSet<Transform> usedPickUpPlaces = new();

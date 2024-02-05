@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 7770285231475934907}
   - component: {fileID: -8306046238382786976}
   - component: {fileID: 5533479042058471677}
+  - component: {fileID: 8799202082385610789}
   m_Layer: 7
   m_Name: Coin
   m_TagString: PickUp
@@ -98,7 +99,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16ffb5f24aa0ad343b725811569c0c38, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  PickUpPlace: {fileID: 0}
   isShown: 0
+  soundPlayer: {fileID: 8799202082385610789}
 --- !u!58 &5533479042058471677
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -134,3 +137,28 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
+--- !u!114 &8799202082385610789
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8444725296017675077}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c6dfc61d5a3dc3f4d86e39ef3ea01378, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sounds:
+  - soundName: Coin
+    audioClips:
+    - {fileID: 8300000, guid: d79fd2bd47dc60241b1660ea62e0ca69, type: 3}
+    - {fileID: 8300000, guid: 58be6e0ab8e5d3c4286821857d39f2e3, type: 3}
+    - {fileID: 8300000, guid: 0b29658946b523d44a3715c8151e7135, type: 3}
+    - {fileID: 8300000, guid: d0ce63893db48734181c7fdc0f5d9a4e, type: 3}
+    - {fileID: 8300000, guid: 2f54a44b3f2b61c48930e8ab45184617, type: 3}
+    - {fileID: 8300000, guid: ca7ae8f0dc3660341bd68e65690ae364, type: 3}
+    - {fileID: 8300000, guid: a0b3792b090d1374893047cda8fcddb4, type: 3}
+    - {fileID: 8300000, guid: a79d8e6904350d34f94d88e499520859, type: 3}
+    - {fileID: 8300000, guid: 4d4f068e640da3a46bec05fc0c350f90, type: 3}
+    - {fileID: 8300000, guid: 1d7aa143b71ee464d8e3411629d0fa54, type: 3}

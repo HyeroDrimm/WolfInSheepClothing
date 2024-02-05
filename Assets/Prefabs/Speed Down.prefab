@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 3511720651451344973}
   - component: {fileID: 6817039125207821394}
   - component: {fileID: 325590700294570137}
+  - component: {fileID: -8693285337755484574}
   m_Layer: 7
   m_Name: Speed Down
   m_TagString: PickUp
@@ -135,5 +136,25 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PickUpPlace: {fileID: 0}
   isShown: 0
-  speedDownPercentage: 0.7
-  speedUpDuration: 5
+  audioPlayer: {fileID: -8693285337755484574}
+  speedModifier: 0.7
+  duration: 3
+--- !u!114 &-8693285337755484574
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2593896120972794941}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c6dfc61d5a3dc3f4d86e39ef3ea01378, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sounds:
+  - soundName: PowerUp
+    audioClips:
+    - {fileID: 8300000, guid: 9e921731cd2ee8f4fbe8a4ac3b90c11a, type: 3}
+  - soundName: PowerDown
+    audioClips:
+    - {fileID: 8300000, guid: be5187a822814d34ebb8d6ea6bfba0ed, type: 3}

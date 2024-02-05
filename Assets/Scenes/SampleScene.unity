@@ -775,6 +775,8 @@ GameObject:
   - component: {fileID: 519420032}
   - component: {fileID: 519420031}
   - component: {fileID: 519420029}
+  - component: {fileID: 519420034}
+  - component: {fileID: 519420033}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -856,6 +858,134 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!82 &519420033
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 519420028}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+--- !u!114 &519420034
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 519420028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4571b9228a5d524e87f866353e3d0e1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioSource: {fileID: 519420033}
+  sounds:
+  - soundName: PowerUp
+    audioClips:
+    - {fileID: 8300000, guid: 9e921731cd2ee8f4fbe8a4ac3b90c11a, type: 3}
+  - soundName: PowerDown
+    audioClips:
+    - {fileID: 8300000, guid: be5187a822814d34ebb8d6ea6bfba0ed, type: 3}
+  - soundName: Coin
+    audioClips:
+    - {fileID: 8300000, guid: d79fd2bd47dc60241b1660ea62e0ca69, type: 3}
+    - {fileID: 8300000, guid: 58be6e0ab8e5d3c4286821857d39f2e3, type: 3}
+    - {fileID: 8300000, guid: 0b29658946b523d44a3715c8151e7135, type: 3}
+    - {fileID: 8300000, guid: d0ce63893db48734181c7fdc0f5d9a4e, type: 3}
+    - {fileID: 8300000, guid: 2f54a44b3f2b61c48930e8ab45184617, type: 3}
+    - {fileID: 8300000, guid: ca7ae8f0dc3660341bd68e65690ae364, type: 3}
+    - {fileID: 8300000, guid: a0b3792b090d1374893047cda8fcddb4, type: 3}
+    - {fileID: 8300000, guid: a79d8e6904350d34f94d88e499520859, type: 3}
+    - {fileID: 8300000, guid: 4d4f068e640da3a46bec05fc0c350f90, type: 3}
+    - {fileID: 8300000, guid: 1d7aa143b71ee464d8e3411629d0fa54, type: 3}
 --- !u!1 &560225341
 GameObject:
   m_ObjectHideFlags: 0
@@ -2277,6 +2407,7 @@ GameObject:
   - component: {fileID: 1230580094}
   - component: {fileID: 1230580093}
   - component: {fileID: 1230580097}
+  - component: {fileID: 1230580098}
   m_Layer: 7
   m_Name: Player
   m_TagString: Player
@@ -2345,6 +2476,26 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &1230580098
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1230580092}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c6dfc61d5a3dc3f4d86e39ef3ea01378, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sounds:
+  - soundName: PowerUp
+    audioClips:
+    - {fileID: 8300000, guid: 9e921731cd2ee8f4fbe8a4ac3b90c11a, type: 3}
+  - soundName: PowerDown
+    audioClips:
+    - {fileID: 8300000, guid: be5187a822814d34ebb8d6ea6bfba0ed, type: 3}
+  audioSource: {fileID: 0}
 --- !u!1001 &1232154617
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2447,7 +2598,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 594b8d5eb8c93f44a863b0be0d8600cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pickUpPlaces: []
   pickUpTypesHolders:
   - pickUps:
     - {fileID: 210607070}
@@ -2457,7 +2607,8 @@ MonoBehaviour:
     - {fileID: 679805281}
     timeBetweenSpawns: 5
     numberSpawned: 2
-    maxSpawned: 3
+    maxSpawned: 0
+    counter: 0
   - pickUps:
     - {fileID: 1749808504}
     - {fileID: 1232154619}
@@ -2467,8 +2618,9 @@ MonoBehaviour:
     - {fileID: 1334889853}
     - {fileID: 131884086}
     timeBetweenSpawns: 5
-    numberSpawned: 2
-    maxSpawned: 3
+    numberSpawned: 5
+    maxSpawned: 5
+    counter: 0
 --- !u!4 &1252413951
 Transform:
   m_ObjectHideFlags: 0

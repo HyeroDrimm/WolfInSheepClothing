@@ -6,6 +6,7 @@ public class Coin : PickUp
 {
     public override void OnPlayerPickedUp(Player player)
     {
+        SoundEffectPlayer.Instance.PlaySoundClip(SoundEffectPlayer.COIN);
         GameManager.instance.CollectCoin();
         SetVisible(false);
     }

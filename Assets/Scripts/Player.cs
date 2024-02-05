@@ -111,23 +111,30 @@ public class Player : MonoBehaviour
         }
     }
 
-    public void PickedDownSpeedChange(float speedModifier, float duration)
+    public void PickedUpSpeedChangePowerUp(float speedModifier, float duration)
     {
         powerUpSpeedModifier = speedModifier;
         RecalculateSpeed();
 
-        if (powerUpSpeedCountDown != null)
+        if (IsInvoking("DeleteSpeedPowerUp"))
         {
-            StopCoroutine(powerUpSpeedCountDown);
+            CancelInvoke("DeleteSpeedPowerUp");
         }
-        powerUpSpeedCountDown = StartCoroutine(WaitAndDeleteSpeedPowerUp(duration));
+        Invoke("DeleteSpeedPowerUp", duration);
     }
 
-    private IEnumerator WaitAndDeleteSpeedPowerUp(float duration)
+    private void DeleteSpeedPowerUp()
     {
-        yield return new WaitForSeconds(duration);
+        if (powerUpSpeedModifier < 1)
+        {
+            SoundEffectPlayer.Instance.PlaySoundClip(SoundEffectPlayer.POWER_UP);
+        }
+        else if (powerUpSpeedModifier > 1)
+        {
+            SoundEffectPlayer.Instance.PlaySoundClip(SoundEffectPlayer.POWER_DOWN);
+        }
+
         powerUpSpeedModifier = 1;
         RecalculateSpeed();
     }
-
 }

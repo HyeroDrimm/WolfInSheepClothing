@@ -2,17 +2,25 @@
 
 public class SpeedChangePowerUp : PickUp
 {
-    [SerializeField] private float speedDownPercentage;
-    [SerializeField] private float speedUpDuration;
+    [SerializeField] private float speedModifier;
+    [SerializeField] private float duration;
     public override void OnPlayerPickedUp(Player player)
     {
-        player.PickedDownSpeedChange(speedDownPercentage, speedUpDuration);
+        if (speedModifier < 1)
+        {
+            SoundEffectPlayer.Instance.PlaySoundClip(SoundEffectPlayer.POWER_DOWN);
+        }
+        else if (speedModifier > 1)
+        {
+            SoundEffectPlayer.Instance.PlaySoundClip(SoundEffectPlayer.POWER_UP);
+        }
+        player.PickedUpSpeedChangePowerUp(speedModifier, duration);
         SetVisible(false);
     }
 
     public override void OnEnemyPickedUp(Enemy enemy)
     {
-        enemy.PickedDownSpeedChange(speedDownPercentage, speedUpDuration);
+        enemy.PickedUpSpeedChangePowerUp(speedModifier, duration);
         SetVisible(false);
     }
 }
