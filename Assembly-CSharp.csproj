@@ -61,9 +61,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\Coin.cs" />
-    <Compile Include="Assets\Scripts\CoinSpawner.cs" />
+    <Compile Include="Assets\Scripts\PickUpManager.cs" />
     <Compile Include="Assets\PathActorAnimator.cs" />
     <Compile Include="Assets\Scripts\PathActor.cs" />
+    <Compile Include="Assets\Scripts\PickUp.cs" />
+    <Compile Include="Assets\Scripts\SpeedChangePowerUp.cs" />
     <Compile Include="Assets\Scripts\GameManager.cs" />
     <Compile Include="Assets\Scripts\PlayerChaser.cs" />
     <Compile Include="Assets\Scripts\PathController.cs" />

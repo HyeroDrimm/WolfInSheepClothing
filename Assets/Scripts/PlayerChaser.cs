@@ -23,6 +23,9 @@ public class PlayerChaser : MonoBehaviour
     private const string RUN_ANIMATION = "Run";
     private const string IDLE_ANIMATION = "Idle";
 
+    // Speed
+    private float powerUpSpeedModifier = 1;
+    private Coroutine powerUpSpeedCountDown;
 
     private void Start()
     {
@@ -41,7 +44,7 @@ public class PlayerChaser : MonoBehaviour
             transform.position = currentPosition.transform.position;
             path = PathController.Singleton.GetPath(currentPosition, chaseTarget.CurrentPosition);
             currentPosition = chaseTarget.CurrentPosition;
-            movementSpeedProper = movementSpeed * path.Distance.Meters;
+            RecalculateSpeed();
 
             animator?.ChangeAnimationState(RUN_ANIMATION);
 
@@ -78,4 +81,29 @@ public class PlayerChaser : MonoBehaviour
         yield return new WaitForSeconds(waitAfterMoveTime);
         isWaitingAfterMove = false;
     }
+
+    private void RecalculateSpeed()
+    {
+        movementSpeedProper = movementSpeed * path.Distance.Meters * powerUpSpeedModifier;
+    }
+
+    public void PickedDownSpeedChange(float speedChangeMultiplier, float duration)
+    {
+        powerUpSpeedModifier = speedChangeMultiplier;
+        RecalculateSpeed();
+
+        if (powerUpSpeedCountDown != null)
+        {
+            StopCoroutine(powerUpSpeedCountDown);
+        }
+        powerUpSpeedCountDown = StartCoroutine(WaitAndDeleteSpeedPowerUp(duration));
+    }
+
+    private IEnumerator WaitAndDeleteSpeedPowerUp(float duration)
+    {
+        yield return new WaitForSeconds(duration);
+        powerUpSpeedModifier = 1;
+        RecalculateSpeed();
+    }
+
 }

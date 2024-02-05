@@ -6,7 +6,7 @@ TagManager:
   tags:
   - PathfindingTargets
   - Enemy
-  - Coin
+  - PickUp
   layers:
   - Default
   - TransparentFX

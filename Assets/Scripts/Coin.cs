@@ -2,27 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Coin : MonoBehaviour
+public class Coin : PickUp
 {
-    [HideInInspector] public bool isShown = false;
-
-    private void Start()
+    public override void OnPlayerPickedUp(PathActor player)
     {
+        GameManager.instance.CollectCoin();
         SetVisible(false);
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        if (other.CompareTag("Player"))
-        {
-            GameManager.instance.CollectCoin();
-            SetVisible(false);
-        }
-    }
-
-    public void SetVisible(bool state)
-    {
-        gameObject.SetActive(state);
-        isShown = state;
-    }
+    public override void OnEnemyPickedUp(PlayerChaser enemy) { }
 }

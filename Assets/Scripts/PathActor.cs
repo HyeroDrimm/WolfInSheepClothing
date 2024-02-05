@@ -30,6 +30,10 @@ public class PathActor : MonoBehaviour
     private const string RUN_ANIMATION = "Run";
     private const string IDLE_ANIMATION = "Idle";
 
+    // Speed
+    private float powerUpSpeedModifier = 1;
+    private Coroutine powerUpSpeedCountDown;
+
     private void Start()
     {
         transform.position = startingNode.transform.position;
@@ -52,21 +56,11 @@ public class PathActor : MonoBehaviour
                 transform.position = currentPosition.transform.position;
                 path = PathController.Singleton.GetPath(currentPosition, hit.transform.gameObject);
                 currentPosition = hit.transform.gameObject;
-                movementSpeedProper = movementSpeed * path.Distance.Meters;
+                RecalculateSpeed();
 
                 animator?.ChangeAnimationState(RUN_ANIMATION);
             }
         }
-
-
-
-        /*if (Input.GetKeyDown(KeyCode.Space))
-        {
-            path = PathController.Singleton.GetPath(startingNode, endNode);
-            transform.position = Helpers.RayTAStarPositionToVec3(path.Edges[0].Start.Position);
-            edgeIndex = 0;
-            currentPosition = endNode;
-        }*/
 
         if (path != null)
         {
@@ -108,4 +102,32 @@ public class PathActor : MonoBehaviour
             Destroy(gameObject);
         }
     }
+
+    private void RecalculateSpeed()
+    {
+        if (path != null)
+        {
+            movementSpeedProper = movementSpeed * path.Distance.Meters * powerUpSpeedModifier;
+        }
+    }
+
+    public void PickedDownSpeedChange(float speedModifier, float duration)
+    {
+        powerUpSpeedModifier = speedModifier;
+        RecalculateSpeed();
+
+        if (powerUpSpeedCountDown != null)
+        {
+            StopCoroutine(powerUpSpeedCountDown);
+        }
+        powerUpSpeedCountDown = StartCoroutine(WaitAndDeleteSpeedPowerUp(duration));
+    }
+
+    private IEnumerator WaitAndDeleteSpeedPowerUp(float duration)
+    {
+        yield return new WaitForSeconds(duration);
+        powerUpSpeedModifier = 1;
+        RecalculateSpeed();
+    }
+
 }
