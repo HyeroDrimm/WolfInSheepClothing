@@ -1,30 +1,23 @@
 using System.Collections;
 using System.Collections.Generic;
 using Roy_T.AStar.Paths;
-using Unity.VisualScripting;
+using Unity.Burst.CompilerServices;
 using UnityEngine;
 
-public class PathActor : MonoBehaviour
+public class Enemy : MonoBehaviour
 {
     [SerializeField] private PathActorAnimator animator;
+    [SerializeField] private Player chaseTarget;
     [SerializeField] private GameObject startingNode;
-    [SerializeField] private GameManager gameManager;
     [SerializeField] private float movementSpeed;
     [SerializeField] private float waitAfterMoveTime;
 
-    private Path path;
     private float movementSpeedProper;
-
-    public GameObject CurrentPosition
-    {
-        get => currentPosition;
-        private set => currentPosition = value;
-    }
-
+    private Path path;
+    private GameObject currentPosition;
     private int edgeIndex;
     private bool isMoving = false;
     private bool isWaitingAfterMove = false;
-    private GameObject currentPosition;
 
     // Animation Names
     private const string RUN_ANIMATION = "Run";
@@ -40,26 +33,21 @@ public class PathActor : MonoBehaviour
         currentPosition = startingNode;
     }
 
-    private void Update()
+    void Update()
     {
-        if (!isMoving && !isWaitingAfterMove && Input.GetKeyDown(KeyCode.Mouse0))
+        if (!isMoving && !isWaitingAfterMove && chaseTarget != null)
         {
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            RaycastHit2D hit = Physics2D.GetRayIntersection(ray, Mathf.Infinity, 1 << 6);
+            // raycast hit this gameobject
+            edgeIndex = 0;
+            isMoving = true;
+            isWaitingAfterMove = true;
+            transform.position = currentPosition.transform.position;
+            path = PathController.Singleton.GetPath(currentPosition, chaseTarget.CurrentPosition);
+            currentPosition = chaseTarget.CurrentPosition;
+            RecalculateSpeed();
 
-            if (hit.collider != null && hit.collider.transform.CompareTag("PathfindingTargets"))
-            {
-                // raycast hit this gameobject
-                edgeIndex = 0;
-                isMoving = true;
-                isWaitingAfterMove = true;
-                transform.position = currentPosition.transform.position;
-                path = PathController.Singleton.GetPath(currentPosition, hit.transform.gameObject);
-                currentPosition = hit.transform.gameObject;
-                RecalculateSpeed();
+            animator?.ChangeAnimationState(RUN_ANIMATION);
 
-                animator?.ChangeAnimationState(RUN_ANIMATION);
-            }
         }
 
         if (path != null)
@@ -94,15 +82,6 @@ public class PathActor : MonoBehaviour
         isWaitingAfterMove = false;
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.transform.CompareTag("Enemy"))
-        {
-            gameManager.EndGame();
-            Destroy(gameObject);
-        }
-    }
-
     private void RecalculateSpeed()
     {
         if (path != null)
@@ -111,9 +90,9 @@ public class PathActor : MonoBehaviour
         }
     }
 
-    public void PickedDownSpeedChange(float speedModifier, float duration)
+    public void PickedDownSpeedChange(float speedChangeMultiplier, float duration)
     {
-        powerUpSpeedModifier = speedModifier;
+        powerUpSpeedModifier = speedChangeMultiplier;
         RecalculateSpeed();
 
         if (powerUpSpeedCountDown != null)

@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class Coin : PickUp
 {
-    public override void OnPlayerPickedUp(PathActor player)
+    public override void OnPlayerPickedUp(Player player)
     {
         GameManager.instance.CollectCoin();
         SetVisible(false);
     }
 
-    public override void OnEnemyPickedUp(PlayerChaser enemy) { }
+    public override void OnEnemyPickedUp(Enemy enemy) { }
 }

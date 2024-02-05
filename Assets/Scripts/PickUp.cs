@@ -17,12 +17,12 @@ public abstract class PickUp : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            var player = other.GetComponentInParent<PathActor>();
+            var player = other.GetComponentInParent<Player>();
             OnPlayerPickedUp(player);
         }
         else if (other.CompareTag("Enemy"))
         {
-            var enemy = other.GetComponentInParent<PlayerChaser>();
+            var enemy = other.GetComponentInParent<Enemy>();
             OnEnemyPickedUp(enemy);
         }
     }
@@ -38,6 +38,6 @@ public abstract class PickUp : MonoBehaviour
         }
     }
 
-    public abstract void OnPlayerPickedUp(PathActor player);
-    public abstract void OnEnemyPickedUp(PlayerChaser enemy);
+    public abstract void OnPlayerPickedUp(Player player);
+    public abstract void OnEnemyPickedUp(Enemy enemy);
 }

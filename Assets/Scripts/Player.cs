@@ -1,23 +1,30 @@
 using System.Collections;
 using System.Collections.Generic;
 using Roy_T.AStar.Paths;
-using Unity.Burst.CompilerServices;
+using Unity.VisualScripting;
 using UnityEngine;
 
-public class PlayerChaser : MonoBehaviour
+public class Player : MonoBehaviour
 {
     [SerializeField] private PathActorAnimator animator;
-    [SerializeField] private PathActor chaseTarget;
     [SerializeField] private GameObject startingNode;
+    [SerializeField] private GameManager gameManager;
     [SerializeField] private float movementSpeed;
     [SerializeField] private float waitAfterMoveTime;
 
-    private float movementSpeedProper;
     private Path path;
-    private GameObject currentPosition;
+    private float movementSpeedProper;
+
+    public GameObject CurrentPosition
+    {
+        get => currentPosition;
+        private set => currentPosition = value;
+    }
+
     private int edgeIndex;
     private bool isMoving = false;
     private bool isWaitingAfterMove = false;
+    private GameObject currentPosition;
 
     // Animation Names
     private const string RUN_ANIMATION = "Run";
@@ -33,21 +40,26 @@ public class PlayerChaser : MonoBehaviour
         currentPosition = startingNode;
     }
 
-    void Update()
+    private void Update()
     {
-        if (!isMoving && !isWaitingAfterMove && chaseTarget != null)
+        if (!isMoving && !isWaitingAfterMove && Input.GetKeyDown(KeyCode.Mouse0))
         {
-            // raycast hit this gameobject
-            edgeIndex = 0;
-            isMoving = true;
-            isWaitingAfterMove = true;
-            transform.position = currentPosition.transform.position;
-            path = PathController.Singleton.GetPath(currentPosition, chaseTarget.CurrentPosition);
-            currentPosition = chaseTarget.CurrentPosition;
-            RecalculateSpeed();
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            RaycastHit2D hit = Physics2D.GetRayIntersection(ray, Mathf.Infinity, 1 << 6);
 
-            animator?.ChangeAnimationState(RUN_ANIMATION);
+            if (hit.collider != null && hit.collider.transform.CompareTag("PathfindingTargets"))
+            {
+                // raycast hit this gameobject
+                edgeIndex = 0;
+                isMoving = true;
+                isWaitingAfterMove = true;
+                transform.position = currentPosition.transform.position;
+                path = PathController.Singleton.GetPath(currentPosition, hit.transform.gameObject);
+                currentPosition = hit.transform.gameObject;
+                RecalculateSpeed();
 
+                animator?.ChangeAnimationState(RUN_ANIMATION);
+            }
         }
 
         if (path != null)
@@ -82,14 +94,26 @@ public class PlayerChaser : MonoBehaviour
         isWaitingAfterMove = false;
     }
 
-    private void RecalculateSpeed()
+    private void OnCollisionEnter2D(Collision2D collision)
     {
-        movementSpeedProper = movementSpeed * path.Distance.Meters * powerUpSpeedModifier;
+        if (collision.transform.CompareTag("Enemy"))
+        {
+            gameManager.EndGame();
+            Destroy(gameObject);
+        }
     }
 
-    public void PickedDownSpeedChange(float speedChangeMultiplier, float duration)
+    private void RecalculateSpeed()
     {
-        powerUpSpeedModifier = speedChangeMultiplier;
+        if (path != null)
+        {
+            movementSpeedProper = movementSpeed * path.Distance.Meters * powerUpSpeedModifier;
+        }
+    }
+
+    public void PickedDownSpeedChange(float speedModifier, float duration)
+    {
+        powerUpSpeedModifier = speedModifier;
         RecalculateSpeed();
 
         if (powerUpSpeedCountDown != null)
