@@ -7,13 +7,13 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     [SerializeField] private PathActorAnimator animator;
+    [SerializeField] private Enemy enemy;
     [SerializeField] private GameObject startingNode;
     [SerializeField] private GameManager gameManager;
     [SerializeField] private float movementSpeed;
     [SerializeField] private float waitAfterMoveTime;
 
     private Path path;
-    private float movementSpeedProper;
 
     public GameObject CurrentPosition
     {
@@ -32,7 +32,11 @@ public class Player : MonoBehaviour
 
     // Speed
     private float powerUpSpeedModifier = 1;
-    private Coroutine powerUpSpeedCountDown;
+    private float movementSpeedProper => movementSpeed * path.Distance.Meters * powerUpSpeedModifier;
+
+    // Wait time after move
+    private float waitAfterMoveTimeAddon = 0;
+    private float waitAfterMoveTimeProper => waitAfterMoveTime + waitAfterMoveTimeAddon;
 
     private void Start()
     {
@@ -56,7 +60,6 @@ public class Player : MonoBehaviour
                 transform.position = currentPosition.transform.position;
                 path = PathController.Singleton.GetPath(currentPosition, hit.transform.gameObject);
                 currentPosition = hit.transform.gameObject;
-                RecalculateSpeed();
 
                 animator?.ChangeAnimationState(RUN_ANIMATION);
             }
@@ -82,16 +85,21 @@ public class Player : MonoBehaviour
             {
                 path = null;
                 isMoving = false;
-                StartCoroutine(WaitAfterMove());
                 animator?.ChangeAnimationState(IDLE_ANIMATION);
+
+                if (IsInvoking("WaitAfterMove"))
+                {
+                    CancelInvoke("WaitAfterMove");
+                }
+                Invoke("WaitAfterMove", waitAfterMoveTimeProper);
             }
         }
     }
 
-    private IEnumerator WaitAfterMove()
+    private void WaitAfterMove()
     {
-        yield return new WaitForSeconds(waitAfterMoveTime);
         isWaitingAfterMove = false;
+        waitAfterMoveTimeAddon = 0;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -103,18 +111,11 @@ public class Player : MonoBehaviour
         }
     }
 
-    private void RecalculateSpeed()
-    {
-        if (path != null)
-        {
-            movementSpeedProper = movementSpeed * path.Distance.Meters * powerUpSpeedModifier;
-        }
-    }
+    #region PowerUp
 
     public void PickedUpSpeedChangePowerUp(float speedModifier, float duration)
     {
         powerUpSpeedModifier = speedModifier;
-        RecalculateSpeed();
 
         if (IsInvoking("DeleteSpeedPowerUp"))
         {
@@ -135,6 +136,23 @@ public class Player : MonoBehaviour
         }
 
         powerUpSpeedModifier = 1;
-        RecalculateSpeed();
     }
+
+    public void PickedUpEnemyFreezePowerUp(float duration)
+    {
+        enemy.ChangeWaitAfterMoveAddon(duration);
+    }
+
+    public void ChangeWaitAfterMoveAddon(float duration)
+    {
+        waitAfterMoveTimeAddon = duration;
+     
+        if (IsInvoking("WaitAfterMove"))
+        {
+            CancelInvoke("WaitAfterMove");
+            Invoke("WaitAfterMove", waitAfterMoveTimeProper);
+        }
+    }
+
+    #endregion
 }

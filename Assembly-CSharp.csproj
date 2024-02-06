@@ -60,17 +60,18 @@
     <Analyzer Include="C:\Program Files\Unity\Hub\Editor\2022.3.18f1\Editor\Data\Tools\Unity.SourceGenerators\Unity.Properties.SourceGenerator.dll" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Scripts\Coin.cs" />
+    <Compile Include="Assets\Scripts\PickUp\SpeedChangePowerUp.cs" />
     <Compile Include="Assets\Scripts\PickUpManager.cs" />
     <Compile Include="Assets\Scripts\Enemy.cs" />
     <Compile Include="Assets\Scripts\PathActorAnimator.cs" />
-    <Compile Include="Assets\Scripts\PickUp.cs" />
-    <Compile Include="Assets\Scripts\SpeedChangePowerUp.cs" />
+    <Compile Include="Assets\Scripts\PickUp\FreezeEnemyPowerUp.cs" />
     <Compile Include="Assets\Scripts\Player.cs" />
     <Compile Include="Assets\Scripts\GameManager.cs" />
     <Compile Include="Assets\Scripts\PathController.cs" />
     <Compile Include="Assets\Scripts\CoinCounterUI.cs" />
     <Compile Include="Assets\Scripts\Timer.cs" />
+    <Compile Include="Assets\Scripts\PickUp\Coin.cs" />
+    <Compile Include="Assets\Scripts\PickUp\PickUp.cs" />
     <Compile Include="Assets\Scripts\Helpers.cs" />
     <Compile Include="Assets\Scripts\LevelReset.cs" />
     <Compile Include="Assets\SoundEffectPlayer.cs" />

@@ -103,7 +103,7 @@ public class PathController : MonoBehaviour
             {
                 if (node != null && node.node1 != null && node.node2 != null)
                 {
-                    Gizmos.color = new Color(MathF.Sin(node.node1.transform.position.x), MathF.Sin(node.node1.transform.position.y), MathF.Sin(node.node1.transform.position.z));
+                    Gizmos.color = new Color((MathF.Sin(node.node1.transform.position.x)+1)/2, (MathF.Sin(node.node1.transform.position.y) + 1) / 2, 0);
                     Gizmos.DrawLine(node.node1.transform.position, node.node2.transform.position);
                     Gizmos.DrawSphere(node.node1.transform.position, 0.2f);
                     Gizmos.DrawSphere(node.node2.transform.position, 0.2f);

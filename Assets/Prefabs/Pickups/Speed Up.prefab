@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &2593896120972794941
+--- !u!1 &1849478921393684829
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,25 +8,24 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 5260624420781445599}
-  - component: {fileID: 3511720651451344973}
-  - component: {fileID: 6817039125207821394}
-  - component: {fileID: 325590700294570137}
-  - component: {fileID: -8693285337755484574}
+  - component: {fileID: 6247832944608305488}
+  - component: {fileID: 2549071952305686263}
+  - component: {fileID: 1208164723067909827}
+  - component: {fileID: 4550334750888956021}
   m_Layer: 7
-  m_Name: Speed Down
+  m_Name: Speed Up
   m_TagString: PickUp
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &5260624420781445599
+--- !u!4 &6247832944608305488
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2593896120972794941}
+  m_GameObject: {fileID: 1849478921393684829}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
@@ -35,13 +34,13 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!212 &3511720651451344973
+--- !u!212 &2549071952305686263
 SpriteRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2593896120972794941}
+  m_GameObject: {fileID: 1849478921393684829}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -77,7 +76,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
-  m_Color: {r: 0.3274546, g: 0.3767408, b: 0.4264151, a: 1}
+  m_Color: {r: 0, g: 0.49798417, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -87,13 +86,13 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!58 &6817039125207821394
+--- !u!58 &1208164723067909827
 CircleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2593896120972794941}
+  m_GameObject: {fileID: 1849478921393684829}
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
@@ -122,13 +121,13 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
---- !u!114 &325590700294570137
+--- !u!114 &4550334750888956021
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2593896120972794941}
+  m_GameObject: {fileID: 1849478921393684829}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 74f2db6b4d3e87b468031219ee0aa1fb, type: 3}
@@ -136,25 +135,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PickUpPlace: {fileID: 0}
   isShown: 0
-  audioPlayer: {fileID: -8693285337755484574}
-  speedModifier: 0.7
+  speedModifier: 1.2
   duration: 3
---- !u!114 &-8693285337755484574
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2593896120972794941}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c6dfc61d5a3dc3f4d86e39ef3ea01378, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sounds:
-  - soundName: PowerUp
-    audioClips:
-    - {fileID: 8300000, guid: 9e921731cd2ee8f4fbe8a4ac3b90c11a, type: 3}
-  - soundName: PowerDown
-    audioClips:
-    - {fileID: 8300000, guid: be5187a822814d34ebb8d6ea6bfba0ed, type: 3}
