@@ -4,6 +4,12 @@ using UnityEngine;
 
 public class Coin : PickUp
 {
+    protected override void Awake()
+    {
+        base.Awake();
+        SetVisible(false);
+    }
+
     public override void OnPlayerPickedUp(Player player)
     {
         SoundEffectPlayer.Instance.PlaySoundClip(SoundEffectPlayer.COIN);

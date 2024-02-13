@@ -11,6 +11,14 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Timer bestTimer;
     [SerializeField] private GameObject youLostUI;
     [SerializeField] private CoinCounterUI coinCounterUi;
+    [SerializeField] private Player player;
+    [SerializeField] private Enemy enemy;
+
+    [Header("Shop")][SerializeField] private float shopSlowDown;
+    [SerializeField] private ShopUI shopUi;
+
+    [Header("Pocket")][SerializeField] private PocketUI pocketUi;
+    private ShopItem itemInPocket;
 
 
     private bool shouldCountTime = true;
@@ -48,6 +56,11 @@ public class GameManager : MonoBehaviour
         {
             currentTimer.UpdateTime(Time.time - startTimestamp);
         }
+
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            UseCurrentPocketItem();
+        }
     }
 
     public void EndGame()
@@ -74,5 +87,63 @@ public class GameManager : MonoBehaviour
     {
         coinCounter++;
         coinCounterUi.UpdateCounter(coinCounter);
+    }
+
+    public void ShowShop(bool state)
+    {
+        shopUi.SetVisible(state);
+        Time.timeScale = state ? shopSlowDown : 1;
+    }
+
+    public void UpdatePocket(ShopItem shopItem)
+    {
+        if (itemInPocket != null)
+        {
+            UsePocketItem(itemInPocket);
+        }
+        pocketUi.UpdateItem(shopItem);
+        itemInPocket = shopItem;
+    }
+
+    private void UsePocketItem(ShopItem shopItem)
+    {
+        if (itemInPocket != null)
+        {
+            switch (shopItem.type)
+            {
+                case ItemsConsts.POWER_UP_SPEED_UP:
+                    player.PickedUpSpeedChangePowerUp(ItemsConsts.POWER_UP_SPEED_UP_MODIFIER, ItemsConsts.POWER_UP_SPEED_UP_DURATION);
+                    break;
+                case ItemsConsts.POWER_UP_SPEED_DOWN:
+                    enemy.PickedUpSpeedChangePowerUp(ItemsConsts.POWER_UP_SPEED_DOWN_MODIFIER, ItemsConsts.POWER_UP_SPEED_DOWN_DURATION);
+                    break;
+                case ItemsConsts.POWER_UP_FREEZE:
+                    enemy.ChangeWaitAfterMoveAddon(ItemsConsts.POWER_UP_FREEZE_DURATION);
+                    break;
+                case ItemsConsts.POWER_UP_DOLL:
+                    player.UseDoll();
+                    break;
+                default:
+                    Debug.Log("Fucky wacky");
+                    break;
+            }
+
+            SoundEffectPlayer.Instance.PlaySoundClip(SoundEffectPlayer.POWER_UP);
+            pocketUi.UpdateItem(null);
+        }
+    }
+
+    public void UseCurrentPocketItem() => UsePocketItem(itemInPocket);
+
+    public bool PayCoins(int itemPrice)
+    {
+        if (coinCounter >= itemPrice)
+        {
+            coinCounter -= itemPrice;
+            coinCounterUi.UpdateCounter(coinCounter);
+            return true;
+        }
+
+        return false;
     }
 }

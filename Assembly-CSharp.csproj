@@ -62,19 +62,27 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\PickUp\SpeedChangePowerUp.cs" />
     <Compile Include="Assets\Scripts\PickUpManager.cs" />
+    <Compile Include="Assets\Scripts\PocketUI.cs" />
+    <Compile Include="Assets\Scripts\Shop.cs" />
     <Compile Include="Assets\Scripts\Enemy.cs" />
+    <Compile Include="Assets\Scripts\Doll.cs" />
+    <Compile Include="Assets\Scripts\SoundEffectPlayer.cs" />
+    <Compile Include="Assets\Scripts\ItemsConsts.cs" />
     <Compile Include="Assets\Scripts\PathActorAnimator.cs" />
+    <Compile Include="Assets\Scripts\Popup.cs" />
+    <Compile Include="Assets\Scripts\ShopUI.cs" />
     <Compile Include="Assets\Scripts\PickUp\FreezeEnemyPowerUp.cs" />
     <Compile Include="Assets\Scripts\Player.cs" />
     <Compile Include="Assets\Scripts\GameManager.cs" />
     <Compile Include="Assets\Scripts\PathController.cs" />
+    <Compile Include="Assets\Scripts\IFollowTarget.cs" />
     <Compile Include="Assets\Scripts\CoinCounterUI.cs" />
     <Compile Include="Assets\Scripts\Timer.cs" />
+    <Compile Include="Assets\Scripts\ShopUIItem.cs" />
     <Compile Include="Assets\Scripts\PickUp\Coin.cs" />
     <Compile Include="Assets\Scripts\PickUp\PickUp.cs" />
     <Compile Include="Assets\Scripts\Helpers.cs" />
     <Compile Include="Assets\Scripts\LevelReset.cs" />
-    <Compile Include="Assets\SoundEffectPlayer.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

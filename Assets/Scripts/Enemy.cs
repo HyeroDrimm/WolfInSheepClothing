@@ -19,6 +19,7 @@ public class Enemy : MonoBehaviour
     private bool isMoving = false;
     private bool isWaitingAfterMove = false;
 
+    [HideInInspector] public Doll Doll;
 
     // Animation Names
     private const string RUN_ANIMATION = "Run";
@@ -42,13 +43,14 @@ public class Enemy : MonoBehaviour
     {
         if (!isMoving && !isWaitingAfterMove && player != null)
         {
+            IFollowTarget followTarget = Doll == null ? player : Doll;
             // raycast hit this gameobject
             edgeIndex = 0;
             isMoving = true;
             isWaitingAfterMove = true;
             transform.position = currentPosition.transform.position;
-            path = PathController.Singleton.GetPath(currentPosition, player.CurrentPosition);
-            currentPosition = player.CurrentPosition;
+            path = PathController.Singleton.GetPath(currentPosition, followTarget.CurrentPosition());
+            currentPosition = followTarget.CurrentPosition();
 
             animator?.ChangeAnimationState(RUN_ANIMATION);
 

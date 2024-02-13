@@ -10,7 +10,6 @@ public abstract class PickUp : MonoBehaviour
     protected virtual void Awake()
     {
         PickUpPlace = transform.parent;
-        SetVisible(false);
     }
 
     private void OnTriggerEnter2D(Collider2D other)

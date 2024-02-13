@@ -4,6 +4,13 @@ public class SpeedChangePowerUp : PickUp
 {
     [SerializeField] private float speedModifier;
     [SerializeField] private float duration;
+
+    protected override void Awake()
+    {
+        base.Awake();
+        SetVisible(false);
+    }
+
     public override void OnPlayerPickedUp(Player player)
     {
         if (speedModifier < 1)

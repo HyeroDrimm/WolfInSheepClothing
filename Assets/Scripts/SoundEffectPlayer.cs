@@ -15,6 +15,7 @@ public class SoundEffectPlayer : MonoBehaviour
     public const string COIN = "Coin";
     public const string POWER_UP = "PowerUp";
     public const string POWER_DOWN = "PowerDown";
+    public const string KACHING = "Kaching";
 
 
     private void Awake()

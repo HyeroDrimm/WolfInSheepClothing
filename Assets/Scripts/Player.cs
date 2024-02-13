@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using Roy_T.AStar.Paths;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
-public class Player : MonoBehaviour
+public class Player : MonoBehaviour, IFollowTarget
 {
     [SerializeField] private PathActorAnimator animator;
     [SerializeField] private Enemy enemy;
@@ -12,15 +13,9 @@ public class Player : MonoBehaviour
     [SerializeField] private GameManager gameManager;
     [SerializeField] private float movementSpeed;
     [SerializeField] private float waitAfterMoveTime;
+    [SerializeField] private Doll dollPrefab;
 
     private Path path;
-
-    public GameObject CurrentPosition
-    {
-        get => currentPosition;
-        private set => currentPosition = value;
-    }
-
     private int edgeIndex;
     private bool isMoving = false;
     private bool isWaitingAfterMove = false;
@@ -38,6 +33,13 @@ public class Player : MonoBehaviour
     private float waitAfterMoveTimeAddon = 0;
     private float waitAfterMoveTimeProper => waitAfterMoveTime + waitAfterMoveTimeAddon;
 
+    private bool useDoll = false;
+
+    GameObject IFollowTarget.CurrentPosition()
+    {
+        return currentPosition;
+    }
+
     private void Start()
     {
         transform.position = startingNode.transform.position;
@@ -46,7 +48,7 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
-        if (!isMoving && !isWaitingAfterMove && Input.GetKeyDown(KeyCode.Mouse0))
+        if (!isMoving && !isWaitingAfterMove && Input.GetKeyDown(KeyCode.Mouse0) && !EventSystem.current.IsPointerOverGameObject())
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit2D hit = Physics2D.GetRayIntersection(ray, Mathf.Infinity, 1 << 6);
@@ -86,6 +88,14 @@ public class Player : MonoBehaviour
                 path = null;
                 isMoving = false;
                 animator?.ChangeAnimationState(IDLE_ANIMATION);
+
+                if (useDoll)
+                {
+                    var doll = Instantiate(dollPrefab, transform.position, Quaternion.identity);
+                    doll.currentPosition = currentPosition;
+                    enemy.Doll = doll;
+                    useDoll = false;
+                }
 
                 if (IsInvoking("WaitAfterMove"))
                 {
@@ -146,12 +156,17 @@ public class Player : MonoBehaviour
     public void ChangeWaitAfterMoveAddon(float duration)
     {
         waitAfterMoveTimeAddon = duration;
-     
+
         if (IsInvoking("WaitAfterMove"))
         {
             CancelInvoke("WaitAfterMove");
             Invoke("WaitAfterMove", waitAfterMoveTimeProper);
         }
+    }
+
+    public void UseDoll()
+    {
+        useDoll = true;
     }
 
     #endregion
