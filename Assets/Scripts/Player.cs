@@ -14,6 +14,7 @@ public class Player : MonoBehaviour, IFollowTarget
     [SerializeField] private float movementSpeed;
     [SerializeField] private float waitAfterMoveTime;
     [SerializeField] private Doll dollPrefab;
+    [SerializeField] private Popup useDollPopup;
 
     private Path path;
     private int edgeIndex;
@@ -48,7 +49,23 @@ public class Player : MonoBehaviour, IFollowTarget
 
     private void Update()
     {
-        if (!isMoving && !isWaitingAfterMove && Input.GetKeyDown(KeyCode.Mouse0) && !EventSystem.current.IsPointerOverGameObject())
+        if (useDoll && Input.GetKeyDown(KeyCode.Mouse0) && !EventSystem.current.IsPointerOverGameObject())
+        {
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            RaycastHit2D hit = Physics2D.GetRayIntersection(ray, Mathf.Infinity, 1 << 6);
+
+            if (hit.collider != null && hit.collider.transform.CompareTag("PathfindingTargets"))
+            {
+                var doll = Instantiate(dollPrefab, hit.transform.position, Quaternion.identity);
+                doll.currentPosition = hit.transform.gameObject;
+                enemy.Doll = doll;
+                useDoll = false;
+                useDollPopup.SetVisible(false);
+
+                SoundEffectPlayer.Instance.PlaySoundClip(SoundEffectPlayer.SELECT);
+            }
+        }
+        else if (!isMoving && !isWaitingAfterMove && Input.GetKeyDown(KeyCode.Mouse0) && !EventSystem.current.IsPointerOverGameObject())
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit2D hit = Physics2D.GetRayIntersection(ray, Mathf.Infinity, 1 << 6);
@@ -64,6 +81,7 @@ public class Player : MonoBehaviour, IFollowTarget
                 currentPosition = hit.transform.gameObject;
 
                 animator?.ChangeAnimationState(RUN_ANIMATION);
+                SoundEffectPlayer.Instance.PlaySoundClip(SoundEffectPlayer.SELECT);
             }
         }
 
@@ -117,6 +135,7 @@ public class Player : MonoBehaviour, IFollowTarget
         if (collision.transform.CompareTag("Enemy"))
         {
             gameManager.EndGame();
+            SoundEffectPlayer.Instance.PlaySoundClip(SoundEffectPlayer.KILL);
             Destroy(gameObject);
         }
     }
@@ -166,6 +185,7 @@ public class Player : MonoBehaviour, IFollowTarget
 
     public void UseDoll()
     {
+        useDollPopup.SetVisible(true);
         useDoll = true;
     }
 

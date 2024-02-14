@@ -14,12 +14,14 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Player player;
     [SerializeField] private Enemy enemy;
 
-    [Header("Shop")][SerializeField] private float shopSlowDown;
+    [Header("Shop")]
+    [SerializeField] private float shopSlowDown;
+    [SerializeField] private float baseGameSpeed;
     [SerializeField] private ShopUI shopUi;
 
-    [Header("Pocket")][SerializeField] private PocketUI pocketUi;
-    private ShopItem itemInPocket;
-
+    [Header("Pocket")]
+    [SerializeField] private PocketUI pocketUi;
+    [SerializeField] private ShopItem itemInPocket;
 
     private bool shouldCountTime = true;
     private float startTimestamp;
@@ -48,6 +50,10 @@ public class GameManager : MonoBehaviour
         {
             bestTimer.UpdateTime(0f);
         }
+
+        pocketUi.UpdateItem(itemInPocket);
+
+        Time.timeScale = baseGameSpeed;
     }
 
     private void Update()
@@ -92,7 +98,7 @@ public class GameManager : MonoBehaviour
     public void ShowShop(bool state)
     {
         shopUi.SetVisible(state);
-        Time.timeScale = state ? shopSlowDown : 1;
+        Time.timeScale = state ? shopSlowDown : baseGameSpeed;
     }
 
     public void UpdatePocket(ShopItem shopItem)
