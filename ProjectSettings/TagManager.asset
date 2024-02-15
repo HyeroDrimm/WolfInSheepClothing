@@ -44,6 +44,12 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Background
+    uniqueID: 2858640679
+    locked: 0
   - name: Everything
     uniqueID: 4160639099
+    locked: 0
+  - name: WorldSpaceUI
+    uniqueID: 201357103
     locked: 0

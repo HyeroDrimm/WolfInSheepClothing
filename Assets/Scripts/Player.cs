@@ -77,7 +77,7 @@ public class Player : MonoBehaviour, IFollowTarget
                 isMoving = true;
                 isWaitingAfterMove = true;
                 transform.position = currentPosition.transform.position;
-                path = PathController.Singleton.GetPath(currentPosition, hit.transform.gameObject);
+                path = PathController.Singleton.GetPath(currentPosition, hit.transform.parent.gameObject);
                 if (path != null && path.Type == PathType.Complete)
                 {
                     currentPosition = hit.transform.gameObject;

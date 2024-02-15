@@ -23,7 +23,7 @@ public class GameManager : MonoBehaviour
 
     [Header("Pocket")]
     [SerializeField] private PocketUI pocketUi;
-    [SerializeField] private ShopItem itemInPocket;
+    private ShopItem itemInPocket;
 
     [Header("Deleting nodes")]
     [SerializeField] private AnimationCurve destructionCurve;
