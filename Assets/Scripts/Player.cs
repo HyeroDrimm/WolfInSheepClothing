@@ -78,10 +78,13 @@ public class Player : MonoBehaviour, IFollowTarget
                 isWaitingAfterMove = true;
                 transform.position = currentPosition.transform.position;
                 path = PathController.Singleton.GetPath(currentPosition, hit.transform.gameObject);
-                currentPosition = hit.transform.gameObject;
+                if (path.Type == PathType.Complete)
+                {
+                    currentPosition = hit.transform.gameObject;
 
-                animator?.ChangeAnimationState(RUN_ANIMATION);
-                SoundEffectPlayer.Instance.PlaySoundClip(SoundEffectPlayer.SELECT);
+                    animator?.ChangeAnimationState(RUN_ANIMATION);
+                    SoundEffectPlayer.Instance.PlaySoundClip(SoundEffectPlayer.SELECT);
+                }
             }
         }
 

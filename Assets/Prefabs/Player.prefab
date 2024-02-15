@@ -240,6 +240,7 @@ MonoBehaviour:
   movementSpeed: 5
   waitAfterMoveTime: 1
   dollPrefab: {fileID: 5573991695787880675, guid: 1fb3e9f054ff6b741b3b0915c281aa96, type: 3}
+  useDollPopup: {fileID: 0}
 --- !u!50 &4753256301699612090
 Rigidbody2D:
   serializedVersion: 4
@@ -264,6 +265,6 @@ Rigidbody2D:
     serializedVersion: 2
     m_Bits: 0
   m_Interpolate: 0
-  m_SleepingMode: 1
+  m_SleepingMode: 0
   m_CollisionDetection: 0
   m_Constraints: 0

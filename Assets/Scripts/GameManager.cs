@@ -1,8 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using static PickUpManager;
 
 public class GameManager : MonoBehaviour
 {
@@ -21,7 +23,16 @@ public class GameManager : MonoBehaviour
 
     [Header("Pocket")]
     [SerializeField] private PocketUI pocketUi;
-    [SerializeField] private ShopItem itemInPocket;
+    private ShopItem itemInPocket;
+
+    [Header("Deleting nodes")]
+    [SerializeField] private AnimationCurve destructionCurve;
+    [SerializeField] private List<Destructor> destructors;
+    [SerializeField] private float maxDestructionTime;
+    [SerializeField] private int maxDestructorsAtTime;
+    [SerializeField] private int newDestructorsAmount;
+    [SerializeField] private float timeBetweenDestructors;
+
 
     private bool shouldCountTime = true;
     private float startTimestamp;
@@ -54,6 +65,8 @@ public class GameManager : MonoBehaviour
         pocketUi.UpdateItem(itemInPocket);
 
         Time.timeScale = baseGameSpeed;
+
+        InvokeRepeating("SpawnDestructors", timeBetweenDestructors, timeBetweenDestructors);
     }
 
     private void Update()
@@ -66,6 +79,29 @@ public class GameManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space))
         {
             UseCurrentPocketItem();
+        }
+    }
+
+    private void SpawnDestructors()
+    {
+        var time = Mathf.Clamp01(Time.time / maxDestructionTime);
+
+        var toSpawnNumber = 1 + Mathf.FloorToInt(destructionCurve.Evaluate(time) * newDestructorsAmount);
+
+        var destructosAvaliable = destructors.Where(x => x.State != Destructor.DestructorState.On && x.State != Destructor.DestructorState.Exploded).ToList();
+        var destructosOn = destructors.Where(x => x.State == Destructor.DestructorState.On).ToList();
+
+        for (int i = 0; i < Mathf.Min(maxDestructorsAtTime - destructosOn.Count, toSpawnNumber); i++)
+        {
+            if (destructosAvaliable.Count != 0)
+            {
+                var newPickUp = destructosAvaliable.Random();
+                newPickUp.StartTimer(20);
+            }
+            else
+            {
+                break;
+            }
         }
     }
 

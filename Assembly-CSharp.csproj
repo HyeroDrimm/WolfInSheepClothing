@@ -74,6 +74,7 @@
     <Compile Include="Assets\Scripts\PickUp\FreezeEnemyPowerUp.cs" />
     <Compile Include="Assets\Scripts\Player.cs" />
     <Compile Include="Assets\Scripts\GameManager.cs" />
+    <Compile Include="Assets\Scripts\Destructor.cs" />
     <Compile Include="Assets\Scripts\PathController.cs" />
     <Compile Include="Assets\Scripts\IFollowTarget.cs" />
     <Compile Include="Assets\Scripts\CoinCounterUI.cs" />
