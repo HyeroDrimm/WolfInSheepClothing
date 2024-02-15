@@ -12,12 +12,17 @@ public class Enemy : MonoBehaviour
     [SerializeField] private GameObject startingNode;
     [SerializeField] private float movementSpeed;
     [SerializeField] private float waitAfterMoveTime;
+    [Header("Teleport")]
+    [SerializeField] private GameObject teleportVisualsEnemy;
+    [SerializeField] private GameObject teleportVisualsDestination;
+    [SerializeField] private float timeToTeleport;
 
     private Path path;
     private GameObject currentPosition;
     private int edgeIndex;
     private bool isMoving = false;
     private bool isWaitingAfterMove = false;
+    private GameObject placeToTeleport;
 
     [HideInInspector] public Doll Doll;
 
@@ -43,20 +48,10 @@ public class Enemy : MonoBehaviour
     {
         if (!isMoving && !isWaitingAfterMove && player != null)
         {
-            IFollowTarget followTarget = Doll == null ? player : Doll;
-            // raycast hit this gameobject
-            edgeIndex = 0;
-            isMoving = true;
-            isWaitingAfterMove = true;
-            transform.position = currentPosition.transform.position;
-            path = PathController.Singleton.GetPath(currentPosition, followTarget.CurrentPosition());
-            currentPosition = followTarget.CurrentPosition();
-
-            animator?.ChangeAnimationState(RUN_ANIMATION);
-
+            GetPathToPlayer();
         }
 
-        if (path != null)
+        if (path != null && path.Type == PathType.Complete)
         {
             if (path.Edges.Count > edgeIndex)
             {
@@ -85,6 +80,55 @@ public class Enemy : MonoBehaviour
                 Invoke("WaitAfterMove", waitAfterMoveTimeProper);
             }
         }
+    }
+
+    private void GetPathToPlayer()
+    {
+        IFollowTarget followTarget = Doll == null ? player : Doll;
+        // raycast hit this gameobject
+        edgeIndex = 0;
+        isMoving = true;
+        isWaitingAfterMove = true;
+        transform.position = currentPosition.transform.position;
+        path = PathController.Singleton.GetPath(currentPosition, followTarget.CurrentPosition());
+        if (path != null && path.Type == PathType.Complete)
+        {
+            currentPosition = followTarget.CurrentPosition();
+
+            animator?.ChangeAnimationState(RUN_ANIMATION);
+        }
+        else
+        {
+            WaitAndTeleportToEmptyPlace();
+        }
+    }
+
+    public void WaitAndTeleportToEmptyPlace()
+    {
+        IFollowTarget followTarget = Doll == null ? player : Doll;
+        placeToTeleport = followTarget.CurrentPosition();
+        teleportVisualsEnemy.SetActive(true);
+        teleportVisualsDestination.SetActive(true);
+        teleportVisualsDestination.transform.position = placeToTeleport.transform.position;
+        Invoke("TeleportToPlace", timeToTeleport);
+    }
+
+    private void TeleportToPlace()
+    {
+        teleportVisualsEnemy.SetActive(false);
+        teleportVisualsDestination.SetActive(false);
+        transform.position = placeToTeleport.transform.position;
+        currentPosition = placeToTeleport;
+        isMoving = false;
+
+
+        if (IsInvoking("WaitAfterMove"))
+        {
+            CancelInvoke("WaitAfterMove");
+        }
+        Invoke("WaitAfterMove", waitAfterMoveTimeProper);
+        SoundEffectPlayer.Instance.PlaySoundClip(SoundEffectPlayer.TELEPORT);
+        //GetPathToPlayer();
     }
 
     private void WaitAfterMove()

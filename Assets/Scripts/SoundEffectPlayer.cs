@@ -18,6 +18,7 @@ public class SoundEffectPlayer : MonoBehaviour
     public const string KACHING = "Kaching";
     public const string KILL = "Kill";
     public const string SELECT = "Select";
+    public const string TELEPORT = "Teleport";
 
 
     private void Awake()

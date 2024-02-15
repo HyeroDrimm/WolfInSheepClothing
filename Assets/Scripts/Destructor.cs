@@ -8,9 +8,9 @@ using UnityEngine.UI;
 public class Destructor : MonoBehaviour
 {
     [SerializeField] private GameObject node;
+    [SerializeField] private Slider onSlider;
     [SerializeField] private GameObject explodedVisuals;
     [SerializeField] private GameObject onVisuals;
-    [SerializeField] private Slider onSlider;
     [SerializeField] private float decreaseRate = 1f;
 
     private DestructorState state = DestructorState.None;
@@ -81,6 +81,12 @@ public class Destructor : MonoBehaviour
             {
                 SetState(DestructorState.Neutral);
             }
+        }
+
+        if (state == DestructorState.Exploded && other.CompareTag("Enemy"))
+        {
+            var enemy = other.GetComponentInParent<Enemy>();
+            enemy.WaitAndTeleportToEmptyPlace();
         }
     }
 

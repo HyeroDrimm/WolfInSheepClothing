@@ -78,7 +78,7 @@ public class Player : MonoBehaviour, IFollowTarget
                 isWaitingAfterMove = true;
                 transform.position = currentPosition.transform.position;
                 path = PathController.Singleton.GetPath(currentPosition, hit.transform.gameObject);
-                if (path.Type == PathType.Complete)
+                if (path != null && path.Type == PathType.Complete)
                 {
                     currentPosition = hit.transform.gameObject;
 
@@ -88,7 +88,7 @@ public class Player : MonoBehaviour, IFollowTarget
             }
         }
 
-        if (path != null)
+        if (path != null && path.Type == PathType.Complete)
         {
             if (path.Edges.Count > edgeIndex)
             {

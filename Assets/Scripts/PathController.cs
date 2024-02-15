@@ -135,6 +135,11 @@ public class PathController : MonoBehaviour
         gameObjectToNode.TryGetValue(startingNode, out Node nodeA);
         gameObjectToNode.TryGetValue(endingNode, out Node nodeB);
 
+        if (nodeA == null || nodeB == null || gameObjectToNode.Count == 0)
+        {
+            return null;
+        }
+
         var maxAgentSeed = Velocity.FromKilometersPerHour(100);
 
 

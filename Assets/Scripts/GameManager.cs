@@ -23,7 +23,7 @@ public class GameManager : MonoBehaviour
 
     [Header("Pocket")]
     [SerializeField] private PocketUI pocketUi;
-    private ShopItem itemInPocket;
+    [SerializeField] private ShopItem itemInPocket;
 
     [Header("Deleting nodes")]
     [SerializeField] private AnimationCurve destructionCurve;
@@ -32,6 +32,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private int maxDestructorsAtTime;
     [SerializeField] private int newDestructorsAmount;
     [SerializeField] private float timeBetweenDestructors;
+    [SerializeField] private float timeToExplode;
 
 
     private bool shouldCountTime = true;
@@ -96,7 +97,7 @@ public class GameManager : MonoBehaviour
             if (destructosAvaliable.Count != 0)
             {
                 var newPickUp = destructosAvaliable.Random();
-                newPickUp.StartTimer(20);
+                newPickUp.StartTimer(timeToExplode);
             }
             else
             {
