@@ -57,7 +57,7 @@ public class Player : MonoBehaviour, IFollowTarget
             if (hit.collider != null && hit.collider.transform.CompareTag("PathfindingTargets"))
             {
                 var doll = Instantiate(dollPrefab, hit.transform.position, Quaternion.identity);
-                doll.currentPosition = hit.transform.gameObject;
+                doll.currentPosition = hit.transform.parent.gameObject;
                 enemy.Doll = doll;
                 useDoll = false;
                 useDollPopup.SetVisible(false);
@@ -80,7 +80,7 @@ public class Player : MonoBehaviour, IFollowTarget
                 path = PathController.Singleton.GetPath(currentPosition, hit.transform.parent.gameObject);
                 if (path != null && path.Type == PathType.Complete)
                 {
-                    currentPosition = hit.transform.gameObject;
+                    currentPosition = hit.transform.parent.gameObject;
 
                     animator?.ChangeAnimationState(RUN_ANIMATION);
                     SoundEffectPlayer.Instance.PlaySoundClip(SoundEffectPlayer.SELECT);
@@ -109,14 +109,6 @@ public class Player : MonoBehaviour, IFollowTarget
                 path = null;
                 isMoving = false;
                 animator?.ChangeAnimationState(IDLE_ANIMATION);
-
-                if (useDoll)
-                {
-                    var doll = Instantiate(dollPrefab, transform.position, Quaternion.identity);
-                    doll.currentPosition = currentPosition;
-                    enemy.Doll = doll;
-                    useDoll = false;
-                }
 
                 if (IsInvoking("WaitAfterMove"))
                 {

@@ -5904,6 +5904,10 @@ PrefabInstance:
       propertyPath: onSlider
       value: 
       objectReference: {fileID: 307532062}
+    - target: {fileID: 4071314663431854290, guid: b175f85459b7c6e4fa265fffdacc0798, type: 3}
+      propertyPath: decreaseRate
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 5293760026671639492, guid: b175f85459b7c6e4fa265fffdacc0798, type: 3}
       propertyPath: m_Name
       value: Destructor
@@ -8033,11 +8037,11 @@ MonoBehaviour:
   - {fileID: 1188575326}
   shopItems:
   - type: PowerUpSpeedUp
-    icon: {fileID: 21300000, guid: 24840904ec230c14fafce66f06b6a623, type: 3}
+    icon: {fileID: 21300000, guid: 089609959e3904c4e8899914936fc99e, type: 3}
     name: Speed Up
     price: 5
   - type: PowerUpSpeedDown
-    icon: {fileID: 21300000, guid: 6a92dec4414532a4387e5f5b1e08d24d, type: 3}
+    icon: {fileID: 21300000, guid: e2babc806046e26448fea469371cdaa8, type: 3}
     name: Speed Down
     price: 2
   - type: PowerUpFreeze
@@ -8483,8 +8487,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -134328197
+  m_SortingLayer: 2
   m_SortingOrder: 0
   m_Sprite: {fileID: -844349224, guid: 2821b39376a789640a5fe0a8c918fbeb, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -8507,7 +8511,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0.9011196, y: -3.9642038, z: 0}
-  m_LocalScale: {x: 4.22, y: 4.22, z: 4.22}
+  m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 1694620215}
@@ -9229,6 +9233,10 @@ PrefabInstance:
       propertyPath: onSlider
       value: 
       objectReference: {fileID: 902853464}
+    - target: {fileID: 4071314663431854290, guid: b175f85459b7c6e4fa265fffdacc0798, type: 3}
+      propertyPath: decreaseRate
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 5293760026671639492, guid: b175f85459b7c6e4fa265fffdacc0798, type: 3}
       propertyPath: m_Name
       value: Destructor
@@ -11937,6 +11945,10 @@ PrefabInstance:
       propertyPath: onSlider
       value: 
       objectReference: {fileID: 2005053851}
+    - target: {fileID: 4071314663431854290, guid: b175f85459b7c6e4fa265fffdacc0798, type: 3}
+      propertyPath: decreaseRate
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 5293760026671639492, guid: b175f85459b7c6e4fa265fffdacc0798, type: 3}
       propertyPath: m_Name
       value: Destructor
@@ -13209,6 +13221,10 @@ PrefabInstance:
       propertyPath: onSlider
       value: 
       objectReference: {fileID: 48814282}
+    - target: {fileID: 4071314663431854290, guid: b175f85459b7c6e4fa265fffdacc0798, type: 3}
+      propertyPath: decreaseRate
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 5293760026671639492, guid: b175f85459b7c6e4fa265fffdacc0798, type: 3}
       propertyPath: m_Name
       value: Destructor
@@ -13416,7 +13432,7 @@ MonoBehaviour:
     node2: {fileID: 1791137029}
   - node1: {fileID: 800141629}
     node2: {fileID: 2007565310}
-  createMode: 1
+  createMode: 0
   circleSprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
 --- !u!4 &1140334170
 Transform:
@@ -13705,7 +13721,7 @@ MonoBehaviour:
     - {fileID: 1079271286}
     - {fileID: 1996801557}
     timeBetweenSpawns: 30
-    numberSpawned: 1
+    numberSpawned: 2
     maxSpawned: 2
     counter: 0
   - pickUps:
@@ -13726,7 +13742,7 @@ MonoBehaviour:
     - {fileID: 1684180989}
     - {fileID: 106590245}
     timeBetweenSpawns: 10
-    numberSpawned: 1
+    numberSpawned: 2
     maxSpawned: 3
     counter: 0
 --- !u!4 &1252413951
@@ -16043,6 +16059,10 @@ PrefabInstance:
       propertyPath: onSlider
       value: 
       objectReference: {fileID: 1330426259}
+    - target: {fileID: 4071314663431854290, guid: b175f85459b7c6e4fa265fffdacc0798, type: 3}
+      propertyPath: decreaseRate
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 5293760026671639492, guid: b175f85459b7c6e4fa265fffdacc0798, type: 3}
       propertyPath: m_Name
       value: Destructor
@@ -16262,6 +16282,10 @@ PrefabInstance:
       propertyPath: onSlider
       value: 
       objectReference: {fileID: 1427970806}
+    - target: {fileID: 4071314663431854290, guid: b175f85459b7c6e4fa265fffdacc0798, type: 3}
+      propertyPath: decreaseRate
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 5293760026671639492, guid: b175f85459b7c6e4fa265fffdacc0798, type: 3}
       propertyPath: m_Name
       value: Destructor
@@ -16459,6 +16483,10 @@ PrefabInstance:
       propertyPath: onSlider
       value: 
       objectReference: {fileID: 1888256808}
+    - target: {fileID: 4071314663431854290, guid: b175f85459b7c6e4fa265fffdacc0798, type: 3}
+      propertyPath: decreaseRate
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 5293760026671639492, guid: b175f85459b7c6e4fa265fffdacc0798, type: 3}
       propertyPath: m_Name
       value: Destructor
@@ -16899,6 +16927,14 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1996801554}
     - target: {fileID: 281226669425375795, guid: c653ff72365abe54f8d64b9bf968ea5c, type: 3}
+      propertyPath: movementSpeed
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 281226669425375795, guid: c653ff72365abe54f8d64b9bf968ea5c, type: 3}
+      propertyPath: waitAfterMoveTime
+      value: 1.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 281226669425375795, guid: c653ff72365abe54f8d64b9bf968ea5c, type: 3}
       propertyPath: teleportVisualsDestination
       value: 
       objectReference: {fileID: 482713382}
@@ -16944,7 +16980,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1890027443984836630, guid: c653ff72365abe54f8d64b9bf968ea5c, type: 3}
       propertyPath: m_SortingLayer
-      value: 1
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2109180388735877255, guid: c653ff72365abe54f8d64b9bf968ea5c, type: 3}
+      propertyPath: m_SortingLayer
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 2121422691083416486, guid: c653ff72365abe54f8d64b9bf968ea5c, type: 3}
       propertyPath: m_Name
@@ -17149,6 +17189,10 @@ PrefabInstance:
       propertyPath: onSlider
       value: 
       objectReference: {fileID: 1057059145}
+    - target: {fileID: 4071314663431854290, guid: b175f85459b7c6e4fa265fffdacc0798, type: 3}
+      propertyPath: decreaseRate
+      value: 6
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

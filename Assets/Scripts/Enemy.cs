@@ -42,6 +42,9 @@ public class Enemy : MonoBehaviour
     {
         transform.position = startingNode.transform.position;
         currentPosition = startingNode;
+
+        isWaitingAfterMove = true;
+        Invoke("WaitAfterMove", waitAfterMoveTimeProper);
     }
 
     void Update()
