@@ -79,6 +79,7 @@
     <Compile Include="Assets\Scripts\IFollowTarget.cs" />
     <Compile Include="Assets\Scripts\CoinCounterUI.cs" />
     <Compile Include="Assets\Scripts\Timer.cs" />
+    <Compile Include="Assets\Scripts\DontDestroyWhenLoading.cs" />
     <Compile Include="Assets\Scripts\ShopUIItem.cs" />
     <Compile Include="Assets\Scripts\PickUp\Coin.cs" />
     <Compile Include="Assets\Scripts\PickUp\PickUp.cs" />

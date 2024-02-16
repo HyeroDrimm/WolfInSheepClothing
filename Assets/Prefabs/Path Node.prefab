@@ -344,18 +344,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Destructor
       objectReference: {fileID: 0}
-    - target: {fileID: 1891615195124724882, guid: eed2b3faa99b32f40b12da975ed6c8b5, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 1891615195124724882, guid: eed2b3faa99b32f40b12da975ed6c8b5, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 1891615195124724882, guid: eed2b3faa99b32f40b12da975ed6c8b5, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 3
-      objectReference: {fileID: 0}
     - target: {fileID: 2628522301391897399, guid: eed2b3faa99b32f40b12da975ed6c8b5, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -396,22 +384,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5014068417700424855, guid: eed2b3faa99b32f40b12da975ed6c8b5, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 3.0000002
-      objectReference: {fileID: 0}
-    - target: {fileID: 5014068417700424855, guid: eed2b3faa99b32f40b12da975ed6c8b5, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 3.0000002
-      objectReference: {fileID: 0}
-    - target: {fileID: 5014068417700424855, guid: eed2b3faa99b32f40b12da975ed6c8b5, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 3.0000002
-      objectReference: {fileID: 0}
     - target: {fileID: 8764141461728534775, guid: eed2b3faa99b32f40b12da975ed6c8b5, type: 3}
       propertyPath: node
       value: 
       objectReference: {fileID: 2138489880884219136}
+    - target: {fileID: 8764141461728534775, guid: eed2b3faa99b32f40b12da975ed6c8b5, type: 3}
+      propertyPath: collider
+      value: 
+      objectReference: {fileID: 5777768834761969220}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

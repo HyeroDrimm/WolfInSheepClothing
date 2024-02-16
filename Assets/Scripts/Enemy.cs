@@ -89,13 +89,13 @@ public class Enemy : MonoBehaviour
     {
         IFollowTarget followTarget = Doll == null ? player : Doll;
         // raycast hit this gameobject
-        edgeIndex = 0;
-        isMoving = true;
-        isWaitingAfterMove = true;
-        transform.position = currentPosition.transform.position;
         path = PathController.Singleton.GetPath(currentPosition, followTarget.CurrentPosition());
         if (path != null && path.Type == PathType.Complete)
         {
+            edgeIndex = 0;
+            isMoving = true;
+            isWaitingAfterMove = true;
+            transform.position = currentPosition.transform.position;
             currentPosition = followTarget.CurrentPosition();
 
             animator?.ChangeAnimationState(RUN_ANIMATION);

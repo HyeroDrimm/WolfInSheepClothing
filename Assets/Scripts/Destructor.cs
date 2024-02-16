@@ -11,6 +11,7 @@ public class Destructor : MonoBehaviour
     [SerializeField] private Slider onSlider;
     [SerializeField] private GameObject explodedVisuals;
     [SerializeField] private GameObject onVisuals;
+    [SerializeField] private GameObject collider;
     [SerializeField] private float decreaseRate = 1f;
 
     private DestructorState state = DestructorState.None;
@@ -54,6 +55,7 @@ public class Destructor : MonoBehaviour
             explodedVisuals.SetActive(destructorState == DestructorState.Exploded);
             onVisuals.SetActive(destructorState == DestructorState.On);
             onSlider.gameObject.SetActive(destructorState == DestructorState.On);
+            collider.SetActive(destructorState != DestructorState.Exploded);
 
             switch (destructorState)
             {

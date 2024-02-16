@@ -82,10 +82,6 @@ public class PathController : MonoBehaviour
 
     public void SetStateOfNodes(bool state, params GameObject[] nodes)
     {
-        foreach (var node in nodes)
-        {
-            node.SetActive(state);
-        }
         if (state)
         {
             currentConnections = currentConnections

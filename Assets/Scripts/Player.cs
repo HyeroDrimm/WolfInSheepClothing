@@ -72,14 +72,13 @@ public class Player : MonoBehaviour, IFollowTarget
 
             if (hit.collider != null && hit.collider.transform.CompareTag("PathfindingTargets"))
             {
-                // raycast hit this gameobject
-                edgeIndex = 0;
-                isMoving = true;
-                isWaitingAfterMove = true;
-                transform.position = currentPosition.transform.position;
                 path = PathController.Singleton.GetPath(currentPosition, hit.transform.parent.gameObject);
                 if (path != null && path.Type == PathType.Complete)
                 {
+                    edgeIndex = 0;
+                    isMoving = true;
+                    isWaitingAfterMove = true;
+                    transform.position = currentPosition.transform.position;
                     currentPosition = hit.transform.parent.gameObject;
 
                     animator?.ChangeAnimationState(RUN_ANIMATION);
