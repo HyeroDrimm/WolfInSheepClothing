@@ -51,8 +51,8 @@ MonoBehaviour:
   onSlider: {fileID: 0}
   explodedVisuals: {fileID: 2021857241175949980}
   onVisuals: {fileID: 4191952106303398062}
-  collider: {fileID: 0}
-  decreaseRate: 3
+  hitBox: {fileID: 0}
+  decreaseRate: 10
 --- !u!58 &7786699722809732393
 CircleCollider2D:
   m_ObjectHideFlags: 0

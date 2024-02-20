@@ -11,7 +11,7 @@ public class GameManager : MonoBehaviour
     public static GameManager instance;
     [SerializeField] private Timer currentTimer;
     [SerializeField] private Timer bestTimer;
-    [SerializeField] private GameObject youLostUI;
+    [SerializeField] private YouLostUI youLostUI;
     [SerializeField] private CoinCounterUI coinCounterUi;
     [SerializeField] private Player player;
     [SerializeField] private Enemy enemy;
@@ -69,7 +69,7 @@ public class GameManager : MonoBehaviour
 
         Time.timeScale = baseGameSpeed;
 
-        InvokeRepeating("SpawnDestructors", timeBetweenDestructors, timeBetweenDestructors);
+        InvokeRepeating("SpawnDestructors", startingTimeBetweenDestructors, timeBetweenDestructors);
     }
 
     private void Update()
@@ -89,7 +89,7 @@ public class GameManager : MonoBehaviour
     {
         var time = Mathf.Clamp01(Time.timeSinceLevelLoad / maxDestructionTime);
 
-        var toSpawnNumber = 1 + Mathf.FloorToInt(destructionCurve.Evaluate(time) * newDestructorsAmount);
+        var toSpawnNumber = 2 + Mathf.FloorToInt(destructionCurve.Evaluate(time) * newDestructorsAmount);
 
         var destructosAvaliable = destructors.Where(x => x.State != Destructor.DestructorState.On && x.State != Destructor.DestructorState.Exploded).ToList();
         var destructosOn = destructors.Where(x => x.State == Destructor.DestructorState.On).ToList();
@@ -111,10 +111,12 @@ public class GameManager : MonoBehaviour
     public void EndGame()
     {
         shouldCountTime = false;
-        var finalTime = Time.time - startTimestamp;
+        var time = Time.time - startTimestamp;
+        var finalTime = time + coinCounter * 10;
+        float oldTime = 0;
         if (PlayerPrefs.HasKey($"TimeMap{SceneManager.GetActiveScene().name}"))
         {
-            var oldTime = PlayerPrefs.GetFloat($"TimeMap{SceneManager.GetActiveScene().name}");
+            oldTime = PlayerPrefs.GetFloat($"TimeMap{SceneManager.GetActiveScene().name}");
             if (finalTime > oldTime)
             {
                 PlayerPrefs.SetFloat($"TimeMap{SceneManager.GetActiveScene().name}", finalTime);
@@ -125,7 +127,7 @@ public class GameManager : MonoBehaviour
             PlayerPrefs.SetFloat($"TimeMap{SceneManager.GetActiveScene().name}", finalTime);
         }
 
-        youLostUI.SetActive(true);
+        youLostUI.Show(time, finalTime, oldTime, coinCounter);
     }
 
     public void CollectCoin()

@@ -59,7 +59,7 @@ public class Player : MonoBehaviour, IFollowTarget
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit2D hit = Physics2D.GetRayIntersection(ray, Mathf.Infinity, 1 << 6);
 
-            if (hit.collider.transform.CompareTag("PathfindingTargets"))
+            if (hit.collider != null && hit.collider.transform.CompareTag("PathfindingTargets"))
             {
                 var doll = Instantiate(dollPrefab, hit.transform.position, Quaternion.identity);
                 doll.currentPosition = hit.transform.parent.gameObject;
@@ -75,9 +75,9 @@ public class Player : MonoBehaviour, IFollowTarget
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit2D hit = Physics2D.GetRayIntersection(ray, Mathf.Infinity, 1 << 6);
 
-            var target = hit.transform.parent.gameObject;
-            if (target.CompareTag("PathfindingTargets") && target != currentPosition)
+            if (hit.collider != null && hit.transform.CompareTag("PathfindingTargets") && hit.transform.parent.gameObject != currentPosition)
             {
+                var target = hit.transform.parent.gameObject;
                 if (!isFrozen && !isMoving && !isWaitingAfterMove)
                 {
                     path = PathController.Singleton.GetPath(currentPosition, target);
