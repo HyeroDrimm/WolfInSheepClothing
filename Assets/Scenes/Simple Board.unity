@@ -8825,6 +8825,9 @@ MonoBehaviour:
   - soundName: Teleport
     audioClips:
     - {fileID: 8300000, guid: dc93d6aea6d045041b9d0a98c56a301e, type: 3}
+  - soundName: Freeze
+    audioClips:
+    - {fileID: 8300000, guid: 080331c4b27efd44d96438ef99fca855, type: 3}
 --- !u!1 &560225341
 GameObject:
   m_ObjectHideFlags: 0
@@ -17119,6 +17122,10 @@ PrefabInstance:
     - target: {fileID: 2121422691083416486, guid: c653ff72365abe54f8d64b9bf968ea5c, type: 3}
       propertyPath: m_Name
       value: Enemy
+      objectReference: {fileID: 0}
+    - target: {fileID: 2121422691083416486, guid: c653ff72365abe54f8d64b9bf968ea5c, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

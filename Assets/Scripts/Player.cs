@@ -4,6 +4,7 @@ using Roy_T.AStar.Paths;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using static UnityEngine.GraphicsBuffer;
 
 public class Player : MonoBehaviour, IFollowTarget
 {
@@ -24,6 +25,7 @@ public class Player : MonoBehaviour, IFollowTarget
     private bool isMoving = false;
     private bool isWaitingAfterMove = false;
     private GameObject currentPosition;
+    private GameObject queuedPlace;
 
     // Animation Names
     private const string RUN_ANIMATION = "Run";
@@ -52,12 +54,12 @@ public class Player : MonoBehaviour, IFollowTarget
 
     private void Update()
     {
-        if (!isFrozen && useDoll && Input.GetKeyDown(KeyCode.Mouse0) && !EventSystem.current.IsPointerOverGameObject())
+        if (useDoll && Input.GetKeyDown(KeyCode.Mouse0) && !EventSystem.current.IsPointerOverGameObject())
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit2D hit = Physics2D.GetRayIntersection(ray, Mathf.Infinity, 1 << 6);
 
-            if (hit.collider != null && hit.collider.transform.CompareTag("PathfindingTargets"))
+            if (hit.collider.transform.CompareTag("PathfindingTargets"))
             {
                 var doll = Instantiate(dollPrefab, hit.transform.position, Quaternion.identity);
                 doll.currentPosition = hit.transform.parent.gameObject;
@@ -68,25 +70,50 @@ public class Player : MonoBehaviour, IFollowTarget
                 SoundEffectPlayer.Instance.PlaySoundClip(SoundEffectPlayer.SELECT);
             }
         }
-        else if (!isFrozen && !isMoving && !isWaitingAfterMove && Input.GetKeyDown(KeyCode.Mouse0) && !EventSystem.current.IsPointerOverGameObject())
+        else if (Input.GetKeyDown(KeyCode.Mouse0) && !EventSystem.current.IsPointerOverGameObject())
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit2D hit = Physics2D.GetRayIntersection(ray, Mathf.Infinity, 1 << 6);
 
-            if (hit.collider != null && hit.collider.transform.CompareTag("PathfindingTargets"))
+            var target = hit.transform.parent.gameObject;
+            if (target.CompareTag("PathfindingTargets") && target != currentPosition)
             {
-                path = PathController.Singleton.GetPath(currentPosition, hit.transform.parent.gameObject);
-                if (path != null && path.Type == PathType.Complete)
+                if (!isFrozen && !isMoving && !isWaitingAfterMove)
                 {
-                    edgeIndex = 0;
-                    isMoving = true;
-                    isWaitingAfterMove = true;
-                    transform.position = currentPosition.transform.position;
-                    currentPosition = hit.transform.parent.gameObject;
+                    path = PathController.Singleton.GetPath(currentPosition, target);
+                    if (path != null && path.Type == PathType.Complete)
+                    {
+                        edgeIndex = 0;
+                        isMoving = true;
+                        isWaitingAfterMove = true;
+                        transform.position = currentPosition.transform.position;
+                        currentPosition = target;
 
-                    animator?.ChangeAnimationState(RUN_ANIMATION);
-                    SoundEffectPlayer.Instance.PlaySoundClip(SoundEffectPlayer.SELECT);
+                        animator?.ChangeAnimationState(RUN_ANIMATION);
+                        SoundEffectPlayer.Instance.PlaySoundClip(SoundEffectPlayer.SELECT);
+                    }
                 }
+                else
+                {
+                    queuedPlace = target;
+                }
+            }
+        }
+
+        if (!isFrozen && !isMoving && !isWaitingAfterMove && queuedPlace != null && queuedPlace != currentPosition)
+        {
+            path = PathController.Singleton.GetPath(currentPosition, queuedPlace);
+            if (path != null && path.Type == PathType.Complete)
+            {
+                edgeIndex = 0;
+                isMoving = true;
+                isWaitingAfterMove = true;
+                transform.position = currentPosition.transform.position;
+                currentPosition = queuedPlace;
+                queuedPlace = null;
+
+                animator?.ChangeAnimationState(RUN_ANIMATION);
+                SoundEffectPlayer.Instance.PlaySoundClip(SoundEffectPlayer.SELECT);
             }
         }
 
