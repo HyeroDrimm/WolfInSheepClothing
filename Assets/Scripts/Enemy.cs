@@ -11,6 +11,9 @@ public class Enemy : MonoBehaviour
     [SerializeField] private Player player;
     [SerializeField] private GameObject startingNode;
     [SerializeField] private float movementSpeed;
+    [SerializeField] private float movementSpeedBaseStarting;
+    [SerializeField] private float movementSpeedBaseMax;
+    [SerializeField] private float movementSpeedBaseMaxTime;
     [SerializeField] private float waitAfterMoveTime;
     [Header("Teleport")]
     [SerializeField] private GameObject teleportVisualsEnemy;
@@ -32,7 +35,7 @@ public class Enemy : MonoBehaviour
 
     // Speed
     private float powerUpSpeedModifier = 1;
-    private float movementSpeedProper => movementSpeed * path.Distance.Meters * powerUpSpeedModifier;
+    private float movementSpeedProper => ((movementSpeedBaseStarting + (movementSpeedBaseMax - movementSpeedBaseStarting) * Mathf.Min(Time.timeSinceLevelLoad / movementSpeedBaseMaxTime, 1)) + movementSpeed * path.Distance.Meters) * powerUpSpeedModifier * Time.deltaTime * 0.6f;
 
     // Wait time after move
     private float waitAfterMoveTimeAddon = 0;
@@ -51,7 +54,23 @@ public class Enemy : MonoBehaviour
     {
         if (!isMoving && !isWaitingAfterMove && player != null)
         {
-            GetPathToPlayer();
+            IFollowTarget followTarget = Doll == null ? player : Doll;
+            // raycast hit this gameobject
+            path = PathController.Singleton.GetPath(currentPosition, followTarget.CurrentPosition());
+            if (path != null && path.Type == PathType.Complete)
+            {
+                edgeIndex = 0;
+                isMoving = true;
+                isWaitingAfterMove = true;
+                transform.position = currentPosition.transform.position;
+                currentPosition = followTarget.CurrentPosition();
+
+                animator?.ChangeAnimationState(RUN_ANIMATION);
+            }
+            else
+            {
+                WaitAndTeleportToEmptyPlace();
+            }
         }
 
         if (path != null && path.Type == PathType.Complete)
@@ -67,7 +86,8 @@ public class Enemy : MonoBehaviour
                 else
                 {
                     transform.position = Vector3.MoveTowards(transform.position, Helpers.RayTAStarPositionToVec3(currentEdge.End.Position),
-                        movementSpeedProper * Time.deltaTime * 0.06f);
+                        movementSpeedProper);
+                    animator?.Flip(movementSpeedProper < 0);
                 }
             }
             else
@@ -82,27 +102,6 @@ public class Enemy : MonoBehaviour
                 }
                 Invoke("WaitAfterMove", waitAfterMoveTimeProper);
             }
-        }
-    }
-
-    private void GetPathToPlayer()
-    {
-        IFollowTarget followTarget = Doll == null ? player : Doll;
-        // raycast hit this gameobject
-        path = PathController.Singleton.GetPath(currentPosition, followTarget.CurrentPosition());
-        if (path != null && path.Type == PathType.Complete)
-        {
-            edgeIndex = 0;
-            isMoving = true;
-            isWaitingAfterMove = true;
-            transform.position = currentPosition.transform.position;
-            currentPosition = followTarget.CurrentPosition();
-
-            animator?.ChangeAnimationState(RUN_ANIMATION);
-        }
-        else
-        {
-            WaitAndTeleportToEmptyPlace();
         }
     }
 

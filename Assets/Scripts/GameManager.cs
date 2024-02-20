@@ -31,6 +31,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private float maxDestructionTime;
     [SerializeField] private int maxDestructorsAtTime;
     [SerializeField] private int newDestructorsAmount;
+    [SerializeField] private float startingTimeBetweenDestructors;
     [SerializeField] private float timeBetweenDestructors;
     [SerializeField] private float timeToExplode;
 
@@ -39,6 +40,7 @@ public class GameManager : MonoBehaviour
     private float startTimestamp;
 
     private int coinCounter = 0;
+    
 
     private void Awake()
     {
@@ -85,7 +87,7 @@ public class GameManager : MonoBehaviour
 
     private void SpawnDestructors()
     {
-        var time = Mathf.Clamp01(Time.time / maxDestructionTime);
+        var time = Mathf.Clamp01(Time.timeSinceLevelLoad / maxDestructionTime);
 
         var toSpawnNumber = 1 + Mathf.FloorToInt(destructionCurve.Evaluate(time) * newDestructorsAmount);
 

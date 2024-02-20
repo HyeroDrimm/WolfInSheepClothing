@@ -389,6 +389,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2138489880884219136}
     - target: {fileID: 8764141461728534775, guid: eed2b3faa99b32f40b12da975ed6c8b5, type: 3}
+      propertyPath: hitBox
+      value: 
+      objectReference: {fileID: 5777768834761969220}
+    - target: {fileID: 8764141461728534775, guid: eed2b3faa99b32f40b12da975ed6c8b5, type: 3}
       propertyPath: collider
       value: 
       objectReference: {fileID: 5777768834761969220}

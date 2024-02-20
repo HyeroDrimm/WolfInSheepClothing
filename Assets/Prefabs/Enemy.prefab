@@ -51,8 +51,11 @@ MonoBehaviour:
   animator: {fileID: 0}
   player: {fileID: 0}
   startingNode: {fileID: 0}
-  movementSpeed: 4
-  waitAfterMoveTime: 1
+  movementSpeed: 0.5
+  movementSpeedBaseStarting: 1.5
+  movementSpeedBaseMax: 2
+  movementSpeedBaseMaxTime: 180
+  waitAfterMoveTime: 0.2
   teleportVisualsEnemy: {fileID: 2172655426499278072}
   teleportVisualsDestination: {fileID: 0}
   timeToTeleport: 5
@@ -89,7 +92,7 @@ CircleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0, y: 0.5}
   serializedVersion: 2
   m_Radius: 0.5
 --- !u!50 &7363899996921842512
@@ -146,7 +149,7 @@ Transform:
   m_GameObject: {fileID: 2172655426499278072}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0.5, z: 0}
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -251,7 +254,7 @@ Transform:
   m_GameObject: {fileID: 5161184961841025195}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

@@ -11,7 +11,7 @@ public class Destructor : MonoBehaviour
     [SerializeField] private Slider onSlider;
     [SerializeField] private GameObject explodedVisuals;
     [SerializeField] private GameObject onVisuals;
-    [SerializeField] private GameObject collider;
+    [SerializeField] private GameObject hitBox;
     [SerializeField] private float decreaseRate = 1f;
 
     private DestructorState state = DestructorState.None;
@@ -41,6 +41,30 @@ public class Destructor : MonoBehaviour
             }
         }
     }
+    private void OnTriggerStay2D(Collider2D other)
+    {
+        if (state == DestructorState.On && other.CompareTag("Player"))
+        {
+            timer -= decreaseRate * Time.deltaTime;
+            if (timer <= 0)
+            {
+                SetState(DestructorState.Neutral);
+            }
+        }
+
+        if (state == DestructorState.Exploded && other.CompareTag("Enemy"))
+        {
+            var enemy = other.GetComponentInParent<Enemy>();
+            enemy.WaitAndTeleportToEmptyPlace();
+        }
+
+        if (state == DestructorState.Exploded && other.CompareTag("Player"))
+        {
+            var player = other.GetComponentInParent<Player>();
+            Destroy(player.gameObject);
+            GameManager.instance.EndGame();
+        }
+    }
 
     public void StartTimer(float maxTime)
     {
@@ -55,7 +79,7 @@ public class Destructor : MonoBehaviour
             explodedVisuals.SetActive(destructorState == DestructorState.Exploded);
             onVisuals.SetActive(destructorState == DestructorState.On);
             onSlider.gameObject.SetActive(destructorState == DestructorState.On);
-            collider.SetActive(destructorState != DestructorState.Exploded);
+            hitBox.SetActive(destructorState != DestructorState.Exploded);
 
             switch (destructorState)
             {
@@ -74,23 +98,6 @@ public class Destructor : MonoBehaviour
         }
     }
 
-    private void OnTriggerStay2D(Collider2D other)
-    {
-        if (state == DestructorState.On && other.CompareTag("Player"))
-        {
-            timer -= decreaseRate * Time.deltaTime;
-            if (timer <= 0)
-            {
-                SetState(DestructorState.Neutral);
-            }
-        }
-
-        if (state == DestructorState.Exploded && other.CompareTag("Enemy"))
-        {
-            var enemy = other.GetComponentInParent<Enemy>();
-            enemy.WaitAndTeleportToEmptyPlace();
-        }
-    }
 
     public enum DestructorState
     {

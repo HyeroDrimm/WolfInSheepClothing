@@ -2,10 +2,14 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PickUpManager : MonoBehaviour
 {
+    [SerializeField] private float nullRadius;
+    [SerializeField] private Transform[] nullCenters;
+
     [SerializeField] private PickUpTypeHolder[] pickUpTypesHolders;
 
     private HashSet<Transform> usedPickUpPlaces = new();
@@ -40,7 +44,7 @@ public class PickUpManager : MonoBehaviour
 
         for (int i = 0; i < Mathf.Min(pickUpTypesHolder.maxSpawned - currentlyShownPickUpsCount, pickUpTypesHolder.numberSpawned); i++)
         {
-            var availablePickUps = pickUpTypesHolder.pickUps.Where(x => x.isShown == false && !usedPickUpPlaces.Contains(x.PickUpPlace)).ToList();
+            var availablePickUps = pickUpTypesHolder.pickUps.Where(x => x.isShown == false && !usedPickUpPlaces.Contains(x.PickUpPlace) && IsInNullRadius(x.gameObject)).ToList();
             if (availablePickUps.Count != 0)
             {
                 var newPickUp = availablePickUps.Random();
@@ -52,6 +56,11 @@ public class PickUpManager : MonoBehaviour
                 break;
             }
         }
+    }
+
+    private bool IsInNullRadius(GameObject gameObject)
+    {
+        return nullCenters.All(nullCenter => nullCenter == null || Vector3.Distance(nullCenter.position, gameObject.transform.position) > nullRadius);
     }
 
     public void FreePickUpPlace(Transform pickupPlace)
@@ -68,5 +77,11 @@ public class PickUpManager : MonoBehaviour
         public int maxSpawned;
 
         [HideInInspector] public float counter;
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, nullRadius);
     }
 }

@@ -12,6 +12,8 @@ public class Player : MonoBehaviour, IFollowTarget
     [SerializeField] private GameObject startingNode;
     [SerializeField] private GameManager gameManager;
     [SerializeField] private float movementSpeed;
+    [SerializeField] private float movementSpeedBase;
+
     [SerializeField] private float waitAfterMoveTime;
     [SerializeField] private Doll dollPrefab;
     [SerializeField] private Popup useDollPopup;
@@ -28,7 +30,7 @@ public class Player : MonoBehaviour, IFollowTarget
 
     // Speed
     private float powerUpSpeedModifier = 1;
-    private float movementSpeedProper => movementSpeed * path.Distance.Meters * powerUpSpeedModifier;
+    private float movementSpeedProper => (movementSpeedBase + movementSpeed * path.Distance.Meters) * powerUpSpeedModifier * Time.deltaTime * 0.6f;
 
     // Wait time after move
     private float waitAfterMoveTimeAddon = 0;
@@ -100,7 +102,8 @@ public class Player : MonoBehaviour, IFollowTarget
                 else
                 {
                     transform.position = Vector3.MoveTowards(transform.position, Helpers.RayTAStarPositionToVec3(currentEdge.End.Position),
-                        movementSpeedProper * Time.deltaTime * 0.06f);
+                        movementSpeedProper);
+                    animator?.Flip((Helpers.RayTAStarPositionToVec3(currentEdge.End.Position) - transform.position).x < 0);
                 }
             }
             else
