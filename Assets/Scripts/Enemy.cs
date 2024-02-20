@@ -15,6 +15,7 @@ public class Enemy : MonoBehaviour
     [SerializeField] private float movementSpeedBaseMax;
     [SerializeField] private float movementSpeedBaseMaxTime;
     [SerializeField] private float waitAfterMoveTime;
+    [SerializeField] private SpriteRenderer visual;
     [Header("Teleport")]
     [SerializeField] private GameObject teleportVisualsEnemy;
     [SerializeField] private GameObject teleportVisualsDestination;
@@ -35,11 +36,11 @@ public class Enemy : MonoBehaviour
 
     // Speed
     private float powerUpSpeedModifier = 1;
-    private float movementSpeedProper => ((movementSpeedBaseStarting + (movementSpeedBaseMax - movementSpeedBaseStarting) * Mathf.Min(Time.timeSinceLevelLoad / movementSpeedBaseMaxTime, 1)) + movementSpeed * path.Distance.Meters) * powerUpSpeedModifier * Time.deltaTime * 0.6f;
+    private bool isFrozen;
+    private float movementSpeedProper => isFrozen ? 0 : (movementSpeedBaseStarting + (movementSpeedBaseMax - movementSpeedBaseStarting) * Mathf.Min(Time.timeSinceLevelLoad / movementSpeedBaseMaxTime, 1) + movementSpeed * path.Distance.Meters) * powerUpSpeedModifier * Time.deltaTime * 0.6f;
 
     // Wait time after move
-    private float waitAfterMoveTimeAddon = 0;
-    private float waitAfterMoveTimeProper => waitAfterMoveTime + waitAfterMoveTimeAddon;
+    private float waitAfterMoveTimeProper => waitAfterMoveTime;
 
     private void Start()
     {
@@ -130,13 +131,11 @@ public class Enemy : MonoBehaviour
         }
         Invoke("WaitAfterMove", waitAfterMoveTimeProper);
         SoundEffectPlayer.Instance.PlaySoundClip(SoundEffectPlayer.TELEPORT);
-        //GetPathToPlayer();
     }
 
     private void WaitAfterMove()
     {
         isWaitingAfterMove = false;
-        waitAfterMoveTimeAddon = 0;
     }
 
     #region PowerUps
@@ -159,17 +158,30 @@ public class Enemy : MonoBehaviour
 
     public void PickedUpEnemyFreezePowerUp(float duration)
     {
-        player.ChangeWaitAfterMoveAddon(duration);
+        player.ChangeFreezeAddon(duration);
     }
 
-    public void ChangeWaitAfterMoveAddon(float duration)
+    public void ChangeFreezeAddon(float duration)
     {
-        waitAfterMoveTimeAddon = duration;
+        isFrozen = true;
+        visual.color = Color.blue;
+        animator?.ChangeAnimationState(IDLE_ANIMATION);
+        SoundEffectPlayer.Instance.PlaySoundClip(SoundEffectPlayer.FREEZE);
 
-        if (IsInvoking("WaitAfterMove"))
+        if (IsInvoking("RemoveFreezeAddon"))
         {
-            CancelInvoke("WaitAfterMove");
-            Invoke("WaitAfterMove", waitAfterMoveTimeProper);
+            CancelInvoke("RemoveFreezeAddon");
+        }
+        Invoke("RemoveFreezeAddon", duration);
+    }
+
+    private void RemoveFreezeAddon()
+    {
+        isFrozen = false;
+        visual.color = Color.white;
+        if (isMoving)
+        {
+            animator?.ChangeAnimationState(RUN_ANIMATION);
         }
     }
 

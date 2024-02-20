@@ -19,6 +19,7 @@ public class SoundEffectPlayer : MonoBehaviour
     public const string KILL = "Kill";
     public const string SELECT = "Select";
     public const string TELEPORT = "Teleport";
+    public const string FREEZE = "Freeze";
 
 
     private void Awake()

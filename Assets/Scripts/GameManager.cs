@@ -163,7 +163,7 @@ public class GameManager : MonoBehaviour
                     enemy.PickedUpSpeedChangePowerUp(ItemsConsts.POWER_UP_SPEED_DOWN_MODIFIER, ItemsConsts.POWER_UP_SPEED_DOWN_DURATION);
                     break;
                 case ItemsConsts.POWER_UP_FREEZE:
-                    enemy.ChangeWaitAfterMoveAddon(ItemsConsts.POWER_UP_FREEZE_DURATION);
+                    enemy.ChangeFreezeAddon(ItemsConsts.POWER_UP_FREEZE_DURATION);
                     break;
                 case ItemsConsts.POWER_UP_DOLL:
                     player.UseDoll();

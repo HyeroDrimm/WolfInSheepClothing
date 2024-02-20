@@ -208,7 +208,7 @@ MonoBehaviour:
   m_MinValue: 0
   m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: 0.561
+  m_Value: 0
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -8258,7 +8258,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0.049999997, y: 0}
+  m_AnchoredPosition: {x: 0.05000007, y: 0}
   m_SizeDelta: {x: 0.099999994, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &368517370
@@ -8550,7 +8550,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0.049999997, y: 0}
+  m_AnchoredPosition: {x: 0.05000007, y: 0}
   m_SizeDelta: {x: 0.099999994, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &484268181
@@ -12433,7 +12433,7 @@ MonoBehaviour:
   m_MinValue: 0
   m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: 0.561
+  m_Value: 0
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -12976,7 +12976,7 @@ MonoBehaviour:
   m_MinValue: 0
   m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: 0.561
+  m_Value: 0
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -13725,7 +13725,7 @@ MonoBehaviour:
     - {fileID: 2007565313}
     - {fileID: 1079271286}
     - {fileID: 1996801557}
-    timeBetweenSpawns: 30
+    timeBetweenSpawns: 1
     numberSpawned: 2
     maxSpawned: 2
     counter: 0
@@ -13984,7 +13984,7 @@ MonoBehaviour:
   m_MinValue: 0
   m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: 0.561
+  m_Value: 0
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -14183,7 +14183,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0.049999997, y: 0}
+  m_AnchoredPosition: {x: 0.05000007, y: 0}
   m_SizeDelta: {x: 0.099999994, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1424996728
@@ -14309,7 +14309,7 @@ MonoBehaviour:
   m_MinValue: 0
   m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: 0.561
+  m_Value: 0
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -15893,7 +15893,7 @@ MonoBehaviour:
   m_MinValue: 0
   m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: 0.561
+  m_Value: 0
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -16154,7 +16154,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0.049999997, y: 0}
+  m_AnchoredPosition: {x: 0.05000007, y: 0}
   m_SizeDelta: {x: 0.099999994, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1935340452
@@ -16428,7 +16428,7 @@ MonoBehaviour:
   m_MinValue: 0
   m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: 0.561
+  m_Value: 0
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -16600,7 +16600,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0.049999997, y: 0}
+  m_AnchoredPosition: {x: 0.05000007, y: 0}
   m_SizeDelta: {x: 0.099999994, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2034303057
@@ -17072,10 +17072,6 @@ PrefabInstance:
       propertyPath: startingNode
       value: 
       objectReference: {fileID: 1920274653}
-    - target: {fileID: 281226669425375795, guid: c653ff72365abe54f8d64b9bf968ea5c, type: 3}
-      propertyPath: waitAfterMoveTime
-      value: 0.4
-      objectReference: {fileID: 0}
     - target: {fileID: 281226669425375795, guid: c653ff72365abe54f8d64b9bf968ea5c, type: 3}
       propertyPath: teleportVisualsDestination
       value: 

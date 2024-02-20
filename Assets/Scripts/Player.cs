@@ -17,6 +17,7 @@ public class Player : MonoBehaviour, IFollowTarget
     [SerializeField] private float waitAfterMoveTime;
     [SerializeField] private Doll dollPrefab;
     [SerializeField] private Popup useDollPopup;
+    [SerializeField] private SpriteRenderer visual;
 
     private Path path;
     private int edgeIndex;
@@ -30,11 +31,11 @@ public class Player : MonoBehaviour, IFollowTarget
 
     // Speed
     private float powerUpSpeedModifier = 1;
-    private float movementSpeedProper => (movementSpeedBase + movementSpeed * path.Distance.Meters) * powerUpSpeedModifier * Time.deltaTime * 0.6f;
+    private bool isFrozen;
+    private float movementSpeedProper => isFrozen ? 0 : (movementSpeedBase + movementSpeed * path.Distance.Meters) * powerUpSpeedModifier * Time.deltaTime * 0.6f;
 
     // Wait time after move
-    private float waitAfterMoveTimeAddon = 0;
-    private float waitAfterMoveTimeProper => waitAfterMoveTime + waitAfterMoveTimeAddon;
+    private float waitAfterMoveTimeProper => waitAfterMoveTime;
 
     private bool useDoll = false;
 
@@ -51,7 +52,7 @@ public class Player : MonoBehaviour, IFollowTarget
 
     private void Update()
     {
-        if (useDoll && Input.GetKeyDown(KeyCode.Mouse0) && !EventSystem.current.IsPointerOverGameObject())
+        if (!isFrozen && useDoll && Input.GetKeyDown(KeyCode.Mouse0) && !EventSystem.current.IsPointerOverGameObject())
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit2D hit = Physics2D.GetRayIntersection(ray, Mathf.Infinity, 1 << 6);
@@ -67,7 +68,7 @@ public class Player : MonoBehaviour, IFollowTarget
                 SoundEffectPlayer.Instance.PlaySoundClip(SoundEffectPlayer.SELECT);
             }
         }
-        else if (!isMoving && !isWaitingAfterMove && Input.GetKeyDown(KeyCode.Mouse0) && !EventSystem.current.IsPointerOverGameObject())
+        else if (!isFrozen && !isMoving && !isWaitingAfterMove && Input.GetKeyDown(KeyCode.Mouse0) && !EventSystem.current.IsPointerOverGameObject())
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit2D hit = Physics2D.GetRayIntersection(ray, Mathf.Infinity, 1 << 6);
@@ -124,7 +125,6 @@ public class Player : MonoBehaviour, IFollowTarget
     private void WaitAfterMove()
     {
         isWaitingAfterMove = false;
-        waitAfterMoveTimeAddon = 0;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -166,17 +166,31 @@ public class Player : MonoBehaviour, IFollowTarget
 
     public void PickedUpEnemyFreezePowerUp(float duration)
     {
-        enemy.ChangeWaitAfterMoveAddon(duration);
+        enemy.ChangeFreezeAddon(duration);
     }
 
-    public void ChangeWaitAfterMoveAddon(float duration)
+    public void ChangeFreezeAddon(float duration)
     {
-        waitAfterMoveTimeAddon = duration;
+        isFrozen = true;
+        visual.color = Color.blue;
+        animator?.ChangeAnimationState(IDLE_ANIMATION);
+        SoundEffectPlayer.Instance.PlaySoundClip(SoundEffectPlayer.FREEZE);
 
-        if (IsInvoking("WaitAfterMove"))
+
+        if (IsInvoking("RemoveFreezeAddon"))
         {
-            CancelInvoke("WaitAfterMove");
-            Invoke("WaitAfterMove", waitAfterMoveTimeProper);
+            CancelInvoke("RemoveFreezeAddon");
+        }
+        Invoke("RemoveFreezeAddon", duration);
+    }
+
+    private void RemoveFreezeAddon()
+    {
+        isFrozen = false;
+        visual.color = Color.white;
+        if (isMoving)
+        {
+            animator?.ChangeAnimationState(RUN_ANIMATION);
         }
     }
 
