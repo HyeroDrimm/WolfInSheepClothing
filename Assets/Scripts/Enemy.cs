@@ -16,6 +16,7 @@ public class Enemy : MonoBehaviour
     [SerializeField] private float movementSpeedBaseMaxTime;
     [SerializeField] private float waitAfterMoveTime;
     [SerializeField] private SpriteRenderer visual;
+    [SerializeField] private Collider2D enemyCollider;
     [Header("Teleport")]
     [SerializeField] private GameObject teleportVisualsEnemy;
     [SerializeField] private GameObject teleportVisualsDestination;
@@ -164,6 +165,7 @@ public class Enemy : MonoBehaviour
     public void ChangeFreezeAddon(float duration)
     {
         isFrozen = true;
+        enemyCollider.enabled = false;
         visual.color = Color.blue;
         animator?.ChangeAnimationState(IDLE_ANIMATION);
         SoundEffectPlayer.Instance.PlaySoundClip(SoundEffectPlayer.FREEZE);
@@ -178,6 +180,7 @@ public class Enemy : MonoBehaviour
     private void RemoveFreezeAddon()
     {
         isFrozen = false;
+        enemyCollider.enabled = true;
         visual.color = Color.white;
         if (isMoving)
         {
