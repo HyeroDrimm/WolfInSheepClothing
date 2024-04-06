@@ -37,6 +37,7 @@ public class ShopUI : MonoBehaviour
         {
             gameManager.UpdatePocket(item);
             SoundEffectPlayer.Instance.PlaySoundClip(SoundEffectPlayer.KACHING);
+            OnExitButtonClicked();
             return true;
         }
         notEnoughCoinsPopup.SetVisible(true);
