@@ -48,8 +48,9 @@ public class ShopUI : MonoBehaviour
     {
         foreach (var itemUi in shopUiItems)
         {
-            itemUi.UpdateItem(shopItems.Random());
-            itemUi.SetVisible(true);
+            var item = shopItems.Random();
+            itemUi.UpdateItem(item);
+            itemUi.SetVisible(item.price < gameManager.GetCoins());
         }
     }
 

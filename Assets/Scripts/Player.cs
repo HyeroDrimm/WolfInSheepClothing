@@ -34,7 +34,7 @@ public class Player : MonoBehaviour, IFollowTarget
     // Speed
     private float powerUpSpeedModifier = 1;
     private bool isFrozen;
-    private float movementSpeedProper => isFrozen ? 0 : (movementSpeedBase + movementSpeed * path.Distance.Meters) * powerUpSpeedModifier * Time.deltaTime * 0.6f;
+    private float movementSpeedProper => isFrozen ? 0 : (movementSpeedBase + movementSpeed) * powerUpSpeedModifier * Time.deltaTime * 1.5f;
 
     // Wait time after move
     private float waitAfterMoveTimeProper => waitAfterMoveTime;

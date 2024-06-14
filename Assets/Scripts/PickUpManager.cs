@@ -9,6 +9,8 @@ public class PickUpManager : MonoBehaviour
 {
     [SerializeField] private float nullRadius;
     [SerializeField] private Transform[] nullCenters;
+    [SerializeField] private List<Transform> playerRoad;
+    [SerializeField] private List<Transform> enemyRoad;
 
     [SerializeField] private PickUpTypeHolder[] pickUpTypesHolders;
 
@@ -44,7 +46,7 @@ public class PickUpManager : MonoBehaviour
 
         for (int i = 0; i < Mathf.Min(pickUpTypesHolder.maxSpawned - currentlyShownPickUpsCount, pickUpTypesHolder.numberSpawned); i++)
         {
-            var availablePickUps = pickUpTypesHolder.pickUps.Where(x => x.isShown == false && !usedPickUpPlaces.Contains(x.PickUpPlace) && IsInNullRadius(x.gameObject)).ToList();
+            var availablePickUps = pickUpTypesHolder.pickUps.Where(x => x.isShown == false && !usedPickUpPlaces.Contains(x.PickUpPlace) && IsInNullRadius(x.gameObject) && !playerRoad.Contains(x.PickUpPlace) && !enemyRoad.Contains(x.PickUpPlace)).ToList();
             if (availablePickUps.Count != 0)
             {
                 var newPickUp = availablePickUps.Random();

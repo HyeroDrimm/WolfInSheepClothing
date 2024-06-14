@@ -51,11 +51,11 @@ MonoBehaviour:
   animator: {fileID: 0}
   player: {fileID: 0}
   startingNode: {fileID: 0}
-  movementSpeed: 0.5
+  movementSpeed: 0.3
   movementSpeedBaseStarting: 1.5
   movementSpeedBaseMax: 2
   movementSpeedBaseMaxTime: 180
-  waitAfterMoveTime: 0.4
+  waitAfterMoveTime: 0.1
   visual: {fileID: 1890027443984836630}
   enemyCollider: {fileID: 7154063881112080330}
   teleportVisualsEnemy: {fileID: 2172655426499278072}

@@ -193,4 +193,6 @@ public class GameManager : MonoBehaviour
 
         return false;
     }
+
+    public int GetCoins() => coinCounter;
 }

@@ -38,7 +38,7 @@ public class Enemy : MonoBehaviour
     // Speed
     private float powerUpSpeedModifier = 1;
     private bool isFrozen;
-    private float movementSpeedProper => isFrozen ? 0 : (movementSpeedBaseStarting + (movementSpeedBaseMax - movementSpeedBaseStarting) * Mathf.Min(Time.timeSinceLevelLoad / movementSpeedBaseMaxTime, 1) + movementSpeed * path.Distance.Meters) * powerUpSpeedModifier * Time.deltaTime * 0.6f;
+    private float movementSpeedProper => isFrozen ? 0 : (movementSpeedBaseStarting + (movementSpeedBaseMax - movementSpeedBaseStarting) * Mathf.Min(Time.timeSinceLevelLoad / movementSpeedBaseMaxTime, 1) + movementSpeed) * powerUpSpeedModifier * Time.deltaTime * 1.5f;
 
     // Wait time after move
     private float waitAfterMoveTimeProper => waitAfterMoveTime;
