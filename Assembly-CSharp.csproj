@@ -67,8 +67,10 @@
     <Compile Include="Assets\Scripts\Destructor.cs" />
     <Compile Include="Assets\Scripts\PathController.cs" />
     <Compile Include="Assets\Scripts\IFollowTarget.cs" />
+    <Compile Include="Assets\Scripts\MenuController.cs" />
     <Compile Include="Assets\Scripts\Timer.cs" />
     <Compile Include="Assets\Scripts\ShopUIItem.cs" />
+    <Compile Include="Assets\Scripts\ChooseMapScreenController.cs" />
     <Compile Include="Assets\Scripts\YouLostUI.cs" />
     <Compile Include="Assets\Scripts\PickUp\PickUp.cs" />
     <Compile Include="Assets\Scripts\Helpers.cs" />
