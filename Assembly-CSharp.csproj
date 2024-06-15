@@ -64,6 +64,7 @@
     <Compile Include="Assets\Scripts\SoundEffectPlayer.cs" />
     <Compile Include="Assets\Scripts\Popup.cs" />
     <Compile Include="Assets\Scripts\ShopUI.cs" />
+    <Compile Include="Assets\Scripts\PauseMenuController.cs" />
     <Compile Include="Assets\Scripts\Destructor.cs" />
     <Compile Include="Assets\Scripts\PathController.cs" />
     <Compile Include="Assets\Scripts\IFollowTarget.cs" />
@@ -87,6 +88,7 @@
     <Compile Include="Assets\Scripts\GameManager.cs" />
     <Compile Include="Assets\Scripts\CoinCounterUI.cs" />
     <Compile Include="Assets\Scripts\DontDestroyWhenLoading.cs" />
+    <Compile Include="Assets\Scripts\ConfirmPopup.cs" />
     <Compile Include="Assets\Scripts\PickUp\Coin.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
     [SerializeField] private Timer currentTimer;
+    [SerializeField] private PauseMenuController pauseMenuController;
     [SerializeField] private Timer bestTimer;
     [SerializeField] private YouLostUI youLostUI;
     [SerializeField] private CoinCounterUI coinCounterUi;
@@ -40,7 +41,8 @@ public class GameManager : MonoBehaviour
     private float startTimestamp;
 
     private int coinCounter = 0;
-    
+    private float gameSpeed = 1;
+    private bool isPause = false;
 
     private void Awake()
     {
@@ -67,7 +69,7 @@ public class GameManager : MonoBehaviour
 
         pocketUi.UpdateItem(itemInPocket);
 
-        Time.timeScale = baseGameSpeed;
+        UpdateTimeScale(baseGameSpeed);
 
         InvokeRepeating("SpawnDestructors", startingTimeBetweenDestructors, timeBetweenDestructors);
     }
@@ -82,6 +84,12 @@ public class GameManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space))
         {
             UseCurrentPocketItem();
+        }
+
+        if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.P))
+        {
+            isPause = !isPause;
+            SetPause(isPause);
         }
     }
 
@@ -139,7 +147,7 @@ public class GameManager : MonoBehaviour
     public void ShowShop(bool state)
     {
         shopUi.SetVisible(state);
-        Time.timeScale = state ? shopSlowDown : baseGameSpeed;
+        UpdateTimeScale(state ? shopSlowDown : baseGameSpeed);
     }
 
     public void UpdatePocket(ShopItem shopItem)
@@ -195,4 +203,16 @@ public class GameManager : MonoBehaviour
     }
 
     public int GetCoins() => coinCounter;
+
+    public void SetPause(bool state)
+    {
+        Time.timeScale = state ? 0 : gameSpeed;
+        pauseMenuController.SetVisible(state);
+    }
+
+    private void UpdateTimeScale(float timeScale)
+    {
+        gameSpeed = timeScale;
+        Time.timeScale = timeScale;
+    }
 }

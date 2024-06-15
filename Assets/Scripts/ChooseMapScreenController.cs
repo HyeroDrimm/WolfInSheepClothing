@@ -12,8 +12,8 @@ public class ChooseMapScreenController : MonoBehaviour
 
     private void Awake()
     {
-        level1Button?.onClick.AddListener(() => SceneManager.LoadScene("Level1"));
-        level2Button?.onClick.AddListener(() => SceneManager.LoadScene("Level2"));
-        level3Button?.onClick.AddListener(() => SceneManager.LoadScene("Level3"));
+        level1Button?.onClick.AddListener(() => ConfirmPopup.Instance.Show(() => SceneManager.LoadScene("Level1"), "Load Level 1?"));
+        level2Button?.onClick.AddListener(() => ConfirmPopup.Instance.Show(() => SceneManager.LoadScene("Level2"), "Load Level 2?"));
+        level3Button?.onClick.AddListener(() => ConfirmPopup.Instance.Show(() => SceneManager.LoadScene("Level3"), "Load Level 3?"));
     }
 }
