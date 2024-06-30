@@ -68,6 +68,7 @@
     <Compile Include="Assets\Scripts\Destructor.cs" />
     <Compile Include="Assets\Scripts\PathController.cs" />
     <Compile Include="Assets\Scripts\IFollowTarget.cs" />
+    <Compile Include="Assets\FollowGameObject.cs" />
     <Compile Include="Assets\Scripts\MenuController.cs" />
     <Compile Include="Assets\Scripts\Timer.cs" />
     <Compile Include="Assets\Scripts\ShopUIItem.cs" />
