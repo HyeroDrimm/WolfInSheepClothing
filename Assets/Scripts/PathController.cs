@@ -2,17 +2,19 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using NaughtyAttributes;
 using UnityEngine;
 using Roy_T.AStar;
 using Roy_T.AStar.Graphs;
 using Roy_T.AStar.Paths;
 using Roy_T.AStar.Primitives;
+using UnityEditor;
 using Random = UnityEngine.Random;
 
 public class PathController : MonoBehaviour
 {
     public static PathController Singleton;
-    [SerializeField] private NodeConnection[] nodeConnections;
+    [SerializeField] private List<NodeConnection> nodeConnections;
     [SerializeField] private Dictionary<GameObject, Node> gameObjectToNode;
     [Header("Create")]
     [SerializeField] private bool createMode;
@@ -47,7 +49,7 @@ public class PathController : MonoBehaviour
 
         if (createMode)
         {
-            for (var i = 0; i < nodeConnections.Length; i++)
+            for (var i = 0; i < nodeConnections.Count; i++)
             {
                 var connection = nodeConnections[i];
                 var newGameObject = new GameObject($"LineRenderer{i}");
@@ -153,6 +155,12 @@ public class PathController : MonoBehaviour
     {
         public GameObject node1;
         public GameObject node2;
+
+        public NodeConnection(GameObject node1, GameObject node2)
+        {
+            this.node1 = node1;
+            this.node2 = node2;
+        }
     }
 
     private void OnDrawGizmos()
@@ -178,4 +186,19 @@ public class PathController : MonoBehaviour
             }
         }
     }
+
+#if UNITY_EDITOR
+
+    [Button]
+    public void MakeConnection()
+    {
+        var objects = Selection.gameObjects;
+        if (objects.Length == 2)
+        {
+            Undo.RecordObject(this, "Add new connection");
+            nodeConnections.Add(new NodeConnection(objects[0], objects[1]));
+            PrefabUtility.RecordPrefabInstancePropertyModifications(this);
+        }
+    }
+#endif
 }
