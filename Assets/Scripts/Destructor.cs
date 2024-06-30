@@ -8,17 +8,22 @@ using UnityEngine.UI;
 public class Destructor : MonoBehaviour
 {
     [SerializeField] private GameObject node;
-    [SerializeField] private Slider onSlider;
-    [SerializeField] private GameObject explodedVisuals;
-    [SerializeField] private GameObject onVisuals;
     [SerializeField] private GameObject hitBox;
+    [SerializeField] private GameObject shop;
     [SerializeField] private float decreaseRate = 1f;
+
+    [Header("Visuals")]
+    [SerializeField] private GameObject prepare1Visual;
+    [SerializeField] private GameObject prepare2Visual;
+    [SerializeField] private GameObject prepare3Visual;
+    [SerializeField] private GameObject explodedVisuals;
 
     private DestructorState state = DestructorState.None;
     private float timer = 0;
     private float maxTime = 0;
 
     public DestructorState State => state;
+    public GameObject Node => node;
 
     private void Awake()
     {
@@ -37,7 +42,24 @@ public class Destructor : MonoBehaviour
             }
             else
             {
-                onSlider.value = fraction;
+                if (fraction < 0.33f)
+                {
+                    prepare1Visual.SetActive(true);
+                    prepare2Visual.SetActive(false);
+                    prepare3Visual.SetActive(false);
+                }
+                else if (fraction < 0.66f)
+                {
+                    prepare1Visual.SetActive(false);
+                    prepare2Visual.SetActive(true);
+                    prepare3Visual.SetActive(false);
+                }
+                else
+                {
+                    prepare1Visual.SetActive(false);
+                    prepare2Visual.SetActive(false);
+                    prepare3Visual.SetActive(true);
+                }
             }
         }
     }
@@ -77,17 +99,22 @@ public class Destructor : MonoBehaviour
         if (destructorState != this.state)
         {
             explodedVisuals.SetActive(destructorState == DestructorState.Exploded);
-            onVisuals.SetActive(destructorState == DestructorState.On);
-            onSlider.gameObject.SetActive(destructorState == DestructorState.On);
             hitBox.SetActive(destructorState != DestructorState.Exploded);
+            shop?.SetActive(destructorState == DestructorState.Exploded);
 
             switch (destructorState)
             {
                 case DestructorState.Neutral:
+                    prepare1Visual.SetActive(false);
+                    prepare2Visual.SetActive(false);
+                    prepare3Visual.SetActive(false);
                     break;
                 case DestructorState.On:
                     break;
                 case DestructorState.Exploded:
+                    prepare1Visual.SetActive(false);
+                    prepare2Visual.SetActive(false);
+                    prepare3Visual.SetActive(false);
                     PathController.Singleton.SetStateOfNodes(false, node);
                     break;
                 default:
