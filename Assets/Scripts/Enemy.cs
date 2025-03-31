@@ -33,11 +33,18 @@ public class Enemy : MonoBehaviour
     // Animation Names
     private const string RUN_ANIMATION = "Run";
     private const string IDLE_ANIMATION = "Idle";
+    private const string RUN_SLOWED_ANIMATION = "Run Slowed";
+    private const string IDLE_SLOWED_ANIMATION = "Idle Slowed";
+
+    private string currentRunAnimation => powerUpSpeedModifier < 1 ? RUN_SLOWED_ANIMATION : RUN_ANIMATION;
+    private string currentIdleAnimation => powerUpSpeedModifier < 1 ? IDLE_SLOWED_ANIMATION : IDLE_ANIMATION;
 
     // Speed
     private float powerUpSpeedModifier = 1;
     private bool isFrozen;
     private float movementSpeedProper => isFrozen ? 0 : (movementSpeedBaseStarting + (movementSpeedBaseMax - movementSpeedBaseStarting) * Mathf.Min(Time.timeSinceLevelLoad / movementSpeedBaseMaxTime, 1) + movementSpeed) * powerUpSpeedModifier * Time.deltaTime * 1.5f;
+
+
 
     // Wait time after move
     private float waitAfterMoveTimeProper => waitAfterMoveTime;
@@ -66,7 +73,7 @@ public class Enemy : MonoBehaviour
                 transform.position = currentPosition.transform.position;
                 currentPosition = followTarget.CurrentPosition();
 
-                animator?.ChangeAnimationState(RUN_ANIMATION);
+                animator?.ChangeAnimationState(currentRunAnimation);
             }
             else
             {
@@ -95,7 +102,7 @@ public class Enemy : MonoBehaviour
             {
                 path = null;
                 isMoving = false;
-                animator?.ChangeAnimationState(IDLE_ANIMATION);
+                animator?.ChangeAnimationState(currentIdleAnimation);
 
                 if (IsInvoking("WaitAfterMove"))
                 {
@@ -169,7 +176,7 @@ public class Enemy : MonoBehaviour
         enemyCollider.enabled = false;
         UpdateStatusColor();
 
-        animator?.ChangeAnimationState(IDLE_ANIMATION);
+        animator?.ChangeAnimationState(currentIdleAnimation);
         SoundEffectPlayer.Instance.PlaySoundClip(SoundEffectPlayer.FREEZE);
 
         if (IsInvoking("RemoveFreezeAddon"))
@@ -186,7 +193,7 @@ public class Enemy : MonoBehaviour
         UpdateStatusColor();
         if (isMoving)
         {
-            animator?.ChangeAnimationState(RUN_ANIMATION);
+            animator?.ChangeAnimationState(currentRunAnimation);
         }
     }
 

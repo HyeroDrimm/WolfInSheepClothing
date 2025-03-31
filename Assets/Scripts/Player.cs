@@ -30,6 +30,11 @@ public class Player : MonoBehaviour, IFollowTarget
     // Animation Names
     private const string RUN_ANIMATION = "Run";
     private const string IDLE_ANIMATION = "Idle";
+    private const string RUN_SLOWED_ANIMATION = "Run Slowed";
+    private const string IDLE_SLOWED_ANIMATION = "Idle Slowed";
+
+    private string currentRunAnimation => powerUpSpeedModifier < 1 ? RUN_SLOWED_ANIMATION : RUN_ANIMATION;
+    private string currentIdleAnimation => powerUpSpeedModifier < 1 ? IDLE_SLOWED_ANIMATION : IDLE_ANIMATION;
 
     // Speed
     private float powerUpSpeedModifier = 1;
@@ -89,7 +94,7 @@ public class Player : MonoBehaviour, IFollowTarget
                         transform.position = currentPosition.transform.position;
                         currentPosition = target;
 
-                        animator?.ChangeAnimationState(RUN_ANIMATION);
+                        animator?.ChangeAnimationState(currentRunAnimation);
                         SoundEffectPlayer.Instance.PlaySoundClip(SoundEffectPlayer.SELECT);
                     }
                 }
@@ -112,7 +117,7 @@ public class Player : MonoBehaviour, IFollowTarget
                 currentPosition = queuedPlace;
                 queuedPlace = null;
 
-                animator?.ChangeAnimationState(RUN_ANIMATION);
+                animator?.ChangeAnimationState(currentRunAnimation);
                 SoundEffectPlayer.Instance.PlaySoundClip(SoundEffectPlayer.SELECT);
             }
         }
@@ -138,7 +143,7 @@ public class Player : MonoBehaviour, IFollowTarget
             {
                 path = null;
                 isMoving = false;
-                animator?.ChangeAnimationState(IDLE_ANIMATION);
+                animator?.ChangeAnimationState(currentIdleAnimation);
 
                 if (IsInvoking("WaitAfterMove"))
                 {
@@ -204,7 +209,7 @@ public class Player : MonoBehaviour, IFollowTarget
     {
         isFrozen = true;
         UpdateStatusColor();
-        animator?.ChangeAnimationState(IDLE_ANIMATION);
+        animator?.ChangeAnimationState(currentIdleAnimation);
         SoundEffectPlayer.Instance.PlaySoundClip(SoundEffectPlayer.FREEZE);
 
 
@@ -221,7 +226,7 @@ public class Player : MonoBehaviour, IFollowTarget
         UpdateStatusColor();
         if (isMoving)
         {
-            animator?.ChangeAnimationState(RUN_ANIMATION);
+            animator?.ChangeAnimationState(currentRunAnimation);
         }
     }
 

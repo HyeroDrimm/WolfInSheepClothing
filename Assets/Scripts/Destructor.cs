@@ -14,7 +14,6 @@ public class Destructor : MonoBehaviour
     [Header("Visuals")]
     [SerializeField] private GameObject prepare1Visual;
     [SerializeField] private GameObject prepare2Visual;
-    [SerializeField] private GameObject prepare3Visual;
     [SerializeField] private GameObject explodedVisuals;
 
     private DestructorState state = DestructorState.None;
@@ -41,23 +40,15 @@ public class Destructor : MonoBehaviour
             }
             else
             {
-                if (fraction < 0.33f)
+                if (fraction < 0.5f)
                 {
                     prepare1Visual.SetActive(true);
                     prepare2Visual.SetActive(false);
-                    prepare3Visual.SetActive(false);
-                }
-                else if (fraction < 0.66f)
-                {
-                    prepare1Visual.SetActive(false);
-                    prepare2Visual.SetActive(true);
-                    prepare3Visual.SetActive(false);
                 }
                 else
                 {
                     prepare1Visual.SetActive(false);
-                    prepare2Visual.SetActive(false);
-                    prepare3Visual.SetActive(true);
+                    prepare2Visual.SetActive(true);
                 }
             }
         }
@@ -109,14 +100,12 @@ public class Destructor : MonoBehaviour
                 case DestructorState.Neutral:
                     prepare1Visual.SetActive(false);
                     prepare2Visual.SetActive(false);
-                    prepare3Visual.SetActive(false);
                     break;
                 case DestructorState.On:
                     break;
                 case DestructorState.Exploded:
                     prepare1Visual.SetActive(false);
                     prepare2Visual.SetActive(false);
-                    prepare3Visual.SetActive(false);
                     PathController.Singleton.SetStateOfNodes(false, node);
                     break;
                 default:

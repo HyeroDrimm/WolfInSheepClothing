@@ -65,6 +65,7 @@
     <Compile Include="Assets\Scripts\SoundEffectPlayer.cs" />
     <Compile Include="Assets\Scripts\Popup.cs" />
     <Compile Include="Assets\Scripts\ShopUI.cs" />
+    <Compile Include="Assets\Scripts\FollowGameObject.cs" />
     <Compile Include="Assets\Scripts\PauseMenuController.cs" />
     <Compile Include="Assets\Scripts\Destructor.cs" />
     <Compile Include="Assets\Scripts\PathController.cs" />

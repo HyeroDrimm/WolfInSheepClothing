@@ -12091,14 +12091,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Path Node (1)
       objectReference: {fileID: 0}
-    - target: {fileID: 4071314663431854290, guid: b175f85459b7c6e4fa265fffdacc0798, type: 3}
-      propertyPath: onSlider
-      value: 
-      objectReference: {fileID: 2005053851}
-    - target: {fileID: 5293760026671639492, guid: b175f85459b7c6e4fa265fffdacc0798, type: 3}
-      propertyPath: m_Name
-      value: Destructor
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

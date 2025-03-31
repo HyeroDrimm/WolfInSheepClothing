@@ -31,8 +31,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MoreMountains.Feedbacks.Nic
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MoreMountains.Feedbacks.Authorizations", "MoreMountains.Feedbacks.Authorizations.csproj", "{0C2614BC-DD4C-542C-7B9E-4D3A4ADEBD2C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assembly-CSharp", "Assembly-CSharp.csproj", "{A5F6AD03-12B3-EB25-E50B-61BF19EB2B2C}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lofelt.NiceVibrations.Editor", "Lofelt.NiceVibrations.Editor.csproj", "{24A50681-6115-E0B9-9466-88A3504A4061}"
 EndProject
 Global
@@ -101,10 +99,6 @@ Global
 		{0C2614BC-DD4C-542C-7B9E-4D3A4ADEBD2C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0C2614BC-DD4C-542C-7B9E-4D3A4ADEBD2C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0C2614BC-DD4C-542C-7B9E-4D3A4ADEBD2C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{A5F6AD03-12B3-EB25-E50B-61BF19EB2B2C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A5F6AD03-12B3-EB25-E50B-61BF19EB2B2C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A5F6AD03-12B3-EB25-E50B-61BF19EB2B2C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A5F6AD03-12B3-EB25-E50B-61BF19EB2B2C}.Release|Any CPU.Build.0 = Release|Any CPU
 		{24A50681-6115-E0B9-9466-88A3504A4061}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{24A50681-6115-E0B9-9466-88A3504A4061}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{24A50681-6115-E0B9-9466-88A3504A4061}.Release|Any CPU.ActiveCfg = Release|Any CPU
