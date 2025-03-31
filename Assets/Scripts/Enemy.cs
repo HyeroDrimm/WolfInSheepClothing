@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using Roy_T.AStar.Paths;
 using Roy_T.AStar.Primitives;
-using Unity.Burst.CompilerServices;
 using UnityEngine;
 
 public class Enemy : MonoBehaviour

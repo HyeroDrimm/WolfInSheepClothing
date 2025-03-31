@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting.Dependencies.Sqlite;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -100,7 +99,10 @@ public class Destructor : MonoBehaviour
         {
             explodedVisuals.SetActive(destructorState == DestructorState.Exploded);
             hitBox.SetActive(destructorState != DestructorState.Exploded);
-            shop?.SetActive(destructorState == DestructorState.Exploded);
+            if (shop != null)
+            {
+                shop.SetActive(destructorState == DestructorState.Exploded);
+            }
 
             switch (destructorState)
             {
