@@ -12,6 +12,7 @@ public class Destructor : MonoBehaviour
     [SerializeField] private float decreaseRate = 1f;
 
     [Header("Visuals")]
+    [SerializeField] private GameObject normalVisual;
     [SerializeField] private GameObject prepare1Visual;
     [SerializeField] private GameObject prepare2Visual;
     [SerializeField] private GameObject explodedVisuals;
@@ -40,6 +41,7 @@ public class Destructor : MonoBehaviour
             }
             else
             {
+
                 if (fraction < 0.5f)
                 {
                     prepare1Visual.SetActive(true);
@@ -88,6 +90,7 @@ public class Destructor : MonoBehaviour
     {
         if (destructorState != this.state)
         {
+            normalVisual.SetActive(destructorState == DestructorState.Neutral);
             explodedVisuals.SetActive(destructorState == DestructorState.Exploded);
             hitBox.SetActive(destructorState != DestructorState.Exploded);
             if (shop != null)
