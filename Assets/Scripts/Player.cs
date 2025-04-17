@@ -242,10 +242,6 @@ public class Player : MonoBehaviour, IFollowTarget
         {
             visual.color = Color.blue;
         }
-        else if (powerUpSpeedModifier < 1)
-        {
-            visual.color = Color.red;
-        }
         else if (powerUpSpeedModifier > 1)
         {
             visual.color = Color.green;

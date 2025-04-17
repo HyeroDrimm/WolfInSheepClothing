@@ -95,7 +95,7 @@ public class Enemy : MonoBehaviour
                 {
                     transform.position = Vector3.MoveTowards(transform.position, Helpers.RayTAStarPositionToVec3(currentEdge.End.Position),
                         movementSpeedProper);
-                    animator?.Flip(movementSpeedProper < 0);
+                    animator?.Flip((Helpers.RayTAStarPositionToVec3(currentEdge.End.Position) - transform.position).x < 0);
                 }
             }
             else
