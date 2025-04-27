@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: cf658d493b56a1445b61ac75e369f76f
+guid: ede79332a796ad3458249bc2cbf104fb
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -48,7 +48,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 16
+  spritePixelsToUnits: 8
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -72,7 +72,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 0
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -110,13 +110,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: destructor_stage2_0
+      name: bridge_vertical_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 0
-        width: 16
-        height: 16
+        y: 16
+        width: 8
+        height: 8
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -124,20 +124,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 37256165205798543b9958a10ae5098b
-      internalID: 1683323482
+      spriteID: a46bd2455dacd0e4ebe77bb40436cf60
+      internalID: -139809583
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: destructor_stage2_1
+      name: bridge_vertical_1
       rect:
         serializedVersion: 2
-        x: 16
-        y: 0
-        width: 16
-        height: 16
+        x: 0
+        y: 8
+        width: 8
+        height: 8
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -145,8 +145,29 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 895c20d30a3f95d448892cffffcf39f4
-      internalID: 782253939
+      spriteID: acd88d5016b36c44b9c9057d083a7a6f
+      internalID: -367168596
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bridge_vertical_2
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 65d0de3ad78780148b1b0df4eaf190de
+      internalID: 178484189
       vertices: []
       indices: 
       edges: []
@@ -162,8 +183,9 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      destructor_stage2_0: 1683323482
-      destructor_stage2_1: 782253939
+      bridge_vertical_0: -139809583
+      bridge_vertical_1: -367168596
+      bridge_vertical_2: 178484189
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
