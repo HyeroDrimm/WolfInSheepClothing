@@ -63,6 +63,7 @@
     <Compile Include="Assets\Scripts\MusicPlayer.cs" />
     <Compile Include="Assets\Scripts\Doll.cs" />
     <Compile Include="Assets\Scripts\SoundEffectPlayer.cs" />
+    <Compile Include="Assets\Scripts\FollowPlayerWithinBounds.cs" />
     <Compile Include="Assets\Scripts\Popup.cs" />
     <Compile Include="Assets\Scripts\ShopUI.cs" />
     <Compile Include="Assets\Scripts\FollowGameObject.cs" />
