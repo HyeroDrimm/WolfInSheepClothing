@@ -11,7 +11,6 @@ public class Timer : MonoBehaviour
 
     public void UpdateTime(float time)
     {
-        text.text = prefix + TimeSpan.FromSeconds(time).ToString("mm':'ss");
-
+        text.text = prefix +"\n"+ TimeSpan.FromSeconds(time).ToString("mm':'ss");
     }
 }
