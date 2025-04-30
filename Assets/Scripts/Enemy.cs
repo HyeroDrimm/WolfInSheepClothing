@@ -51,6 +51,12 @@ public class Enemy : MonoBehaviour
 
     private void Start()
     {
+        if (!startingNode)
+        {
+            Debug.Log("Enemy has no starting position");
+            return;
+        }
+
         transform.position = startingNode.transform.position;
         currentPosition = startingNode;
 

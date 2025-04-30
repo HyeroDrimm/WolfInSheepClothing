@@ -10,6 +10,7 @@ public class Destructor : MonoBehaviour
     [SerializeField] private GameObject hitBox;
     [SerializeField] private GameObject shop;
     [SerializeField] private float decreaseRate = 1f;
+    [SerializeField] private GameObject[] pickups;
 
     [Header("Visuals")]
     [SerializeField] private GameObject normalVisual;
@@ -119,6 +120,10 @@ public class Destructor : MonoBehaviour
                     prepare2Visual.SetActive(false);
                     prepare3Visual.SetActive(false);
                     PathController.Singleton.SetStateOfNodes(false, node);
+                    foreach (var pickup in pickups)
+                    {
+                        Destroy(pickup);
+                    }
                     break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(destructorState), destructorState, null);

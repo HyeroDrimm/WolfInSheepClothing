@@ -11,3 +11,14 @@ internal static class Helpers
     public static T Random<T>(this T[] array) => array.Length != 0 ? array[UnityEngine.Random.Range(0, array.Length)] : default;
     public static T Random<T>(this List<T> list) => list.Count != 0 ? list[UnityEngine.Random.Range(0, list.Count)] : default;
 }
+
+public static class LevelsConsts
+{
+    public static float[,] timeForLevelStars =
+    { 
+      // 1, 2, 3 stars
+        {0f,1f,2f}, // Level 1 
+        {0f,1f,2f}, // Level 2
+        {0f,1f,2f}  // Level 3
+    };
+}

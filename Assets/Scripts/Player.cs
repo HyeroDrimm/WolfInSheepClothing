@@ -53,6 +53,12 @@ public class Player : MonoBehaviour, IFollowTarget
 
     private void Start()
     {
+        if (!startingNode)
+        {
+            Debug.Log("Player has no starting position");
+            return;
+        }
+
         transform.position = startingNode.transform.position;
         currentPosition = startingNode;
     }
@@ -174,6 +180,7 @@ public class Player : MonoBehaviour, IFollowTarget
     public void PickedUpSpeedChangePowerUp(float speedModifier, float duration)
     {
         powerUpSpeedModifier = speedModifier;
+        animator?.ChangeAnimationState(currentRunAnimation);
         UpdateStatusColor();
 
 

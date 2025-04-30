@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 53fe46bc89e82a54897ed33bb07b63db
+guid: 4a5742c183d2b7145b6dc3f384a4a832
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -43,13 +43,13 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 8
-  spriteBorder: {x: 2, y: 0, z: 1, w: 6}
+  spritePixelsToUnits: 1
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
   alphaIsTransparency: 1
@@ -110,13 +110,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: shop_0
+      name: confirm-cancel-buttons_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 8
-        width: 8
-        height: 8
+        y: 16
+        width: 48
+        height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -124,20 +124,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ee8d4b4d31ce70b44ae6a1c23cb4d955
-      internalID: -25968286
+      spriteID: 796ec4a23602413489ba1b8220963e43
+      internalID: 219787122
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: shop_1
+      name: confirm-cancel-buttons_1
       rect:
         serializedVersion: 2
-        x: 8
-        y: 8
-        width: 8
-        height: 8
+        x: 48
+        y: 16
+        width: 48
+        height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -145,20 +145,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5df78ef0052f6e64eacf9682583b68da
-      internalID: -1369014846
+      spriteID: 25f2a04d7bb05fc47addafce2276f487
+      internalID: 444042852
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: shop_2
+      name: confirm-cancel-buttons_2
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 8
-        height: 8
+        width: 48
+        height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -166,20 +166,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 4a843db85e45cff4db8bbb49c3dc5a17
-      internalID: 289108220
+      spriteID: 4b38ba11c9f769d44bec12b8e4f600ee
+      internalID: 1606168242
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: shop_3
+      name: confirm-cancel-buttons_3
       rect:
         serializedVersion: 2
-        x: 8
+        x: 48
         y: 0
-        width: 8
-        height: 8
+        width: 48
+        height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -187,8 +187,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 702d9e8cc0413ef4ba077b1bcd4bff6d
-      internalID: -449014244
+      spriteID: 38889bc31767fb448a8f42fb48f8b0ea
+      internalID: 1059843322
       vertices: []
       indices: 
       edges: []
@@ -197,17 +197,17 @@ TextureImporter:
     physicsShape: []
     bones: []
     spriteID: 5e97eb03825dee720800000000000000
-    internalID: 1537655665
+    internalID: 0
     vertices: []
     indices: 
     edges: []
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      shop_0: -25968286
-      shop_1: -1369014846
-      shop_2: 289108220
-      shop_3: -449014244
+      confirm-cancel-buttons_0: 219787122
+      confirm-cancel-buttons_1: 444042852
+      confirm-cancel-buttons_2: 1606168242
+      confirm-cancel-buttons_3: 1059843322
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

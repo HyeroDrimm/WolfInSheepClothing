@@ -10,6 +10,7 @@ public class ShopUIItem : MonoBehaviour
     [SerializeField] private TMP_Text priceText;
     [SerializeField] private Button button;
     [SerializeField] private CanvasGroup canvas;
+    [SerializeField] private GameObject unavailabe;
 
     public Func<ShopItem, bool> OnItemPicked;
 
@@ -36,12 +37,12 @@ public class ShopUIItem : MonoBehaviour
         
         iconImage.sprite = item.icon;
         nameText.text = item.name;
-        priceText.text = item.price.ToString();
+        priceText.text = $"{item.price.ToString()}x";
     }
 
     public void SetVisible(bool state)
     {
-        canvas.alpha = state ? 1 : 0.5f;
+        unavailabe.SetActive(!state);
         canvas.interactable = state;
     }
 }

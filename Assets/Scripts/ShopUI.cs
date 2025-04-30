@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,11 +9,13 @@ public class ShopUI : MonoBehaviour
 {
     [SerializeField] private GameManager gameManager;
     [SerializeField] private Button exitButton;
+    [SerializeField] private Button exitButton2;
     [SerializeField] private float shopRefreshDuration;
     [SerializeField] private ShopUIItem[] shopUiItems;
     [SerializeField] private ShopItem[] shopItems;
     [SerializeField] private Popup notEnoughCoinsPopup;
     [SerializeField] private bool skipCheckForCoins;
+    [SerializeField] private TMP_Text coinAmount;
 
     //Items
 
@@ -20,6 +23,7 @@ public class ShopUI : MonoBehaviour
     private void Awake()
     {
         exitButton.onClick.AddListener(OnExitButtonClicked);
+        exitButton2.onClick.AddListener(OnExitButtonClicked);
 
         foreach (var itemUi in shopUiItems)
         {

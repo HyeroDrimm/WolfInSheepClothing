@@ -12,6 +12,9 @@ public class FollowPlayerWithinBounds : MonoBehaviour
 
     private void UpdatePosition()
     {
+        if (!player)
+            return;
+
         var trackingPoint = (Vector2)player.position + offset;
         camera.position = new Vector3(Mathf.Max(transform.position.x - bounds.x,
             Mathf.Min(transform.position.x + bounds.x, trackingPoint.x)),
@@ -28,6 +31,6 @@ public class FollowPlayerWithinBounds : MonoBehaviour
     void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
-        Gizmos.DrawWireCube(transform.position, bounds);
+        Gizmos.DrawWireCube(transform.position + new Vector3(offset.x, offset.y, 0), bounds);
     }
 }

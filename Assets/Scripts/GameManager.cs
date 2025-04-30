@@ -14,6 +14,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Timer bestTimer;
     [SerializeField] private YouLostUI youLostUI;
     [SerializeField] private CoinCounterUI coinCounterUi;
+    [SerializeField] private CoinCounterUI coinCounterUiShop;
     [SerializeField] private Player player;
     [SerializeField] private Enemy enemy;
 
@@ -118,6 +119,7 @@ public class GameManager : MonoBehaviour
 
     public void EndGame()
     {
+        UpdateTimeScale(0);
         shouldCountTime = false;
         var time = Time.time - startTimestamp;
         var finalTime = time + coinCounter * 10;
@@ -142,10 +144,15 @@ public class GameManager : MonoBehaviour
     {
         coinCounter++;
         coinCounterUi.UpdateCounter(coinCounter);
+        coinCounterUiShop.UpdateCounter(coinCounter);
     }
 
     public void ShowShop(bool state)
     {
+        if (state)
+        {
+            coinCounterUiShop.UpdateCounter(coinCounter);
+        }
         shopUi.SetVisible(state);
         UpdateTimeScale(state ? shopSlowDown : baseGameSpeed);
     }
@@ -196,6 +203,7 @@ public class GameManager : MonoBehaviour
         {
             coinCounter -= itemPrice;
             coinCounterUi.UpdateCounter(coinCounter);
+            coinCounterUiShop.UpdateCounter(coinCounter);
             return true;
         }
 
