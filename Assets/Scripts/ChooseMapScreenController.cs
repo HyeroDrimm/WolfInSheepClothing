@@ -14,12 +14,19 @@ public class ChooseMapScreenController : MonoBehaviour
     [SerializeField] private Button level3Button;
     [SerializeField] private GameObject[] levelStars;
     [SerializeField] private TMP_Text[] levelBestTimes;
+    [SerializeField] private Curtain curtain;
+
+    IEnumerator AddLevel()
+    {
+        var asyncLoadLevel = SceneManager.LoadSceneAsync("MyLevel", LoadSceneMode.Additive);
+        while (!asyncLoadLevel.isDone) yield return null;
+    }
 
     private void Awake()
     {
-        level1Button?.onClick.AddListener(() => ConfirmPopup.Instance.Show(() => SceneManager.LoadScene("Level1"), "Load Level 1?"));
-        level2Button?.onClick.AddListener(() => ConfirmPopup.Instance.Show(() => SceneManager.LoadScene("Level2"), "Load Level 2?"));
-        level3Button?.onClick.AddListener(() => ConfirmPopup.Instance.Show(() => SceneManager.LoadScene("Level3"), "Load Level 3?"));
+        level1Button?.onClick.AddListener(() => curtain.In( () => SceneManager.LoadScene("Level1")));
+        level2Button?.onClick.AddListener(() => curtain.In( () => SceneManager.LoadScene("Level2")));
+        level3Button?.onClick.AddListener(() => curtain.In( () => SceneManager.LoadScene("Level3")));
 
         float[] bestTimeLevel = {PlayerPrefs.GetFloat("TimeMapLevel1", 0), PlayerPrefs.GetFloat("TimeMapLevel2", 0), PlayerPrefs.GetFloat("TimeMapLevel3", 0) };
 

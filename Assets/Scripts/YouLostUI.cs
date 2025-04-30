@@ -14,6 +14,7 @@ public class YouLostUI : MonoBehaviour
     [SerializeField] private TMP_Text bestTimeText;
     [SerializeField] private Button continueButton;
     [SerializeField] private Button quitButton;
+    [SerializeField] private Curtain curtain;
     private const string timePreset = "TIME: {0}";
     private const string cointPreset = "{0}x";
     private const string finalTimePreset = "FINAL TIME: {0}";
@@ -21,8 +22,8 @@ public class YouLostUI : MonoBehaviour
 
     private void Awake()
     {
-        continueButton.onClick.AddListener(()=> SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex));
-        quitButton.onClick.AddListener(() => ConfirmPopup.Instance.Show(() => SceneManager.LoadScene("Menu"), "Exit to Main Menu?"));
+        continueButton.onClick.AddListener(()=>curtain.In(()=> SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex)));
+        quitButton.onClick.AddListener(() => ConfirmPopup.Instance.Show(() => curtain.In(() => SceneManager.LoadScene("Menu")), "Exit to Main Menu?"));
     }
 
     public void Show(float time, float finalTime, float oldTime, int coinCounter)

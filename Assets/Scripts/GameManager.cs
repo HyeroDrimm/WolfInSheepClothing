@@ -47,6 +47,8 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
+        UpdateTimeScale(0);
+
         if (instance != null)
         {
             Debug.Log($"Too many of {this.GetType()} Deleting this one");
@@ -70,7 +72,6 @@ public class GameManager : MonoBehaviour
 
         pocketUi.UpdateItem(itemInPocket);
 
-        UpdateTimeScale(baseGameSpeed);
 
         InvokeRepeating("SpawnDestructors", startingTimeBetweenDestructors, timeBetweenDestructors);
     }
@@ -218,9 +219,14 @@ public class GameManager : MonoBehaviour
         pauseMenuController.SetVisible(state);
     }
 
-    private void UpdateTimeScale(float timeScale)
+    public void UpdateTimeScale(float timeScale)
     {
         gameSpeed = timeScale;
         Time.timeScale = timeScale;
+    }
+
+    public void StartGame()
+    {
+        UpdateTimeScale(1);
     }
 }

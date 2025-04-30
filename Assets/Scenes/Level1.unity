@@ -19078,6 +19078,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1634014062005575866, guid: d0b9fb94d0a21af4dbf12177db0a5494, type: 3}
+      propertyPath: gameManager
+      value: 
+      objectReference: {fileID: 572848620}
     - target: {fileID: 2334175960856017297, guid: d0b9fb94d0a21af4dbf12177db0a5494, type: 3}
       propertyPath: m_Pivot.x
       value: 0
