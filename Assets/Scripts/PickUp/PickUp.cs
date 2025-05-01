@@ -6,6 +6,7 @@ public abstract class PickUp : MonoBehaviour
     [HideInInspector] public Transform PickUpPlace;
     [HideInInspector] public bool isShown;
     public Action<Transform> OnPickedUp;
+    private PathNode pathNode;
 
     protected virtual void Awake()
     {
@@ -18,12 +19,19 @@ public abstract class PickUp : MonoBehaviour
         {
             var player = other.GetComponentInParent<Player>();
             OnPlayerPickedUp(player);
+            pathNode.HidePickup();
         }
         else if (other.CompareTag("Enemy"))
         {
             var enemy = other.GetComponentInParent<Enemy>();
             OnEnemyPickedUp(enemy);
+            pathNode.HidePickup();
         }
+    }
+
+    public void Setup(PathNode pathNode)
+    {
+        this.pathNode = pathNode;
     }
 
     public void SetVisible(bool state)

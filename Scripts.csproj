@@ -70,8 +70,6 @@
     <Compile Include="Assets\Scripts\ShopUI.cs" />
     <Compile Include="Assets\Scripts\FollowGameObject.cs" />
     <Compile Include="Assets\Scripts\PauseMenuController.cs" />
-    <Compile Include="Assets\Scripts\Destructor.cs" />
-    <Compile Include="Assets\Scripts\PathController.cs" />
     <Compile Include="Assets\Scripts\IFollowTarget.cs" />
     <Compile Include="Assets\Scripts\MenuController.cs" />
     <Compile Include="Assets\Scripts\Timer.cs" />
@@ -82,7 +80,6 @@
     <Compile Include="Assets\Scripts\Helpers.cs" />
     <Compile Include="Assets\Scripts\LevelReset.cs" />
     <Compile Include="Assets\Scripts\PickUp\SpeedChangePowerUp.cs" />
-    <Compile Include="Assets\Scripts\PickUpManager.cs" />
     <Compile Include="Assets\Scripts\PocketUI.cs" />
     <Compile Include="Assets\Scripts\Shop.cs" />
     <Compile Include="Assets\Scripts\Enemy.cs" />
@@ -96,6 +93,8 @@
     <Compile Include="Assets\Scripts\DontDestroyWhenLoading.cs" />
     <Compile Include="Assets\Scripts\ConfirmPopup.cs" />
     <Compile Include="Assets\Scripts\PickUp\Coin.cs" />
+    <Compile Include="Assets\Scripts\PathNode.cs" />
+    <Compile Include="Assets\Scripts\BoardManager.cs" />
     <Compile Include="Assets\Scripts\GameStart.cs" />
   </ItemGroup>
   <ItemGroup>

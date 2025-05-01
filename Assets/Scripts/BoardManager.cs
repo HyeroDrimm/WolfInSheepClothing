@@ -3,48 +3,40 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using NaughtyAttributes;
-using UnityEngine;
-using Roy_T.AStar;
 using Roy_T.AStar.Graphs;
 using Roy_T.AStar.Paths;
 using Roy_T.AStar.Primitives;
 using UnityEditor;
-using Random = UnityEngine.Random;
+using UnityEngine;
 
-public class PathController : MonoBehaviour
+[DefaultExecutionOrder(-10)]
+public class BoardManager : MonoBehaviour
 {
-    public static PathController Singleton;
+    [SerializeField] private List<PathNode> nodes;
     [SerializeField] private List<NodeConnection> nodeConnections;
-    [SerializeField] private Dictionary<GameObject, Node> gameObjectToNode;
+    [SerializeField] private Dictionary<PathNode, Node> gameObjectToNode;
+    [SerializeField] private Player player;
+    [SerializeField] private Enemy enemy;
+
+    [Header("Destruction")]
+    [SerializeField] private AnimationCurve destructionCurve;
+    [SerializeField] private float maxDestructionTime;
+    [SerializeField] private int maxDestructorsAtTime;
+    [SerializeField] private int newDestructorsAmount;
+    [SerializeField] private float startingTimeBetweenDestructors;
+    [SerializeField] private float timeBetweenDestructors;
+    [SerializeField] private float timeToExplode;
+
     [Header("Create")]
     [SerializeField] private bool createMode;
-    [SerializeField] private Sprite circleSprite;
 
-    private Path output;
     private HashSet<NodeConnection> currentConnections;
-    private HashSet<GameObject> allNodes = new();
-
-
     private List<LineRenderer> lrs = new List<LineRenderer>();
+    private HashSet<PathNode> explodedNodes;
+
 
     private void Awake()
     {
-        if (Singleton != null)
-        {
-            Debug.Log($"Too many of {this.GetType()} Deleting this one");
-            Destroy(this);
-        }
-        else
-        {
-            Singleton = this;
-        }
-
-        foreach (var connection in nodeConnections)
-        {
-            allNodes.Add(connection.node1);
-            allNodes.Add(connection.node2);
-        }
-
         currentConnections = nodeConnections.ToHashSet();
 
         if (createMode)
@@ -64,12 +56,17 @@ public class PathController : MonoBehaviour
                 lr.SetPosition(0, connection.node1.gameObject.transform.position);
                 lr.SetPosition(1, connection.node2.gameObject.transform.position);
             }
-
-            foreach (var node in allNodes)
-            {
-                node.AddComponent<SpriteRenderer>().sprite = circleSprite;
-            }
         }
+
+        foreach (var pathNode in nodes)
+        {
+            pathNode.Setup(player, enemy, this);
+        }
+
+        player.Setup(this, enemy);
+        enemy.Setup(this, player);
+
+        InvokeRepeating("SpawnDestructors", startingTimeBetweenDestructors, timeBetweenDestructors);
     }
 
     private void Start()
@@ -77,12 +74,7 @@ public class PathController : MonoBehaviour
         CreateGraph();
     }
 
-    private void Update()
-    {
-
-    }
-
-    public void SetStateOfNodes(bool state, params GameObject[] nodes)
+    public void SetStateOfNodes(bool state, params PathNode[] nodes)
     {
         // TODO add list of destroyed nodes
         if (state)
@@ -101,7 +93,7 @@ public class PathController : MonoBehaviour
     {
         var maxAgentSeed = Velocity.FromKilometersPerHour(100);
 
-        gameObjectToNode = new Dictionary<GameObject, Node>();
+        gameObjectToNode = new Dictionary<PathNode, Node>();
 
         foreach (var connection in currentConnections)
         {
@@ -127,7 +119,7 @@ public class PathController : MonoBehaviour
         }
     }
 
-    public Path GetPath(GameObject startingNode, GameObject endingNode)
+    public Path GetPath(PathNode startingNode, PathNode endingNode)
     {
         gameObjectToNode.TryGetValue(startingNode, out Node nodeA);
         gameObjectToNode.TryGetValue(endingNode, out Node nodeB);
@@ -148,14 +140,13 @@ public class PathController : MonoBehaviour
         return path;
     }
 
-
     [Serializable]
     public class NodeConnection
     {
-        public GameObject node1;
-        public GameObject node2;
+        public PathNode node1;
+        public PathNode node2;
 
-        public NodeConnection(GameObject node1, GameObject node2)
+        public NodeConnection(PathNode node1, PathNode node2)
         {
             this.node1 = node1;
             this.node2 = node2;
@@ -164,14 +155,14 @@ public class PathController : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        if (output != null)
-        {
-            foreach (var edge in output.Edges)
-            {
-                Gizmos.DrawLine(new Vector3(edge.Start.Position.X, edge.Start.Position.Y), new Vector3(edge.End.Position.X, edge.End.Position.Y));
-            }
-        }
-        else
+        // if (output != null)
+        // {
+        //     foreach (var edge in output.Edges)
+        //     {
+        //         Gizmos.DrawLine(new Vector3(edge.Start.Position.X, edge.Start.Position.Y), new Vector3(edge.End.Position.X, edge.End.Position.Y));
+        //     }
+        // }
+        // else
         {
             foreach (var node in nodeConnections)
             {
@@ -192,12 +183,44 @@ public class PathController : MonoBehaviour
     public void MakeConnection()
     {
         var objects = Selection.gameObjects;
-        if (objects.Length == 2)
+        if (objects.Length == 2 && objects[0].TryGetComponent(out PathNode pathNode1) && objects[1].TryGetComponent(out PathNode pathNode2))
         {
             Undo.RecordObject(this, "Add new connection");
-            nodeConnections.Add(new NodeConnection(objects[0], objects[1]));
+            nodeConnections.Add(new NodeConnection(pathNode1, pathNode2));
             PrefabUtility.RecordPrefabInstancePropertyModifications(this);
         }
     }
 #endif
+    public void AddNode(PathNode pathNode)
+    {
+        throw new NotImplementedException();
+    }
+
+    public void RemoveNode(PathNode pathNode)
+    {
+        throw new NotImplementedException();
+    }
+
+    private void SpawnDestructors()
+    {
+        var time = Mathf.Clamp01(Time.timeSinceLevelLoad / maxDestructionTime);
+
+        var toSpawnNumber = 2 + Mathf.FloorToInt(destructionCurve.Evaluate(time) * newDestructorsAmount);
+
+        var destructosAvaliable = nodes.Where(x => x.State != PathNode.DestructorState.On && x.State != PathNode.DestructorState.Exploded).ToList();
+        var destructosOn = nodes.Where(x => x.State == PathNode.DestructorState.On).ToList();
+
+        for (int i = 0; i < Mathf.Min(maxDestructorsAtTime - destructosOn.Count, toSpawnNumber); i++)
+        {
+            if (destructosAvaliable.Count != 0)
+            {
+                var newPickUp = destructosAvaliable.Random();
+                newPickUp.StartTimer(timeToExplode);
+            }
+            else
+            {
+                break;
+            }
+        }
+    }
 }

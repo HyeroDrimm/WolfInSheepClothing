@@ -2,5 +2,5 @@
 
 public interface IFollowTarget
 {
-    public GameObject CurrentPosition();
+    public PathNode CurrentPosition();
 }

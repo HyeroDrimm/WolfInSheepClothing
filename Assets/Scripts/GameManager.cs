@@ -4,7 +4,6 @@ using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using static PickUpManager;
 
 public class GameManager : MonoBehaviour
 {
@@ -29,7 +28,6 @@ public class GameManager : MonoBehaviour
 
     [Header("Deleting nodes")]
     [SerializeField] private AnimationCurve destructionCurve;
-    [SerializeField] private List<Destructor> destructors;
     [SerializeField] private float maxDestructionTime;
     [SerializeField] private int maxDestructorsAtTime;
     [SerializeField] private int newDestructorsAmount;
@@ -63,9 +61,6 @@ public class GameManager : MonoBehaviour
         startTimestamp = Time.time;
 
         pocketUi.UpdateItem(itemInPocket);
-
-
-        InvokeRepeating("SpawnDestructors", startingTimeBetweenDestructors, timeBetweenDestructors);
     }
 
     private void Update()
@@ -84,29 +79,6 @@ public class GameManager : MonoBehaviour
         {
             isPause = !isPause;
             SetPause(isPause);
-        }
-    }
-
-    private void SpawnDestructors()
-    {
-        var time = Mathf.Clamp01(Time.timeSinceLevelLoad / maxDestructionTime);
-
-        var toSpawnNumber = 2 + Mathf.FloorToInt(destructionCurve.Evaluate(time) * newDestructorsAmount);
-
-        var destructosAvaliable = destructors.Where(x => x.State != Destructor.DestructorState.On && x.State != Destructor.DestructorState.Exploded).ToList();
-        var destructosOn = destructors.Where(x => x.State == Destructor.DestructorState.On).ToList();
-
-        for (int i = 0; i < Mathf.Min(maxDestructorsAtTime - destructosOn.Count, toSpawnNumber); i++)
-        {
-            if (destructosAvaliable.Count != 0)
-            {
-                var newPickUp = destructosAvaliable.Random();
-                newPickUp.StartTimer(timeToExplode);
-            }
-            else
-            {
-                break;
-            }
         }
     }
 

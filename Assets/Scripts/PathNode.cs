@@ -1,36 +1,47 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Codice.Client.BaseCommands;
+using Codice.CM.Common;
 using UnityEngine;
-using UnityEngine.UI;
+using UnityEngine.VFX;
 
-public class Destructor : MonoBehaviour
+public class PathNode : MonoBehaviour
 {
-    [SerializeField] private GameObject node;
+    [Header("Pickups")]
+    [SerializeField] private Coin coinPickup;
+    [SerializeField] private SpeedChangePowerUp speedUpPickup;
+    [SerializeField] private SpeedChangePowerUp speedDownPickup;
+    [SerializeField] private FreezeEnemyPowerUp freezePickup;
+    [Header("Destructor")]
     [SerializeField] private GameObject hitBox;
-    [SerializeField] private GameObject shop;
     [SerializeField] private float decreaseRate = 1f;
-    [SerializeField] private GameObject[] pickups;
-    [SerializeField] private Player player;
-    [SerializeField] private Enemy enemy;
 
-    [Header("Visuals")]
     [SerializeField] private GameObject normalVisual;
     [SerializeField] private GameObject prepare1Visual;
     [SerializeField] private GameObject prepare2Visual;
     [SerializeField] private GameObject prepare3Visual;
     [SerializeField] private GameObject explodedVisuals;
 
+    
+    private Player player;
+    private Enemy enemy;
+    private BoardManager boardManager;
+    private PickUp currentPickup = null;
+
     private DestructorState state = DestructorState.None;
     private float timer = 0;
     private float maxTime = 0;
 
     public DestructorState State => state;
-    public GameObject Node => node;
 
     private void Awake()
     {
         SetState(DestructorState.Neutral);
+        coinPickup.Setup(this);
+        speedUpPickup.Setup(this);
+        speedDownPickup.Setup(this);
+        freezePickup.Setup(this);
     }
 
     private void Update()
@@ -39,7 +50,7 @@ public class Destructor : MonoBehaviour
         {
             timer += Time.deltaTime;
             var fraction = timer / maxTime;
-            if (fraction >= 1.0f && player)
+            if (fraction >= 1.0f)
             {
                 SetState(DestructorState.Exploded);
             }
@@ -110,10 +121,7 @@ public class Destructor : MonoBehaviour
             normalVisual.SetActive(destructorState == DestructorState.Neutral);
             explodedVisuals.SetActive(destructorState == DestructorState.Exploded);
             hitBox.SetActive(destructorState != DestructorState.Exploded);
-            if (shop != null)
-            {
-                shop.SetActive(destructorState == DestructorState.Exploded);
-            }
+            
 
             switch (destructorState)
             {
@@ -125,18 +133,14 @@ public class Destructor : MonoBehaviour
                 case DestructorState.On:
                     if (state == DestructorState.Exploded)
                     {
-                        PathController.Singleton.SetStateOfNodes(true, node);
+                        boardManager.AddNode(this);
                     }
                     break;
                 case DestructorState.Exploded:
                     prepare1Visual.SetActive(false);
                     prepare2Visual.SetActive(false);
                     prepare3Visual.SetActive(false);
-                    PathController.Singleton.SetStateOfNodes(false, node);
-                    foreach (var pickup in pickups)
-                    {
-                        Destroy(pickup);
-                    }
+                    boardManager.RemoveNode(this);
                     break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(destructorState), destructorState, null);
@@ -144,6 +148,34 @@ public class Destructor : MonoBehaviour
 
             this.state = destructorState;
         }
+    }
+
+    public void ShowPickup(PickupType pickupType)
+    {
+        switch (pickupType)
+        {
+            case PickupType.SpeedUp:
+                currentPickup = speedUpPickup;
+                break;
+            case PickupType.SpeedDown:
+                currentPickup = speedDownPickup;
+                break;
+            case PickupType.Freeze:
+                currentPickup = freezePickup;
+                break;
+            case PickupType.Coin:
+                currentPickup = coinPickup;
+                break;
+            default:
+                throw new ArgumentOutOfRangeException(nameof(pickupType), pickupType, null);
+        }
+
+        currentPickup.SetVisible(true);
+    }
+
+    public void HidePickup()
+    {
+        currentPickup = null;
     }
 
 
@@ -154,4 +186,22 @@ public class Destructor : MonoBehaviour
         On,
         Exploded,
     }
+
+    public enum PickupType
+    {
+        SpeedUp,
+        SpeedDown,
+        Freeze,
+        Coin,
+    }
+
+    // Setup
+
+    public void Setup(Player player, Enemy enemy, BoardManager boardManager)
+    {
+        this.player = player;
+        this.enemy = enemy;
+        this.boardManager = boardManager;
+    }
+
 }

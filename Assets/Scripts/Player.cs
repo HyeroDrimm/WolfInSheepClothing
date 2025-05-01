@@ -9,8 +9,7 @@ using static UnityEngine.GraphicsBuffer;
 public class Player : MonoBehaviour, IFollowTarget
 {
     [SerializeField] private PathActorAnimator animator;
-    [SerializeField] private Enemy enemy;
-    [SerializeField] private GameObject startingNode;
+    [SerializeField] private PathNode startingNode;
     [SerializeField] private GameManager gameManager;
     [SerializeField] private float movementSpeed;
     [SerializeField] private float movementSpeedBase;
@@ -20,12 +19,14 @@ public class Player : MonoBehaviour, IFollowTarget
     [SerializeField] private Popup useDollPopup;
     [SerializeField] private SpriteRenderer visual;
 
+    private Enemy enemy;
     public Path path;
     private int edgeIndex;
     private bool isMoving = false;
     private bool isWaitingAfterMove = false;
-    private GameObject currentPosition;
-    private GameObject queuedPlace;
+    private PathNode currentPosition;
+    private PathNode queuedPlace;
+    private BoardManager boardManager;
 
     // Animation Names
     private const string RUN_ANIMATION = "Run";
@@ -48,7 +49,7 @@ public class Player : MonoBehaviour, IFollowTarget
     public Path Path => path;
 
 
-    GameObject IFollowTarget.CurrentPosition()
+    PathNode IFollowTarget.CurrentPosition()
     {
         return currentPosition;
     }
@@ -72,10 +73,10 @@ public class Player : MonoBehaviour, IFollowTarget
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit2D hit = Physics2D.GetRayIntersection(ray, Mathf.Infinity, 1 << 6);
 
-            if (hit.collider != null && hit.collider.transform.CompareTag("PathfindingTargets"))
+            if (hit.collider != null && hit.collider.transform.CompareTag("PathfindingTargets") && hit.transform.parent.TryGetComponent(out PathNode target))
             {
                 var doll = Instantiate(dollPrefab, hit.transform.position, Quaternion.identity);
-                doll.currentPosition = hit.transform.parent.gameObject;
+                doll.currentPosition = target;
                 enemy.Doll = doll;
                 useDoll = false;
                 useDollPopup.SetVisible(false);
@@ -88,12 +89,11 @@ public class Player : MonoBehaviour, IFollowTarget
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit2D hit = Physics2D.GetRayIntersection(ray, Mathf.Infinity, 1 << 6);
 
-            if (hit.collider != null && hit.transform.CompareTag("PathfindingTargets") && hit.transform.parent.gameObject != currentPosition)
+            if (hit.collider != null && hit.transform.CompareTag("PathfindingTargets") && hit.transform.parent.TryGetComponent(out PathNode target) && target != currentPosition)
             {
-                var target = hit.transform.parent.gameObject;
                 if (!isFrozen && !isMoving && !isWaitingAfterMove)
                 {
-                    path = PathController.Singleton.GetPath(currentPosition, target);
+                    path = boardManager.GetPath(currentPosition, target);
                     if (path != null && path.Type == PathType.Complete)
                     {
                         edgeIndex = 0;
@@ -115,7 +115,7 @@ public class Player : MonoBehaviour, IFollowTarget
 
         if (!isFrozen && !isMoving && !isWaitingAfterMove && queuedPlace != null && queuedPlace != currentPosition)
         {
-            path = PathController.Singleton.GetPath(currentPosition, queuedPlace);
+            path = boardManager.GetPath(currentPosition, queuedPlace);
             if (path != null && path.Type == PathType.Complete)
             {
                 edgeIndex = 0;
@@ -262,4 +262,10 @@ public class Player : MonoBehaviour, IFollowTarget
     }
 
     #endregion
+
+    public void Setup(BoardManager boardManager, Enemy enemy)
+    {
+        this.boardManager = boardManager;
+        this.enemy = enemy;
+    }
 }

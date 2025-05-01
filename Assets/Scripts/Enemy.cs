@@ -7,8 +7,7 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
     [SerializeField] private PathActorAnimator animator;
-    [SerializeField] private Player player;
-    [SerializeField] private GameObject startingNode;
+    [SerializeField] private PathNode startingNode;
     [SerializeField] private float movementSpeed;
     [SerializeField] private float movementSpeedBaseStarting;
     [SerializeField] private float movementSpeedBaseMax;
@@ -21,12 +20,14 @@ public class Enemy : MonoBehaviour
     [SerializeField] private GameObject teleportVisualsDestination;
     [SerializeField] private float timeToTeleport;
 
+    private Player player;
     private Path path;
-    private GameObject currentPosition;
+    private PathNode currentPosition;
     private int edgeIndex;
     private bool isMoving = false;
     private bool isWaitingAfterMove = false;
-    private GameObject placeToTeleport;
+    private PathNode placeToTeleport;
+    private BoardManager boardManager;
 
     [HideInInspector] public Doll Doll;
 
@@ -72,7 +73,7 @@ public class Enemy : MonoBehaviour
         {
             IFollowTarget followTarget = Doll == null ? player : Doll;
             // raycast hit this gameobject
-            path = PathController.Singleton.GetPath(currentPosition, followTarget.CurrentPosition());
+            path = boardManager.GetPath(currentPosition, followTarget.CurrentPosition());
             if (path != null && path.Type == PathType.Complete)
             {
                 edgeIndex = 0;
@@ -151,6 +152,11 @@ public class Enemy : MonoBehaviour
     private void WaitAfterMove()
     {
         isWaitingAfterMove = false;
+    }
+    public void Setup(BoardManager boardManager, Player player)
+    {
+        this.boardManager = boardManager;
+        this.player = player;
     }
 
     #region PowerUps

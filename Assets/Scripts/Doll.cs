@@ -2,8 +2,8 @@
 
 public class Doll : MonoBehaviour, IFollowTarget
 {
-    [HideInInspector] public GameObject currentPosition;
-    public GameObject CurrentPosition()
+    [HideInInspector] public PathNode currentPosition;
+    public PathNode CurrentPosition()
     {
         return currentPosition;
     }

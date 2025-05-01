@@ -1,71 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &349220692709551466
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 6925316726318956195}
-  - component: {fileID: 2640259515162050441}
-  m_Layer: 0
-  m_Name: Pick Up Manager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &6925316726318956195
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 349220692709551466}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 9040651546720943711}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2640259515162050441
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 349220692709551466}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 594b8d5eb8c93f44a863b0be0d8600cb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  nullRadius: 3
-  nullCenters:
-  - {fileID: 2041492511716217077}
-  - {fileID: 8838980764326488095}
-  playerRoad: []
-  enemyRoad: []
-  pickUpTypesHolders:
-  - pickUps: []
-    timeBetweenSpawns: 2
-    numberSpawned: 1
-    maxSpawned: 2
-    counter: 0
-  - pickUps: []
-    timeBetweenSpawns: 20
-    numberSpawned: 2
-    maxSpawned: 2
-    counter: 0
-  - pickUps: []
-    timeBetweenSpawns: 10
-    numberSpawned: 2
-    maxSpawned: 3
-    counter: 0
 --- !u!1 &549191079180567916
 GameObject:
   m_ObjectHideFlags: 0
@@ -75,9 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4588587433711459810}
-  - component: {fileID: 6386732620299510119}
   m_Layer: 0
-  m_Name: Path Controller
+  m_Name: Path Nodes
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -98,21 +31,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 9040651546720943711}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6386732620299510119
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 549191079180567916}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9bbbf6ee5aaea3343af7cd07a39a08c3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  nodeConnections: []
-  createMode: 0
-  circleSprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
 --- !u!1 &3917522455684061249
 GameObject:
   m_ObjectHideFlags: 0
@@ -122,6 +40,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9040651546720943711}
+  - component: {fileID: 1719663051274380882}
   m_Layer: 0
   m_Name: Board
   m_TagString: Untagged
@@ -146,9 +65,37 @@ Transform:
   - {fileID: 8838980764326488095}
   - {fileID: 235693370421477566}
   - {fileID: 4588587433711459810}
-  - {fileID: 6925316726318956195}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1719663051274380882
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3917522455684061249}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ca7d04c9da11bb041abd1e57ce43a30b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nodes: []
+  nodeConnections: []
+  player: {fileID: 4227759225785312412}
+  enemy: {fileID: 8373073416667698421}
+  destructionCurve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  maxDestructionTime: 0
+  maxDestructorsAtTime: 0
+  newDestructorsAmount: 0
+  startingTimeBetweenDestructors: 0
+  timeBetweenDestructors: 0
+  timeToExplode: 0
+  createMode: 0
 --- !u!1 &4186548191953606477
 GameObject:
   m_ObjectHideFlags: 0
