@@ -8,6 +8,7 @@ using Roy_T.AStar.Paths;
 using Roy_T.AStar.Primitives;
 using UnityEditor;
 using UnityEngine;
+using static PathNode;
 using Random = UnityEngine.Random;
 
 [DefaultExecutionOrder(-10)]
@@ -28,6 +29,15 @@ public class BoardManager : MonoBehaviour
     [SerializeField] private float timeBetweenGlitches;
     [SerializeField] private float timeToExplode;
 
+    [Header("Pickups")] 
+    [SerializeField] private int maxPickupsAtTime;
+    [SerializeField] private float startingTimeBetweenPickups;
+    [SerializeField] private float timeBetweenPickups;
+    [SerializeField] private float speedUpChance;
+    [SerializeField] private float speedDownChance;
+    [SerializeField] private float freezeChance;
+    [SerializeField] private float coinChance;
+
     [Header("Create")]
     [SerializeField] private bool createMode;
 
@@ -36,9 +46,16 @@ public class BoardManager : MonoBehaviour
     private HashSet<PathNode> explodedNodes = new HashSet<PathNode>();
     private Dictionary<PathNode, PathNode[]> nodeNeighbours = new Dictionary<PathNode, PathNode[]>();
 
+    private Helpers.WeightedRandomList<PathNode.PickupType> weightedPickupsRandom;
 
     private void Awake()
     {
+        weightedPickupsRandom =
+            new Helpers.WeightedRandomList<PathNode.PickupType>(
+                new float[] { speedUpChance, speedDownChance, freezeChance, coinChance, },
+                new PathNode.PickupType[] { PickupType.SpeedUp, PickupType.SpeedDown, PickupType.Freeze, PickupType.Coin, });
+
+
         currentConnections = nodeConnections.ToHashSet();
 
         if (createMode)
@@ -83,6 +100,7 @@ public class BoardManager : MonoBehaviour
         }
 
         InvokeRepeating("SpawnGlitches", startingTimeBetweenGlitches, timeBetweenGlitches);
+        InvokeRepeating("SpawnPickups", startingTimeBetweenPickups, timeBetweenPickups);
     }
 
     private void Start()
@@ -254,5 +272,21 @@ public class BoardManager : MonoBehaviour
         }
 
         return output;
+    }
+
+    private void SpawnPickups()
+    {
+        var nodeCandidates = nodes.Where(x => !IsNodeInAnyPaths(x) && x.State == PathNode.DestructorState.Neutral && !x.IsPickup).Shuffle().ToList();
+        if (nodes.Count(x=>x.IsPickup) >= maxPickupsAtTime || nodeCandidates.Count == 0) return;
+
+        var nodeBestCandidate = nodeCandidates[0];
+        
+        nodeBestCandidate.ShowPickup(weightedPickupsRandom.GetRandomItem());
+    }
+
+    private float DistanceToMovingActors(PathNode pathNode)
+    {
+        return Vector3.Distance(pathNode.transform.position, player.transform.position) +
+               Vector3.Distance(pathNode.transform.position, enemy.transform.position);
     }
 }

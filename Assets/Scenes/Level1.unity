@@ -18947,10 +18947,6 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 1719663051274380882, guid: cbb819c8d276a444fa52e9e9c6e6209c, type: 3}
-      propertyPath: timeToExplode
-      value: 20
-      objectReference: {fileID: 0}
-    - target: {fileID: 1719663051274380882, guid: cbb819c8d276a444fa52e9e9c6e6209c, type: 3}
       propertyPath: nodes.Array.size
       value: 11
       objectReference: {fileID: 0}
@@ -18995,20 +18991,12 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1007622991}
     - target: {fileID: 1719663051274380882, guid: cbb819c8d276a444fa52e9e9c6e6209c, type: 3}
-      propertyPath: timeBetweenGlitches
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 1719663051274380882, guid: cbb819c8d276a444fa52e9e9c6e6209c, type: 3}
       propertyPath: nodes.Array.data[10]
       value: 
       objectReference: {fileID: 419759180}
     - target: {fileID: 1719663051274380882, guid: cbb819c8d276a444fa52e9e9c6e6209c, type: 3}
       propertyPath: nodeConnections.Array.size
       value: 14
-      objectReference: {fileID: 0}
-    - target: {fileID: 1719663051274380882, guid: cbb819c8d276a444fa52e9e9c6e6209c, type: 3}
-      propertyPath: startingTimeBetweenGlitches
-      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1719663051274380882, guid: cbb819c8d276a444fa52e9e9c6e6209c, type: 3}
       propertyPath: startingTimeBetweenDestructors

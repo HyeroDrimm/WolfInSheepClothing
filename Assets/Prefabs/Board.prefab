@@ -109,9 +109,16 @@ MonoBehaviour:
     m_RotationOrder: 4
   maxGlitchesAtTime: 5
   chanceToSeedGlitch: 0.1
-  startingTimeBetweenGlitches: 5
-  timeBetweenGlitches: 5
-  timeToExplode: 10
+  startingTimeBetweenGlitches: 2
+  timeBetweenGlitches: 2
+  timeToExplode: 20
+  maxPickupsAtTime: 4
+  startingTimeBetweenPickups: 2
+  timeBetweenPickups: 4
+  speedUpChance: 1
+  speedDownChance: 1
+  freezeChance: 1
+  coinChance: 1
   createMode: 0
 --- !u!1 &4186548191953606477
 GameObject:

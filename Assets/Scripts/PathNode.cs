@@ -37,6 +37,7 @@ public class PathNode : MonoBehaviour
     public DestructorState State => state;
 
     public float CorruptionFraction => corruptionFraction;
+    public bool IsPickup => currentPickup != null;
 
     private void Awake()
     {

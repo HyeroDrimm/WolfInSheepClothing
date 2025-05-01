@@ -40,6 +40,61 @@ internal static class Helpers
         list.Shuffle();
         return list;
     }
+
+    public class WeightedRandomList
+    {
+        private float weightSum;
+        private float[] weights;
+
+        public float WeightSum => weightSum;
+        public float[] Weights => weights;
+
+        public WeightedRandomList(float[] weights)
+        {
+            this.weights = weights;
+            this.weightSum = weights.Sum();
+        }
+
+        public int GetRandomIndex()
+        {
+            var roll = UnityEngine.Random.Range(1, weightSum);
+            var output = 0;
+            while (roll >= weights[output])
+            {
+                roll -= weights[output];
+                output++;
+            }
+
+            return output;
+        }
+    }
+
+    // WeightedRandomList with item list
+    public class WeightedRandomList<T>
+    {
+        private T[] items;
+        private WeightedRandomList baseList;
+
+        public float WeightSum => baseList.WeightSum;
+        public float[] Weights => baseList.Weights;
+        public T[] Items => items;
+
+        public WeightedRandomList(float[] weights, T[] items)
+        {
+            baseList = new WeightedRandomList(weights);
+            this.items = items;
+        }
+
+        public int GetRandomIndex()
+        {
+            return baseList.GetRandomIndex();
+        }
+
+        public T GetRandomItem()
+        {
+            return Items[baseList.GetRandomIndex()];
+        }
+    }
 }
 
 public static class LevelsConsts
