@@ -14,7 +14,6 @@ public class Coin : PickUp
     {
         SoundEffectPlayer.Instance.PlaySoundClip(SoundEffectPlayer.COIN);
         GameManager.instance.CollectCoin();
-        SetVisible(false);
     }
 
     public override void OnEnemyPickedUp(Enemy enemy) { }

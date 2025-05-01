@@ -234,7 +234,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 348085823099632562}
-  enemy: {fileID: 0}
   startingNode: {fileID: 0}
   gameManager: {fileID: 0}
   movementSpeed: 0.5

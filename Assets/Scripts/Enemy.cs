@@ -158,7 +158,7 @@ public class Enemy : MonoBehaviour
         this.boardManager = boardManager;
         this.player = player;
     }
-
+    
     #region PowerUps
 
     public void PickedUpSpeedChangePowerUp(float speedModifier, float duration)

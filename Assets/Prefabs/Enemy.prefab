@@ -49,7 +49,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 771317288902642861}
-  player: {fileID: 0}
   startingNode: {fileID: 0}
   movementSpeed: 0.3
   movementSpeedBaseStarting: 1.5
@@ -135,7 +134,7 @@ GameObject:
   - component: {fileID: 7734244964273487435}
   - component: {fileID: 2109180388735877255}
   - component: {fileID: 4230756826000500305}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Teleport Visual Enemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}

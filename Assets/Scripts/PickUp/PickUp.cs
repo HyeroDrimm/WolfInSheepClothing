@@ -5,7 +5,6 @@ public abstract class PickUp : MonoBehaviour
 {
     [HideInInspector] public Transform PickUpPlace;
     [HideInInspector] public bool isShown;
-    public Action<Transform> OnPickedUp;
     private PathNode pathNode;
 
     protected virtual void Awake()
@@ -38,11 +37,6 @@ public abstract class PickUp : MonoBehaviour
     {
         isShown = state;
         gameObject.SetActive(state);
-        
-        if (!state)
-        {
-            OnPickedUp?.Invoke(PickUpPlace);
-        }
     }
 
     public abstract void OnPlayerPickedUp(Player player);

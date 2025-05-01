@@ -8,23 +8,24 @@ using Roy_T.AStar.Paths;
 using Roy_T.AStar.Primitives;
 using UnityEditor;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 [DefaultExecutionOrder(-10)]
 public class BoardManager : MonoBehaviour
 {
     [SerializeField] private List<PathNode> nodes;
     [SerializeField] private List<NodeConnection> nodeConnections;
-    [SerializeField] private Dictionary<PathNode, Node> gameObjectToNode;
+    [SerializeField] private Dictionary<PathNode, Node> pathNodeToNode;
+    [SerializeField] private Dictionary<Node, PathNode> nodeToPathNode;
     [SerializeField] private Player player;
     [SerializeField] private Enemy enemy;
 
     [Header("Destruction")]
     [SerializeField] private AnimationCurve destructionCurve;
-    [SerializeField] private float maxDestructionTime;
-    [SerializeField] private int maxDestructorsAtTime;
-    [SerializeField] private int newDestructorsAmount;
-    [SerializeField] private float startingTimeBetweenDestructors;
-    [SerializeField] private float timeBetweenDestructors;
+    [SerializeField] private int maxGlitchesAtTime;
+    [SerializeField] private float chanceToSeedGlitch = 0.1f;
+    [SerializeField] private float startingTimeBetweenGlitches;
+    [SerializeField] private float timeBetweenGlitches;
     [SerializeField] private float timeToExplode;
 
     [Header("Create")]
@@ -32,7 +33,8 @@ public class BoardManager : MonoBehaviour
 
     private HashSet<NodeConnection> currentConnections;
     private List<LineRenderer> lrs = new List<LineRenderer>();
-    private HashSet<PathNode> explodedNodes;
+    private HashSet<PathNode> explodedNodes = new HashSet<PathNode>();
+    private Dictionary<PathNode, PathNode[]> nodeNeighbours = new Dictionary<PathNode, PathNode[]>();
 
 
     private void Awake()
@@ -66,7 +68,21 @@ public class BoardManager : MonoBehaviour
         player.Setup(this, enemy);
         enemy.Setup(this, player);
 
-        InvokeRepeating("SpawnDestructors", startingTimeBetweenDestructors, timeBetweenDestructors);
+        // Create neighbours dict
+        foreach (var node in nodes)
+        {
+            var list = new List<PathNode>();
+            foreach (var connection in nodeConnections)
+            {
+                if (connection.node1 == node)
+                    list.Add(connection.node2);
+                if (connection.node2 == node)
+                    list.Add(connection.node1);
+            }
+            nodeNeighbours.Add(node, list.ToArray());
+        }
+
+        InvokeRepeating("SpawnGlitches", startingTimeBetweenGlitches, timeBetweenGlitches);
     }
 
     private void Start()
@@ -76,15 +92,17 @@ public class BoardManager : MonoBehaviour
 
     public void SetStateOfNodes(bool state, params PathNode[] nodes)
     {
-        // TODO add list of destroyed nodes
         if (state)
         {
-            currentConnections.UnionWith(nodeConnections.Where(x => nodes.Contains(x.node1) || nodes.Contains(x.node2)));
+            explodedNodes.RemoveWhere(nodes.Contains);
         }
         else
         {
-            currentConnections.RemoveWhere(x => nodes.Contains(x.node1) || nodes.Contains(x.node2));
+            explodedNodes.UnionWith(nodes);
         }
+
+        currentConnections = nodeConnections.Where(x => !nodes.Contains(x.node1) && !nodes.Contains(x.node2))
+            .ToHashSet();
 
         CreateGraph();
     }
@@ -93,38 +111,39 @@ public class BoardManager : MonoBehaviour
     {
         var maxAgentSeed = Velocity.FromKilometersPerHour(100);
 
-        gameObjectToNode = new Dictionary<PathNode, Node>();
+        pathNodeToNode = new Dictionary<PathNode, Node>();
 
         foreach (var connection in currentConnections)
         {
-            if (!gameObjectToNode.ContainsKey(connection.node1))
+            if (!pathNodeToNode.ContainsKey(connection.node1))
             {
                 var node = new Node(new Position(connection.node1.transform.position.x,
                     connection.node1.transform.position.y));
-                gameObjectToNode.Add(connection.node1, node);
+                pathNodeToNode.Add(connection.node1, node);
             }
 
-            if (!gameObjectToNode.ContainsKey(connection.node2))
+            if (!pathNodeToNode.ContainsKey(connection.node2))
             {
                 var node = new Node(new Position(connection.node2.transform.position.x,
                     connection.node2.transform.position.y));
-                gameObjectToNode.Add(connection.node2, node);
+                pathNodeToNode.Add(connection.node2, node);
             }
         }
 
         foreach (var connection in currentConnections)
         {
-            gameObjectToNode[connection.node1].Connect(gameObjectToNode[connection.node2], maxAgentSeed);
-            gameObjectToNode[connection.node2].Connect(gameObjectToNode[connection.node1], maxAgentSeed);
+            pathNodeToNode[connection.node1].Connect(pathNodeToNode[connection.node2], maxAgentSeed);
+            pathNodeToNode[connection.node2].Connect(pathNodeToNode[connection.node1], maxAgentSeed);
         }
+        nodeToPathNode = pathNodeToNode.ToDictionary(x => x.Value, x => x.Key);
     }
 
     public Path GetPath(PathNode startingNode, PathNode endingNode)
     {
-        gameObjectToNode.TryGetValue(startingNode, out Node nodeA);
-        gameObjectToNode.TryGetValue(endingNode, out Node nodeB);
+        pathNodeToNode.TryGetValue(startingNode, out Node nodeA);
+        pathNodeToNode.TryGetValue(endingNode, out Node nodeB);
 
-        if (nodeA == null || nodeB == null || gameObjectToNode.Count == 0)
+        if (nodeA == null || nodeB == null || pathNodeToNode.Count == 0)
         {
             return null;
         }
@@ -191,36 +210,49 @@ public class BoardManager : MonoBehaviour
         }
     }
 #endif
-    public void AddNode(PathNode pathNode)
+
+    private void SpawnGlitches()
     {
-        throw new NotImplementedException();
+        var nodeCandidates = nodes.Where(x => x.State == PathNode.DestructorState.Neutral).Shuffle().OrderBy(GetNodeCorruption).ToList();
+        if (nodes.Count - nodeCandidates.Count >= maxGlitchesAtTime || nodeCandidates.Count == 0) return;
+
+        var nodeBestCandidate = Random.value < chanceToSeedGlitch ? nodeCandidates[0] : nodeCandidates[^1];
+        nodeBestCandidate.StartTimer(timeToExplode);
     }
 
-    public void RemoveNode(PathNode pathNode)
+    private float GetNodeCorruption(PathNode pathNode)
     {
-        throw new NotImplementedException();
+        var neighbours = nodeNeighbours[pathNode];
+
+        return neighbours.Sum(neighbour => neighbour.CorruptionFraction);
     }
 
-    private void SpawnDestructors()
+    public bool IsNodeInAnyPaths(PathNode pathNode)
     {
-        var time = Mathf.Clamp01(Time.timeSinceLevelLoad / maxDestructionTime);
+        var output = false;
 
-        var toSpawnNumber = 2 + Mathf.FloorToInt(destructionCurve.Evaluate(time) * newDestructorsAmount);
-
-        var destructosAvaliable = nodes.Where(x => x.State != PathNode.DestructorState.On && x.State != PathNode.DestructorState.Exploded).ToList();
-        var destructosOn = nodes.Where(x => x.State == PathNode.DestructorState.On).ToList();
-
-        for (int i = 0; i < Mathf.Min(maxDestructorsAtTime - destructosOn.Count, toSpawnNumber); i++)
+        if (enemy.Path != null)
         {
-            if (destructosAvaliable.Count != 0)
+            output |= nodeToPathNode[(Node)enemy.Path.Edges[0].Start] != pathNode;
+            foreach (var pathEdge in enemy.Path.Edges)
             {
-                var newPickUp = destructosAvaliable.Random();
-                newPickUp.StartTimer(timeToExplode);
-            }
-            else
-            {
-                break;
+                output |= nodeToPathNode[(Node)pathEdge.End] == pathNode;
+                if (output)
+                    return true;
             }
         }
+
+        if (player.Path != null)
+        {
+            output |= nodeToPathNode[(Node)player.Path.Edges[0].Start] != pathNode;
+            foreach (var pathEdge in player.Path.Edges)
+            {
+                output |= nodeToPathNode[(Node)pathEdge.End] == pathNode;
+                if (output)
+                    return true;
+            }
+        }
+
+        return output;
     }
 }

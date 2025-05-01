@@ -16,7 +16,6 @@ public class FreezeEnemyPowerUp : PickUp
         SoundEffectPlayer.Instance.PlaySoundClip(SoundEffectPlayer.POWER_UP);
 
         player.PickedUpEnemyFreezePowerUp(duration);
-        SetVisible(false);
     }
 
     public override void OnEnemyPickedUp(Enemy enemy)
@@ -24,6 +23,5 @@ public class FreezeEnemyPowerUp : PickUp
         SoundEffectPlayer.Instance.PlaySoundClip(SoundEffectPlayer.POWER_DOWN);
 
         enemy.PickedUpEnemyFreezePowerUp(duration);
-        SetVisible(false);
     }
 }

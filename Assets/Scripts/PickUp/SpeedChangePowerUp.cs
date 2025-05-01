@@ -22,12 +22,10 @@ public class SpeedChangePowerUp : PickUp
             SoundEffectPlayer.Instance.PlaySoundClip(SoundEffectPlayer.POWER_UP);
         }
         player.PickedUpSpeedChangePowerUp(speedModifier, duration);
-        SetVisible(false);
     }
 
     public override void OnEnemyPickedUp(Enemy enemy)
     {
         enemy.PickedUpSpeedChangePowerUp(speedModifier, duration);
-        SetVisible(false);
     }
 }

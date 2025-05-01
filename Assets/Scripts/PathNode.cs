@@ -23,7 +23,7 @@ public class PathNode : MonoBehaviour
     [SerializeField] private GameObject prepare3Visual;
     [SerializeField] private GameObject explodedVisuals;
 
-    
+
     private Player player;
     private Enemy enemy;
     private BoardManager boardManager;
@@ -32,8 +32,11 @@ public class PathNode : MonoBehaviour
     private DestructorState state = DestructorState.None;
     private float timer = 0;
     private float maxTime = 0;
+    private float corruptionFraction = 0;
 
     public DestructorState State => state;
+
+    public float CorruptionFraction => corruptionFraction;
 
     private void Awake()
     {
@@ -46,24 +49,27 @@ public class PathNode : MonoBehaviour
 
     private void Update()
     {
-        if (state == DestructorState.On)
+        if (state == DestructorState.InProcess)
         {
-            timer += Time.deltaTime;
-            var fraction = timer / maxTime;
-            if (fraction >= 1.0f)
+            if (!boardManager.IsNodeInAnyPaths(this))
+            {
+                timer += Time.deltaTime;
+                corruptionFraction = timer / maxTime;
+            }
+            if (corruptionFraction >= 1.0f)
             {
                 SetState(DestructorState.Exploded);
             }
             else
             {
 
-                if (fraction < 0.333f)
+                if (corruptionFraction < 0.333f)
                 {
                     prepare1Visual.SetActive(true);
                     prepare2Visual.SetActive(false);
                     prepare3Visual.SetActive(false);
                 }
-                else if (fraction < 0.666f)
+                else if (corruptionFraction < 0.666f)
                 {
                     prepare1Visual.SetActive(false);
                     prepare2Visual.SetActive(true);
@@ -80,7 +86,7 @@ public class PathNode : MonoBehaviour
     }
     private void OnTriggerStay2D(Collider2D other)
     {
-        if (state == DestructorState.On && other.CompareTag("Player"))
+        if (state == DestructorState.InProcess && other.CompareTag("Player"))
         {
             timer -= decreaseRate * Time.deltaTime;
             if (timer <= 0)
@@ -97,14 +103,14 @@ public class PathNode : MonoBehaviour
 
         if (state == DestructorState.Exploded && other.CompareTag("Player"))
         {
-            SetState(DestructorState.On);
+            SetState(DestructorState.InProcess);
             timer = maxTime;
         }
     }
 
     public void StartTimer(float maxTime)
     {
-        SetState(DestructorState.On);
+        SetState(DestructorState.InProcess);
         this.maxTime = maxTime;
     }
 
@@ -121,7 +127,7 @@ public class PathNode : MonoBehaviour
             normalVisual.SetActive(destructorState == DestructorState.Neutral);
             explodedVisuals.SetActive(destructorState == DestructorState.Exploded);
             hitBox.SetActive(destructorState != DestructorState.Exploded);
-            
+
 
             switch (destructorState)
             {
@@ -130,17 +136,17 @@ public class PathNode : MonoBehaviour
                     prepare2Visual.SetActive(false);
                     prepare3Visual.SetActive(false);
                     break;
-                case DestructorState.On:
+                case DestructorState.InProcess:
                     if (state == DestructorState.Exploded)
                     {
-                        boardManager.AddNode(this);
+                        boardManager.SetStateOfNodes(true, this);
                     }
                     break;
                 case DestructorState.Exploded:
                     prepare1Visual.SetActive(false);
                     prepare2Visual.SetActive(false);
                     prepare3Visual.SetActive(false);
-                    boardManager.RemoveNode(this);
+                    boardManager.SetStateOfNodes(false, this);
                     break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(destructorState), destructorState, null);
@@ -175,6 +181,7 @@ public class PathNode : MonoBehaviour
 
     public void HidePickup()
     {
+        currentPickup.SetVisible(false);
         currentPickup = null;
     }
 
@@ -183,7 +190,7 @@ public class PathNode : MonoBehaviour
     {
         None,
         Neutral,
-        On,
+        InProcess,
         Exploded,
     }
 
