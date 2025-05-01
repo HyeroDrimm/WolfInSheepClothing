@@ -4,7 +4,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
-using Unity.VisualScripting.YamlDotNet.Core.Tokens;
 
 public class Curtain : MonoBehaviour
 {
@@ -40,15 +39,17 @@ public class Curtain : MonoBehaviour
     }
     public void Out(Action actionOnEnd = null)
     {
-        DOTween.To(() => curtainLeft.anchorMax.x, value => curtainLeft.anchorMax = new Vector2(value, curtainLeft.anchorMax.y), 0f,
-            moveDuration).SetUpdate(true);
+        var sequence = DOTween.Sequence();
+        sequence.SetUpdate(true);
 
-        var tween = DOTween.To(() => curtainRight.anchorMin.x, value => curtainRight.anchorMin = new Vector2(value, curtainLeft.anchorMin.y), 1f,
-            moveDuration).SetUpdate(true);
+        sequence.Insert(1,DOTween.To(() => curtainLeft.anchorMax.x, value => curtainLeft.anchorMax = new Vector2(value, curtainLeft.anchorMax.y), 0f,
+            moveDuration));
+        sequence.Insert(1,DOTween.To(() => curtainRight.anchorMin.x, value => curtainRight.anchorMin = new Vector2(value, curtainLeft.anchorMin.y), 1f,
+            moveDuration));
 
         if (actionOnEnd != null)
         {
-            tween.onComplete = actionOnEnd.Invoke;
+            sequence.onComplete = actionOnEnd.Invoke;
         }
     }
 }

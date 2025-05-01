@@ -1,5 +1,6 @@
-using System.Collections;
+    using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -10,6 +11,7 @@ public class PauseMenuController : MonoBehaviour
     [SerializeField] private Button resumeButton;
     [SerializeField] private Button helpButton;
     [SerializeField] private Button mainMenuButton;
+    [SerializeField] private MenuFade menuFade;
 
     private void Awake()
     {
@@ -35,6 +37,9 @@ public class PauseMenuController : MonoBehaviour
 
     public void SetVisible(bool visible)
     {
-        gameObject.SetActive(visible);
+        if (visible)
+            menuFade.In().SetUpdate(true).Play();
+        else
+            menuFade.Out().SetUpdate(true).Play();
     }
 }

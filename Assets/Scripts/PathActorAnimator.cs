@@ -22,7 +22,6 @@ public class PathActorAnimator : MonoBehaviour
             animator.Play(newState);
 
             currentState = newState;
-
         }
     }
 

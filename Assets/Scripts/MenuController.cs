@@ -1,20 +1,22 @@
 using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class MenuController : MonoBehaviour
 {
-    [SerializeField] private GameObject menuScreen;
-    [SerializeField] private GameObject chooseLevelScreen;
-    [SerializeField] private GameObject creditsScreen;
+    [SerializeField] private MenuFade menuScreen;
+    [SerializeField] private MenuFade chooseLevelScreen;
+    [SerializeField] private MenuFade creditsScreen;
 
     [SerializeField] private Button playButton;
     [SerializeField] private Button creditsButton;
     [SerializeField] private Button quitButton;
+    [SerializeField] private float insertShowAt;
 
-    private List<GameObject> screenObjects = new List<GameObject>();
+    private List<MenuFade> screenObjects = new List<MenuFade>();
 
 
     private void Awake()
@@ -28,30 +30,40 @@ public class MenuController : MonoBehaviour
         quitButton.onClick.AddListener(OnQuitButtonClicked);
     }
 
-    private void TurnOffAllScreens()
+    private Sequence TurnOffAllScreens()
     {
         foreach (var screenObject in screenObjects)
         {
-            screenObject.SetActive(false);
+            if (screenObject.Out(out Sequence sequence))
+            {
+                return sequence;
+            }
         }
+        return null;
     }
 
     public void ShowChooseLevelScreen()
     {
-        TurnOffAllScreens();
-        chooseLevelScreen.SetActive(true);
+        var sequence = DOTween.Sequence();
+        sequence.Append(TurnOffAllScreens());
+        sequence.Insert(insertShowAt, chooseLevelScreen.In());
+        sequence.Play();
     }
 
     public void ShowCreditsScreen()
     {
-        TurnOffAllScreens();
-        creditsScreen.SetActive(true);
+        var sequence = DOTween.Sequence();
+        sequence.Append(TurnOffAllScreens());
+        sequence.Insert(insertShowAt, creditsScreen.In());
+        sequence.Play();
     }
 
     public void ShowMenuScreen()
     {
-        TurnOffAllScreens();
-        menuScreen.SetActive(true);
+        var sequence = DOTween.Sequence();
+        sequence.Append(TurnOffAllScreens());
+        sequence.Insert(insertShowAt, menuScreen.In());
+        sequence.Play();
     }
 
     private void OnQuitButtonClicked()

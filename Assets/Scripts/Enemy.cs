@@ -49,6 +49,8 @@ public class Enemy : MonoBehaviour
     // Wait time after move
     private float waitAfterMoveTimeProper => waitAfterMoveTime;
 
+    public Path Path => path;
+
     private void Start()
     {
         if (!startingNode)

@@ -11,6 +11,8 @@ public class Destructor : MonoBehaviour
     [SerializeField] private GameObject shop;
     [SerializeField] private float decreaseRate = 1f;
     [SerializeField] private GameObject[] pickups;
+    [SerializeField] private Player player;
+    [SerializeField] private Enemy enemy;
 
     [Header("Visuals")]
     [SerializeField] private GameObject normalVisual;
@@ -37,20 +39,20 @@ public class Destructor : MonoBehaviour
         {
             timer += Time.deltaTime;
             var fraction = timer / maxTime;
-            if (fraction >= 1.0f)
+            if (fraction >= 1.0f && player)
             {
                 SetState(DestructorState.Exploded);
             }
             else
             {
 
-                if (fraction < 0.3f)
+                if (fraction < 0.333f)
                 {
                     prepare1Visual.SetActive(true);
                     prepare2Visual.SetActive(false);
                     prepare3Visual.SetActive(false);
                 }
-                else if (fraction < 0.6f)
+                else if (fraction < 0.666f)
                 {
                     prepare1Visual.SetActive(false);
                     prepare2Visual.SetActive(true);
@@ -85,6 +87,7 @@ public class Destructor : MonoBehaviour
         if (state == DestructorState.Exploded && other.CompareTag("Player"))
         {
             SetState(DestructorState.On);
+            timer = maxTime;
         }
     }
 
@@ -92,6 +95,12 @@ public class Destructor : MonoBehaviour
     {
         SetState(DestructorState.On);
         this.maxTime = maxTime;
+    }
+
+    [NaughtyAttributes.Button]
+    private void Explode()
+    {
+        SetState(DestructorState.Exploded);
     }
 
     public void SetState(DestructorState destructorState)
@@ -114,6 +123,10 @@ public class Destructor : MonoBehaviour
                     prepare3Visual.SetActive(false);
                     break;
                 case DestructorState.On:
+                    if (state == DestructorState.Exploded)
+                    {
+                        PathController.Singleton.SetStateOfNodes(true, node);
+                    }
                     break;
                 case DestructorState.Exploded:
                     prepare1Visual.SetActive(false);

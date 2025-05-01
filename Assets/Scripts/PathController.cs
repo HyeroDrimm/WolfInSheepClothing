@@ -21,7 +21,7 @@ public class PathController : MonoBehaviour
     [SerializeField] private Sprite circleSprite;
 
     private Path output;
-    private List<NodeConnection> currentConnections;
+    private HashSet<NodeConnection> currentConnections;
     private HashSet<GameObject> allNodes = new();
 
 
@@ -45,7 +45,7 @@ public class PathController : MonoBehaviour
             allNodes.Add(connection.node2);
         }
 
-        currentConnections = nodeConnections.ToList();
+        currentConnections = nodeConnections.ToHashSet();
 
         if (createMode)
         {
@@ -84,15 +84,14 @@ public class PathController : MonoBehaviour
 
     public void SetStateOfNodes(bool state, params GameObject[] nodes)
     {
+        // TODO add list of destroyed nodes
         if (state)
         {
-            currentConnections = currentConnections
-                .Concat(nodeConnections.Where(x => nodes.Contains(x.node1) || nodes.Contains(x.node2))).ToList();
+            currentConnections.UnionWith(nodeConnections.Where(x => nodes.Contains(x.node1) || nodes.Contains(x.node2)));
         }
         else
         {
-            currentConnections = currentConnections
-                .Except(currentConnections.Where(x => nodes.Contains(x.node1) || nodes.Contains(x.node2))).ToList();
+            currentConnections.RemoveWhere(x => nodes.Contains(x.node1) || nodes.Contains(x.node2));
         }
 
         CreateGraph();

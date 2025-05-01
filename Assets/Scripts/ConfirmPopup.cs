@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 using JetBrains.Annotations;
 using TMPro;
 using UnityEngine;
@@ -13,6 +14,7 @@ public class ConfirmPopup : MonoBehaviour
     [SerializeField] private Button confirmButton;
     [SerializeField] private Button cancelButton;
     [SerializeField] private TMP_Text promptText;
+    [SerializeField] private MenuFade menuFade;
 
     private Action currentActionOnConfirm;
 
@@ -27,24 +29,23 @@ public class ConfirmPopup : MonoBehaviour
         confirmButton.onClick.AddListener(OnConfirm);
         cancelButton.onClick.AddListener(OnCancel);
 
-        gameObject.SetActive(false);
     }
 
     public void Show(Action actionOnConfirm, string prompt)
     {
         currentActionOnConfirm = actionOnConfirm;
-        gameObject.SetActive(true);
+        menuFade.In().Play();
         promptText.text = prompt;
     }
 
     public void OnConfirm()
     {
         currentActionOnConfirm?.Invoke();
-        gameObject.SetActive(false);
+        menuFade.Out().Play();
     }
 
     public void OnCancel()
     {
-        gameObject.SetActive(false);
+        menuFade.Out().Play();
     }
 }

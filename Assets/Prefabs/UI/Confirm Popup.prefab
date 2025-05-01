@@ -251,6 +251,8 @@ GameObject:
   - component: {fileID: 6284463291893972962}
   - component: {fileID: 4030168760598512460}
   - component: {fileID: 8124415905766864290}
+  - component: {fileID: 3795510256842063585}
+  - component: {fileID: 5794914162715545858}
   m_Layer: 5
   m_Name: Background
   m_TagString: Untagged
@@ -315,6 +317,33 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!225 &3795510256842063585
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1534848252631233759}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
+--- !u!114 &5794914162715545858
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1534848252631233759}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 49a7d027114f0c84baa45040b1b03a16, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  slideFrom: {x: 0, y: 0}
+  duration: 0.2
+  timeOffset: 0
 --- !u!1 &3365679017788248411
 GameObject:
   m_ObjectHideFlags: 0
@@ -459,6 +488,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6044947005609181975}
   - component: {fileID: 3075374764300789232}
+  - component: {fileID: 7047469121017053823}
   m_Layer: 5
   m_Name: Confirm Popup
   m_TagString: Untagged
@@ -502,6 +532,23 @@ MonoBehaviour:
   confirmButton: {fileID: 3479028760483318629}
   cancelButton: {fileID: 4425829837961504652}
   promptText: {fileID: 4793831601550828443}
+  menuFade: {fileID: 7047469121017053823}
+--- !u!114 &7047469121017053823
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6727113769586166450}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1bdeeafe1525a3540bc1a5982a29b6e5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  menuElements:
+  - {fileID: 5794914162715545858}
+  - {fileID: 6348006977094354684}
+  state: 0
 --- !u!1 &7035993989194527642
 GameObject:
   m_ObjectHideFlags: 0
@@ -513,6 +560,8 @@ GameObject:
   - component: {fileID: 3621522111458058659}
   - component: {fileID: 8122152594897659567}
   - component: {fileID: 2692226875949393957}
+  - component: {fileID: 3694318981509811240}
+  - component: {fileID: 6348006977094354684}
   m_Layer: 5
   m_Name: Confirm Popup
   m_TagString: Untagged
@@ -580,3 +629,30 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 11
+--- !u!225 &3694318981509811240
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7035993989194527642}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
+--- !u!114 &6348006977094354684
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7035993989194527642}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 49a7d027114f0c84baa45040b1b03a16, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  slideFrom: {x: 50, y: 0}
+  duration: 0.2
+  timeOffset: 0

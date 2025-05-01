@@ -61,14 +61,6 @@ public class GameManager : MonoBehaviour
 
 
         startTimestamp = Time.time;
-        if (PlayerPrefs.HasKey($"TimeMap{SceneManager.GetActiveScene().name}"))
-        {
-            bestTimer.UpdateTime(PlayerPrefs.GetFloat($"TimeMap{SceneManager.GetActiveScene().name}"));
-        }
-        else
-        {
-            bestTimer.UpdateTime(0f);
-        }
 
         pocketUi.UpdateItem(itemInPocket);
 

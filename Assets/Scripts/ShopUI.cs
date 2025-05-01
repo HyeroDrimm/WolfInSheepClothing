@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -16,6 +17,7 @@ public class ShopUI : MonoBehaviour
     [SerializeField] private Popup notEnoughCoinsPopup;
     [SerializeField] private bool skipCheckForCoins;
     [SerializeField] private TMP_Text coinAmount;
+    [SerializeField] private MenuFade menuFade;
 
     //Items
 
@@ -65,6 +67,9 @@ public class ShopUI : MonoBehaviour
 
     public void SetVisible(bool state)
     {
-        gameObject.SetActive(state);
+        if (state)
+            menuFade.In().Play();
+        else
+            menuFade.Out().Play();
     }
 }

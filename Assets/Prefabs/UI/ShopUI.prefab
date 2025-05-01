@@ -163,6 +163,8 @@ GameObject:
   - component: {fileID: 4655207428802030544}
   - component: {fileID: 3690133118726593077}
   - component: {fileID: 2839312089469428698}
+  - component: {fileID: 7844832335793076147}
+  - component: {fileID: 2048851705794145385}
   m_Layer: 5
   m_Name: Panel
   m_TagString: Untagged
@@ -233,6 +235,33 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 11
+--- !u!225 &7844832335793076147
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1020076686769768409}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
+--- !u!114 &2048851705794145385
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1020076686769768409}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 49a7d027114f0c84baa45040b1b03a16, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  slideFrom: {x: 50, y: 0}
+  duration: 0.2
+  timeOffset: 0
 --- !u!1 &1473771534043566316
 GameObject:
   m_ObjectHideFlags: 0
@@ -245,6 +274,8 @@ GameObject:
   - component: {fileID: 1554092485553792015}
   - component: {fileID: 782505630019622190}
   - component: {fileID: 2047543518800065445}
+  - component: {fileID: 1418738375098591471}
+  - component: {fileID: 1213036069939691880}
   m_Layer: 5
   m_Name: Background
   m_TagString: Untagged
@@ -353,6 +384,33 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!225 &1418738375098591471
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1473771534043566316}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
+--- !u!114 &1213036069939691880
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1473771534043566316}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 49a7d027114f0c84baa45040b1b03a16, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  slideFrom: {x: 0, y: 0}
+  duration: 0.2
+  timeOffset: 0
 --- !u!1 &2297830406907956367
 GameObject:
   m_ObjectHideFlags: 0
@@ -971,6 +1029,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3877629851674324787}
   - component: {fileID: 7708462157155308282}
+  - component: {fileID: 5998289129084404652}
   m_Layer: 5
   m_Name: ShopUI
   m_TagString: Untagged
@@ -1040,6 +1099,23 @@ MonoBehaviour:
   notEnoughCoinsPopup: {fileID: 2262188835878092648}
   skipCheckForCoins: 0
   coinAmount: {fileID: 3387037915989301934}
+  menuFade: {fileID: 5998289129084404652}
+--- !u!114 &5998289129084404652
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7847020589754400984}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1bdeeafe1525a3540bc1a5982a29b6e5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  menuElements:
+  - {fileID: 1213036069939691880}
+  - {fileID: 2048851705794145385}
+  state: 0
 --- !u!1 &8120172815208469422
 GameObject:
   m_ObjectHideFlags: 0

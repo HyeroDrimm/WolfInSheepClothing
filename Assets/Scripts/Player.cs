@@ -20,7 +20,7 @@ public class Player : MonoBehaviour, IFollowTarget
     [SerializeField] private Popup useDollPopup;
     [SerializeField] private SpriteRenderer visual;
 
-    private Path path;
+    public Path path;
     private int edgeIndex;
     private bool isMoving = false;
     private bool isWaitingAfterMove = false;
@@ -45,6 +45,8 @@ public class Player : MonoBehaviour, IFollowTarget
     private float waitAfterMoveTimeProper => waitAfterMoveTime;
 
     private bool useDoll = false;
+    public Path Path => path;
+
 
     GameObject IFollowTarget.CurrentPosition()
     {
