@@ -1,7 +1,7 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using MoreMountains.Feedbacks;
 using NaughtyAttributes;
 using Roy_T.AStar.Graphs;
 using Roy_T.AStar.Paths;
@@ -37,6 +37,9 @@ public class BoardManager : MonoBehaviour
     [SerializeField] private float speedDownChance;
     [SerializeField] private float freezeChance;
     [SerializeField] private float coinChance;
+
+    [Header("Feedback")] 
+    [SerializeField] private MMF_Player playerFixGlitchFeedback;
 
     [Header("Create")]
     [SerializeField] private bool createMode;
@@ -249,6 +252,8 @@ public class BoardManager : MonoBehaviour
     {
         var output = false;
 
+        output |= ((IFollowTarget)player).CurrentPosition() == pathNode;
+
         if (enemy.Path != null)
         {
             output |= nodeToPathNode[(Node)enemy.Path.Edges[0].Start] != pathNode;
@@ -288,5 +293,18 @@ public class BoardManager : MonoBehaviour
     {
         return Vector3.Distance(pathNode.transform.position, player.transform.position) +
                Vector3.Distance(pathNode.transform.position, enemy.transform.position);
+    }
+
+    public void OnPlayerStartFix(PathNode pathNode, float expectedTime, float percentOfDone)
+    {
+        playerFixGlitchFeedback.FeedbacksIntensity = Mathf.Pow(percentOfDone, 2); 
+        playerFixGlitchFeedback.DurationMultiplier = expectedTime; 
+        playerFixGlitchFeedback.PlayFeedbacks();
+    }
+
+    public void OnPlayerEndFix(PathNode pathNode)
+    {
+        if (playerFixGlitchFeedback.IsPlaying)
+            playerFixGlitchFeedback.SkipToTheEnd();
     }
 }

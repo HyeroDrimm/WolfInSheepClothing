@@ -1,10 +1,5 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using Codice.Client.BaseCommands;
-using Codice.CM.Common;
 using UnityEngine;
-using UnityEngine.VFX;
 
 public class PathNode : MonoBehaviour
 {
@@ -57,13 +52,13 @@ public class PathNode : MonoBehaviour
                 timer += Time.deltaTime;
                 corruptionFraction = timer / maxTime;
             }
+            
             if (corruptionFraction >= 1.0f)
             {
                 SetState(DestructorState.Exploded);
             }
             else
             {
-
                 if (corruptionFraction < 0.333f)
                 {
                     prepare1Visual.SetActive(true);
@@ -85,11 +80,30 @@ public class PathNode : MonoBehaviour
             }
         }
     }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (state == DestructorState.InProcess && other.CompareTag("Player"))
+        {
+            var expectedTime = timer / decreaseRate;
+            boardManager.OnPlayerStartFix(this,expectedTime, corruptionFraction);
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            boardManager.OnPlayerEndFix(this);
+        }
+    }
+
     private void OnTriggerStay2D(Collider2D other)
     {
         if (state == DestructorState.InProcess && other.CompareTag("Player"))
         {
             timer -= decreaseRate * Time.deltaTime;
+            corruptionFraction = timer / maxTime;
             if (timer <= 0)
             {
                 SetState(DestructorState.Neutral);

@@ -4683,7 +4683,7 @@ MonoBehaviour:
   volumeTrigger: {fileID: 1393805019}
   volumeLayer:
     serializedVersion: 2
-    m_Bits: 215
+    m_Bits: 4294967295
   stopNaNPropagation: 1
   finalBlitToCameraTarget: 0
   antialiasingMode: 0
