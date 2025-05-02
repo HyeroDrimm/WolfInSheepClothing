@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using MoreMountains.Feedbacks;
 using Roy_T.AStar.Paths;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -18,6 +19,8 @@ public class Player : MonoBehaviour, IFollowTarget
     [SerializeField] private Doll dollPrefab;
     [SerializeField] private Popup useDollPopup;
     [SerializeField] private SpriteRenderer visual;
+    [SerializeField] private MMF_Player speedUpFeedback;
+    [SerializeField] private MMF_Player speedDownFeedback;
 
     private Enemy enemy;
     public Path path;
@@ -185,6 +188,16 @@ public class Player : MonoBehaviour, IFollowTarget
         animator?.ChangeAnimationState(currentRunAnimation);
         UpdateStatusColor();
 
+        if (powerUpSpeedModifier < 1)
+        {
+            speedDownFeedback.GetFeedbackOfType<MMF_HoldingPause>().FeedbackDuration = Mathf.Max(0, duration - 2);
+            speedDownFeedback.PlayFeedbacks();
+        }
+        else if (powerUpSpeedModifier > 1)
+        {
+            speedUpFeedback.GetFeedbackOfType<MMF_HoldingPause>().FeedbackDuration = Mathf.Max(0, duration - 2);
+            speedUpFeedback.PlayFeedbacks();
+        }
 
         if (IsInvoking("DeleteSpeedPowerUp"))
         {
@@ -205,8 +218,8 @@ public class Player : MonoBehaviour, IFollowTarget
         }
 
         powerUpSpeedModifier = 1;
+        animator?.ChangeAnimationState(currentRunAnimation);
         UpdateStatusColor();
-
     }
 
     public void PickedUpEnemyFreezePowerUp(float duration)

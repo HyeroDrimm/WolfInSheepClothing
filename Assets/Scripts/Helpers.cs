@@ -57,7 +57,7 @@ internal static class Helpers
 
         public int GetRandomIndex()
         {
-            var roll = UnityEngine.Random.Range(1, weightSum);
+            var roll = UnityEngine.Random.Range(0, weightSum);
             var output = 0;
             while (roll >= weights[output])
             {

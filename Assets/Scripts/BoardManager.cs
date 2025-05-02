@@ -24,6 +24,7 @@ public class BoardManager : MonoBehaviour
     [Header("Destruction")]
     [SerializeField] private AnimationCurve destructionCurve;
     [SerializeField] private int maxGlitchesAtTime;
+    [SerializeField, Range(0,1)] private float progressAtStart;
     [SerializeField] private float chanceToSeedGlitch = 0.1f;
     [SerializeField] private float startingTimeBetweenGlitches;
     [SerializeField] private float timeBetweenGlitches;
@@ -234,11 +235,12 @@ public class BoardManager : MonoBehaviour
 
     private void SpawnGlitches()
     {
+        var countOfGlitchesInProgress = nodes.Count(x => x.State == DestructorState.InProcess);
         var nodeCandidates = nodes.Where(x => x.State == PathNode.DestructorState.Neutral).Shuffle().OrderBy(GetNodeCorruption).ToList();
-        if (nodes.Count - nodeCandidates.Count >= maxGlitchesAtTime || nodeCandidates.Count == 0) return;
+        if (countOfGlitchesInProgress >= maxGlitchesAtTime || nodeCandidates.Count == 0) return;
 
         var nodeBestCandidate = Random.value < chanceToSeedGlitch ? nodeCandidates[0] : nodeCandidates[^1];
-        nodeBestCandidate.StartTimer(timeToExplode);
+        nodeBestCandidate.StartTimer(timeToExplode, progressAtStart);
     }
 
     private float GetNodeCorruption(PathNode pathNode)
@@ -297,7 +299,6 @@ public class BoardManager : MonoBehaviour
 
     public void OnPlayerStartFix(PathNode pathNode, float expectedTime, float percentOfDone)
     {
-        playerFixGlitchFeedback.FeedbacksIntensity = Mathf.Pow(percentOfDone, 2); 
         playerFixGlitchFeedback.DurationMultiplier = expectedTime; 
         playerFixGlitchFeedback.PlayFeedbacks();
     }

@@ -123,10 +123,11 @@ public class PathNode : MonoBehaviour
         }
     }
 
-    public void StartTimer(float maxTime)
+    public void StartTimer(float maxTime, float progressAtStart)
     {
         SetState(DestructorState.InProcess);
         this.maxTime = maxTime;
+        this.timer = maxTime * progressAtStart;
     }
 
     [NaughtyAttributes.Button]
