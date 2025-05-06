@@ -185,7 +185,7 @@ public class Player : MonoBehaviour, IFollowTarget
     public void PickedUpSpeedChangePowerUp(float speedModifier, float duration)
     {
         powerUpSpeedModifier = speedModifier;
-        animator?.ChangeAnimationState(currentRunAnimation);
+        animator?.ChangeAnimationState(isMoving ? currentRunAnimation : currentIdleAnimation);
         UpdateStatusColor();
 
         if (powerUpSpeedModifier < 1)
@@ -218,7 +218,7 @@ public class Player : MonoBehaviour, IFollowTarget
         }
 
         powerUpSpeedModifier = 1;
-        animator?.ChangeAnimationState(currentRunAnimation);
+        animator?.ChangeAnimationState(isMoving ? currentRunAnimation : currentIdleAnimation);
         UpdateStatusColor();
     }
 
@@ -231,7 +231,7 @@ public class Player : MonoBehaviour, IFollowTarget
     {
         isFrozen = true;
         UpdateStatusColor();
-        animator?.ChangeAnimationState(currentIdleAnimation);
+        animator?.ChangeAnimationState(isMoving ? currentRunAnimation : currentIdleAnimation);
         SoundEffectPlayer.Instance.PlaySoundClip(SoundEffectPlayer.FREEZE);
 
 
@@ -248,7 +248,7 @@ public class Player : MonoBehaviour, IFollowTarget
         UpdateStatusColor();
         if (isMoving)
         {
-            animator?.ChangeAnimationState(currentRunAnimation);
+            animator?.ChangeAnimationState(isMoving ? currentRunAnimation : currentIdleAnimation);
         }
     }
 

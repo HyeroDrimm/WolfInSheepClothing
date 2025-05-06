@@ -10,7 +10,6 @@ public class PathNode : MonoBehaviour
     [SerializeField] private FreezeEnemyPowerUp freezePickup;
     [Header("Destructor")]
     [SerializeField] private GameObject hitBox;
-    [SerializeField] private float decreaseRate = 1f;
 
     [SerializeField] private GameObject normalVisual;
     [SerializeField] private GameObject prepare1Visual;
@@ -24,6 +23,8 @@ public class PathNode : MonoBehaviour
     private BoardManager boardManager;
     private PickUp currentPickup = null;
 
+    private float glitchDecreaseRate = 1f;
+    private float glitchCooldown = 5f;
     private DestructorState state = DestructorState.None;
     private float timer = 0;
     private float maxTime = 0;
@@ -33,6 +34,18 @@ public class PathNode : MonoBehaviour
 
     public float CorruptionFraction => corruptionFraction;
     public bool IsPickup => currentPickup != null;
+
+    public float DecreaseRate
+    {
+        get => glitchDecreaseRate;
+        set => glitchDecreaseRate = value;
+    }
+
+    public float GlitchCooldown
+    {
+        get => glitchCooldown;
+        set => glitchCooldown = value;
+    }
 
     private void Awake()
     {
@@ -85,7 +98,7 @@ public class PathNode : MonoBehaviour
     {
         if (state == DestructorState.InProcess && other.CompareTag("Player"))
         {
-            var expectedTime = timer / decreaseRate;
+            var expectedTime = timer / glitchDecreaseRate;
             boardManager.OnPlayerStartFix(this,expectedTime, corruptionFraction);
         }
     }
@@ -102,11 +115,12 @@ public class PathNode : MonoBehaviour
     {
         if (state == DestructorState.InProcess && other.CompareTag("Player"))
         {
-            timer -= decreaseRate * Time.deltaTime;
+            timer -= glitchDecreaseRate * Time.deltaTime;
             corruptionFraction = timer / maxTime;
             if (timer <= 0)
             {
-                SetState(DestructorState.Neutral);
+                SetState(DestructorState.Cooldown);
+                Invoke("AfterCooldown", glitchCooldown);
             }
         }
 
@@ -121,6 +135,11 @@ public class PathNode : MonoBehaviour
             SetState(DestructorState.InProcess);
             timer = maxTime;
         }
+    }
+
+    private void AfterCooldown()
+    {
+        SetState(DestructorState.Neutral);
     }
 
     public void StartTimer(float maxTime, float progressAtStart)
@@ -140,7 +159,7 @@ public class PathNode : MonoBehaviour
     {
         if (destructorState != this.state)
         {
-            normalVisual.SetActive(destructorState == DestructorState.Neutral);
+            normalVisual.SetActive(destructorState == DestructorState.Neutral || destructorState == DestructorState.Cooldown);
             explodedVisuals.SetActive(destructorState == DestructorState.Exploded);
             hitBox.SetActive(destructorState != DestructorState.Exploded);
 
@@ -148,6 +167,7 @@ public class PathNode : MonoBehaviour
             switch (destructorState)
             {
                 case DestructorState.Neutral:
+                case DestructorState.Cooldown:
                     prepare1Visual.SetActive(false);
                     prepare2Visual.SetActive(false);
                     prepare3Visual.SetActive(false);
@@ -208,6 +228,7 @@ public class PathNode : MonoBehaviour
         Neutral,
         InProcess,
         Exploded,
+        Cooldown,
     }
 
     public enum PickupType
@@ -220,11 +241,13 @@ public class PathNode : MonoBehaviour
 
     // Setup
 
-    public void Setup(Player player, Enemy enemy, BoardManager boardManager)
+    public void Setup(Player player, Enemy enemy, BoardManager boardManager, float glitchCooldown, float glitchDecreaseRate)
     {
         this.player = player;
         this.enemy = enemy;
         this.boardManager = boardManager;
+        this.glitchCooldown = glitchCooldown;
+        this.glitchDecreaseRate = glitchDecreaseRate;
     }
 
 }

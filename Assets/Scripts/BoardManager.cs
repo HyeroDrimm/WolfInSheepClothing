@@ -29,6 +29,8 @@ public class BoardManager : MonoBehaviour
     [SerializeField] private float startingTimeBetweenGlitches;
     [SerializeField] private float timeBetweenGlitches;
     [SerializeField] private float timeToExplode;
+    [SerializeField] private float glitchDecreaseRate = 1f;
+    [SerializeField] private float glitchCooldown = 5f;
 
     [Header("Pickups")] 
     [SerializeField] private int maxPickupsAtTime;
@@ -83,7 +85,7 @@ public class BoardManager : MonoBehaviour
 
         foreach (var pathNode in nodes)
         {
-            pathNode.Setup(player, enemy, this);
+            pathNode.Setup(player, enemy, this, glitchCooldown, glitchDecreaseRate);
         }
 
         player.Setup(this, enemy);
