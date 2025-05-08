@@ -1,10 +1,12 @@
 using System;
+using MoreMountains.Feedbacks;
 using UnityEngine;
 
 public abstract class PickUp : MonoBehaviour
 {
     [HideInInspector] public Transform PickUpPlace;
     [HideInInspector] public bool isShown;
+    [SerializeField] private MMF_Player appearPlayer;
     private PathNode pathNode;
 
     protected virtual void Awake()
@@ -37,6 +39,7 @@ public abstract class PickUp : MonoBehaviour
     {
         isShown = state;
         gameObject.SetActive(state);
+        appearPlayer?.PlayFeedbacks();
     }
 
     public abstract void OnPlayerPickedUp(Player player);

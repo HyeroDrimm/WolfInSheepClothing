@@ -231,7 +231,6 @@ MonoBehaviour:
   speedDownPickup: {fileID: 4572947069055522892}
   freezePickup: {fileID: 254657700471685799}
   hitBox: {fileID: 5777768834761969220}
-  decreaseRate: 5
   normalVisual: {fileID: 8988187828846289671}
   prepare1Visual: {fileID: 5023659213512022287}
   prepare2Visual: {fileID: 743557748786542645}
