@@ -417,7 +417,7 @@ GameObject:
   - component: {fileID: 6018089565996176544}
   - component: {fileID: 4033738834563148520}
   m_Layer: 5
-  m_Name: Background (1)
+  m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1100,7 +1100,7 @@ MonoBehaviour:
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 11
+  m_PixelsPerUnitMultiplier: 1
 --- !u!114 &670286796698969788
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -31,9 +31,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MoreMountains.Feedbacks.Cin
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assembly-CSharp-firstpass", "Assembly-CSharp-firstpass.csproj", "{8D7E2841-D2CA-25CF-432B-CB4A580017ED}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HyeroUnityEssentials", "HyeroUnityEssentials.csproj", "{802443AD-E549-31D3-BA27-0787AB1FDA80}"
+EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MoreMountains.Feedbacks.NiceVibrations", "MoreMountains.Feedbacks.NiceVibrations.csproj", "{734B6F87-117A-FD58-12BE-98211D673233}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MoreMountains.Feedbacks.Authorizations", "MoreMountains.Feedbacks.Authorizations.csproj", "{0C2614BC-DD4C-542C-7B9E-4D3A4ADEBD2C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HyeroUnityEssentials.Editor", "HyeroUnityEssentials.Editor.csproj", "{151660B9-3B13-4999-976B-331931A6771D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lofelt.NiceVibrations.Editor", "Lofelt.NiceVibrations.Editor.csproj", "{24A50681-6115-E0B9-9466-88A3504A4061}"
 EndProject
@@ -105,6 +109,10 @@ Global
 		{8D7E2841-D2CA-25CF-432B-CB4A580017ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8D7E2841-D2CA-25CF-432B-CB4A580017ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8D7E2841-D2CA-25CF-432B-CB4A580017ED}.Release|Any CPU.Build.0 = Release|Any CPU
+		{802443AD-E549-31D3-BA27-0787AB1FDA80}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{802443AD-E549-31D3-BA27-0787AB1FDA80}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{802443AD-E549-31D3-BA27-0787AB1FDA80}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{802443AD-E549-31D3-BA27-0787AB1FDA80}.Release|Any CPU.Build.0 = Release|Any CPU
 		{734B6F87-117A-FD58-12BE-98211D673233}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{734B6F87-117A-FD58-12BE-98211D673233}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{734B6F87-117A-FD58-12BE-98211D673233}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -113,6 +121,10 @@ Global
 		{0C2614BC-DD4C-542C-7B9E-4D3A4ADEBD2C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0C2614BC-DD4C-542C-7B9E-4D3A4ADEBD2C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0C2614BC-DD4C-542C-7B9E-4D3A4ADEBD2C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{151660B9-3B13-4999-976B-331931A6771D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{151660B9-3B13-4999-976B-331931A6771D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{151660B9-3B13-4999-976B-331931A6771D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{151660B9-3B13-4999-976B-331931A6771D}.Release|Any CPU.Build.0 = Release|Any CPU
 		{24A50681-6115-E0B9-9466-88A3504A4061}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{24A50681-6115-E0B9-9466-88A3504A4061}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{24A50681-6115-E0B9-9466-88A3504A4061}.Release|Any CPU.ActiveCfg = Release|Any CPU

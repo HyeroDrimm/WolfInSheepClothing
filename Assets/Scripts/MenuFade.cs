@@ -27,6 +27,16 @@ public class MenuFade : MonoBehaviour
         }
     }
 
+    public void StartIn()
+    {
+        In().Play();
+    }
+
+    public void StartOut()
+    { 
+        Out().Play();
+    }
+
     public Sequence In()
     {
         var sequence = DOTween.Sequence();

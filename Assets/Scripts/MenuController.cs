@@ -8,12 +8,15 @@ using UnityEngine.UI;
 public class MenuController : MonoBehaviour
 {
     [SerializeField] private MenuFade menuScreen;
+    [SerializeField] private MenuFade settingsScreen;
     [SerializeField] private MenuFade chooseLevelScreen;
     [SerializeField] private MenuFade creditsScreen;
-
+    [Space]
     [SerializeField] private Button playButton;
+    [SerializeField] private Button settingsButton;
     [SerializeField] private Button creditsButton;
     [SerializeField] private Button quitButton;
+    [Space]
     [SerializeField] private float insertShowAt;
 
     private List<MenuFade> screenObjects = new List<MenuFade>();
@@ -22,10 +25,12 @@ public class MenuController : MonoBehaviour
     private void Awake()
     {
         screenObjects.Add(menuScreen);
+        screenObjects.Add(settingsScreen);
         screenObjects.Add(chooseLevelScreen);
         screenObjects.Add(creditsScreen);
 
         playButton.onClick.AddListener(ShowChooseLevelScreen);
+        settingsButton.onClick.AddListener(ShowSettingsScreen);
         creditsButton.onClick.AddListener(ShowCreditsScreen);
         quitButton.onClick.AddListener(OnQuitButtonClicked);
     }
@@ -47,6 +52,14 @@ public class MenuController : MonoBehaviour
         var sequence = DOTween.Sequence();
         sequence.Append(TurnOffAllScreens());
         sequence.Insert(insertShowAt, chooseLevelScreen.In());
+        sequence.Play();
+    }
+    
+    public void ShowSettingsScreen()
+    {
+        var sequence = DOTween.Sequence();
+        sequence.Append(TurnOffAllScreens());
+        sequence.Insert(insertShowAt, settingsScreen.In());
         sequence.Play();
     }
 

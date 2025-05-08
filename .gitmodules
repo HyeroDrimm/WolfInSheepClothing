@@ -1,0 +1,3 @@
+[submodule "Assets/Plugins/HyeroUnityEssentials"]
+	path = Assets/Plugins/HyeroUnityEssentials
+	url = https://github.com/HyeroDrimm/HyeroUnityEssentials.git

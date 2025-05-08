@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using HyeroUnityEssentials;
 using MoreMountains.Feedbacks;
 using NaughtyAttributes;
 using Roy_T.AStar.Graphs;
@@ -52,12 +53,12 @@ public class BoardManager : MonoBehaviour
     private HashSet<PathNode> explodedNodes = new HashSet<PathNode>();
     private Dictionary<PathNode, PathNode[]> nodeNeighbours = new Dictionary<PathNode, PathNode[]>();
 
-    private Helpers.WeightedRandomList<PathNode.PickupType> weightedPickupsRandom;
+    private HyeroUnityEssentials.Helpers.WeightedRandomList<PathNode.PickupType> weightedPickupsRandom;
 
     private void Awake()
     {
         weightedPickupsRandom =
-            new Helpers.WeightedRandomList<PathNode.PickupType>(
+            new HyeroUnityEssentials.Helpers.WeightedRandomList<PathNode.PickupType>(
                 new float[] { speedUpChance, speedDownChance, freezeChance, coinChance, },
                 new PathNode.PickupType[] { PickupType.SpeedUp, PickupType.SpeedDown, PickupType.Freeze, PickupType.Coin, });
 
