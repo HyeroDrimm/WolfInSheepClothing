@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using HyeroUnityEssentials.WindowSystem;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -9,7 +10,7 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
     [SerializeField] private Timer currentTimer;
-    [SerializeField] private PauseMenuController pauseMenuController;
+    [SerializeField] private UIWindow pauseMenuWindow;
     [SerializeField] private Timer bestTimer;
     [SerializeField] private YouLostUI youLostUI;
     [SerializeField] private CoinCounterUI coinCounterUi;
@@ -20,7 +21,7 @@ public class GameManager : MonoBehaviour
     [Header("Shop")]
     [SerializeField] private float shopSlowDown;
     [SerializeField] private float baseGameSpeed;
-    [SerializeField] private ShopUI shopUi;
+    [SerializeField] private UIWindow shopWindow;
 
     [Header("Pocket")]
     [SerializeField] private PocketUI pocketUi;
@@ -42,6 +43,7 @@ public class GameManager : MonoBehaviour
     private int coinCounter = 0;
     private float gameSpeed = 1;
     private bool isPause = false;
+    private float Gamespeed => isPause ? 0 : gameSpeed;
 
     private void Awake()
     {
@@ -75,10 +77,9 @@ public class GameManager : MonoBehaviour
             UseCurrentPocketItem();
         }
 
-        if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.P))
+        if (WindowManager.Instance.IsHistoryEmpty && !pauseMenuWindow.IsVisible && Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.P))
         {
-            isPause = !isPause;
-            SetPause(isPause);
+            SetPause(true);
         }
     }
 
@@ -118,7 +119,7 @@ public class GameManager : MonoBehaviour
         {
             coinCounterUiShop.UpdateCounter(coinCounter);
         }
-        shopUi.SetVisible(state);
+        WindowManager.Instance.Show(shopWindow);
         UpdateTimeScale(state ? shopSlowDown : baseGameSpeed);
     }
 
@@ -179,8 +180,12 @@ public class GameManager : MonoBehaviour
 
     public void SetPause(bool state)
     {
+        isPause = state;
         Time.timeScale = state ? 0 : gameSpeed;
-        pauseMenuController.SetVisible(state);
+        if (state)
+        {
+            WindowManager.Instance.Show(pauseMenuWindow);
+        }
     }
 
     public void UpdateTimeScale(float timeScale)

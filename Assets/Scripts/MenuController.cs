@@ -17,7 +17,7 @@ public class MenuController : MonoBehaviour
     [SerializeField] private Button creditsButton;
     [SerializeField] private Button quitButton;
     [Space]
-    [SerializeField] private float insertShowAt;
+    [SerializeField] private float insertShowAt = 0.2f;
 
     private List<MenuFade> screenObjects = new List<MenuFade>();
 

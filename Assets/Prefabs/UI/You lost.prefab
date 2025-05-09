@@ -1139,7 +1139,7 @@ GameObject:
   - component: {fileID: 6530886833979824135}
   - component: {fileID: 780428364295006630}
   - component: {fileID: 120000704702429500}
-  - component: {fileID: 6782403405050467967}
+  - component: {fileID: 6308047420570550016}
   m_Layer: 5
   m_Name: You lost
   m_TagString: Untagged
@@ -1154,7 +1154,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8469612760990836364}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1195,8 +1195,8 @@ MonoBehaviour:
   continueButton: {fileID: 6587164887997991359}
   quitButton: {fileID: 8157609305325723740}
   curtain: {fileID: 0}
-  menuFade: {fileID: 6782403405050467967}
---- !u!114 &6782403405050467967
+  menuFade: {fileID: 0}
+--- !u!114 &6308047420570550016
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1205,13 +1205,26 @@ MonoBehaviour:
   m_GameObject: {fileID: 8469612760990836364}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1bdeeafe1525a3540bc1a5982a29b6e5, type: 3}
+  m_Script: {fileID: 11500000, guid: 596589d3a7e17294a9678d28f839046e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  menuElements:
-  - {fileID: 6018089565996176544}
-  - {fileID: 670286796698969788}
-  state: 0
+  _windowId: 
+  _isModal: 0
+  _animationDuration: 0.3
+  _showAnimation: 1
+  _hideAnimation: 1
+  _onShowBegin:
+    m_PersistentCalls:
+      m_Calls: []
+  _onShowComplete:
+    m_PersistentCalls:
+      m_Calls: []
+  _onHideBegin:
+    m_PersistentCalls:
+      m_Calls: []
+  _onHideComplete:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &8881513120932864430
 GameObject:
   m_ObjectHideFlags: 0

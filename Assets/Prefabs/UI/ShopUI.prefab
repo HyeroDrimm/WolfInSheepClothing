@@ -1029,7 +1029,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3877629851674324787}
   - component: {fileID: 7708462157155308282}
-  - component: {fileID: 5998289129084404652}
+  - component: {fileID: 399300104509692369}
   m_Layer: 5
   m_Name: ShopUI
   m_TagString: Untagged
@@ -1099,8 +1099,7 @@ MonoBehaviour:
   notEnoughCoinsPopup: {fileID: 2262188835878092648}
   skipCheckForCoins: 0
   coinAmount: {fileID: 3387037915989301934}
-  menuFade: {fileID: 5998289129084404652}
---- !u!114 &5998289129084404652
+--- !u!114 &399300104509692369
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1109,13 +1108,26 @@ MonoBehaviour:
   m_GameObject: {fileID: 7847020589754400984}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1bdeeafe1525a3540bc1a5982a29b6e5, type: 3}
+  m_Script: {fileID: 11500000, guid: 596589d3a7e17294a9678d28f839046e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  menuElements:
-  - {fileID: 1213036069939691880}
-  - {fileID: 2048851705794145385}
-  state: 0
+  _windowId: 
+  _isModal: 0
+  _animationDuration: 0.3
+  _showAnimation: 1
+  _hideAnimation: 1
+  _onShowBegin:
+    m_PersistentCalls:
+      m_Calls: []
+  _onShowComplete:
+    m_PersistentCalls:
+      m_Calls: []
+  _onHideBegin:
+    m_PersistentCalls:
+      m_Calls: []
+  _onHideComplete:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &8120172815208469422
 GameObject:
   m_ObjectHideFlags: 0

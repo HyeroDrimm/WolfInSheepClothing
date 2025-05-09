@@ -29,12 +29,14 @@ public class MenuFade : MonoBehaviour
 
     public void StartIn()
     {
-        In().Play();
+        var sequence = In();
+        sequence.Play();
     }
 
     public void StartOut()
-    { 
-        Out().Play();
+    {
+        var sequence = Out();
+        sequence.Play();
     }
 
     public Sequence In()

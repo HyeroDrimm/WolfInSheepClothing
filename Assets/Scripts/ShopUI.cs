@@ -18,7 +18,6 @@ public class ShopUI : MonoBehaviour
     [SerializeField] private Popup notEnoughCoinsPopup;
     [SerializeField] private bool skipCheckForCoins;
     [SerializeField] private TMP_Text coinAmount;
-    [SerializeField] private MenuFade menuFade;
 
     //Items
 
@@ -34,8 +33,6 @@ public class ShopUI : MonoBehaviour
         }
 
         InvokeRepeating("RefreshShop", 0, shopRefreshDuration);
-
-        SetVisible(false);
     }
 
     private bool OnItemPickedUp(ShopItem item)
@@ -64,13 +61,5 @@ public class ShopUI : MonoBehaviour
     private void OnExitButtonClicked()
     {
         gameManager.ShowShop(false);
-    }
-
-    public void SetVisible(bool state)
-    {
-        if (state)
-            menuFade.In().Play();
-        else
-            menuFade.Out().Play();
     }
 }

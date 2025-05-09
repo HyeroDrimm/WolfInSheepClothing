@@ -10,7 +10,6 @@ public class PauseMenuController : MonoBehaviour
     [SerializeField] private GameManager gameManager;
     [SerializeField] private Button resumeButton;
     [SerializeField] private Button mainMenuButton;
-    [SerializeField] private MenuFade menuFade;
 
     private void Awake()
     {
@@ -26,13 +25,5 @@ public class PauseMenuController : MonoBehaviour
     private void OnMainMenuClicked()
     {
         ConfirmPopup.Instance.Show(() => SceneManager.LoadScene("Menu"), "Exit to Main Menu?");
-    }
-
-    public void SetVisible(bool visible)
-    {
-        if (visible)
-            menuFade.In().SetUpdate(true).Play();
-        else
-            menuFade.Out().SetUpdate(true).Play();
     }
 }

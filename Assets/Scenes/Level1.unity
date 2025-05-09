@@ -14111,17 +14111,6 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
---- !u!114 &349588825 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7367709981131411613, guid: d0b9fb94d0a21af4dbf12177db0a5494, type: 3}
-  m_PrefabInstance: {fileID: 373756679492723517}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bd530612827bf624aa2eef13447603cb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &419759177
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -14609,7 +14598,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentTimer: {fileID: 560225343}
-  pauseMenuController: {fileID: 626920894}
+  pauseMenuWindow: {fileID: 0}
   bestTimer: {fileID: 0}
   youLostUI: {fileID: 1653413342}
   coinCounterUi: {fileID: 84047900}
@@ -14618,7 +14607,7 @@ MonoBehaviour:
   enemy: {fileID: 936736356}
   shopSlowDown: 0.2
   baseGameSpeed: 1
-  shopUi: {fileID: 349588825}
+  shopWindow: {fileID: 0}
   pocketUi: {fileID: 1505274171}
   destructionCurve:
     serializedVersion: 2
@@ -14665,17 +14654,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &626920894 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3999057254886296220, guid: d0b9fb94d0a21af4dbf12177db0a5494, type: 3}
-  m_PrefabInstance: {fileID: 373756679492723517}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 205dca3ab5776ae42b67782f582f2cd3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &646168201 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2123047995246911216, guid: b175f85459b7c6e4fa265fffdacc0798, type: 3}
@@ -20153,10 +20131,6 @@ PrefabInstance:
     - target: {fileID: 2732921044556662901, guid: d0b9fb94d0a21af4dbf12177db0a5494, type: 3}
       propertyPath: m_Name
       value: Canvas
-      objectReference: {fileID: 0}
-    - target: {fileID: 2732921044556662901, guid: d0b9fb94d0a21af4dbf12177db0a5494, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3999057254886296220, guid: d0b9fb94d0a21af4dbf12177db0a5494, type: 3}
       propertyPath: gameManager
