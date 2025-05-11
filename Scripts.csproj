@@ -83,7 +83,6 @@
     <Compile Include="Assets\Scripts\PickUp\SpeedChangePowerUp.cs" />
     <Compile Include="Assets\Scripts\PocketUI.cs" />
     <Compile Include="Assets\Scripts\Shop.cs" />
-    <Compile Include="Assets\Scripts\GameMenuWindowController.cs" />
     <Compile Include="Assets\Scripts\Enemy.cs" />
     <Compile Include="Assets\Scripts\ItemsConsts.cs" />
     <Compile Include="Assets\Scripts\IntFillBar.cs" />

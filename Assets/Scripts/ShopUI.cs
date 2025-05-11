@@ -19,7 +19,7 @@ public class ShopUI : MonoBehaviour
     [SerializeField] private bool skipCheckForCoins;
     [SerializeField] private TMP_Text coinAmount;
 
-    //Items
+    //AlternativeItems
 
 
     private void Awake()

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Codice.CM.Common;
 using HyeroUnityEssentials;
 using MoreMountains.Feedbacks;
 using NaughtyAttributes;
@@ -25,7 +26,7 @@ public class BoardManager : MonoBehaviour
     [Header("Destruction")]
     [SerializeField] private AnimationCurve destructionCurve;
     [SerializeField] private int maxGlitchesAtTime;
-    [SerializeField, Range(0,1)] private float progressAtStart;
+    [SerializeField, Range(0, 1)] private float progressAtStart;
     [SerializeField] private float chanceToSeedGlitch = 0.1f;
     [SerializeField] private float startingTimeBetweenGlitches;
     [SerializeField] private float timeBetweenGlitches;
@@ -33,7 +34,7 @@ public class BoardManager : MonoBehaviour
     [SerializeField] private float glitchDecreaseRate = 1f;
     [SerializeField] private float glitchCooldown = 5f;
 
-    [Header("Pickups")] 
+    [Header("Pickups")]
     [SerializeField] private int maxPickupsAtTime;
     [SerializeField] private float startingTimeBetweenPickups;
     [SerializeField] private float timeBetweenPickups;
@@ -42,7 +43,7 @@ public class BoardManager : MonoBehaviour
     [SerializeField] private float freezeChance;
     [SerializeField] private float coinChance;
 
-    [Header("Feedback")] 
+    [Header("Feedback")]
     [SerializeField] private MMF_Player playerFixGlitchFeedback;
 
     [Header("Create")]
@@ -54,6 +55,13 @@ public class BoardManager : MonoBehaviour
     private Dictionary<PathNode, PathNode[]> nodeNeighbours = new Dictionary<PathNode, PathNode[]>();
 
     private HyeroUnityEssentials.Helpers.WeightedRandomList<PathNode.PickupType> weightedPickupsRandom;
+    private HyeroUnityEssentials.Helpers.DynamicWeightedRandomListWithItems<PathNode> weightedDistanceTable;
+
+    private const string SPAWN_POWERUP_CODE = "SpawnPickups";
+    private const string SPAWN_GLITCHES_CODE = "SpawnGlitches";
+
+    public bool isSpawnPowerUpOn = true;
+    public bool isSpawnGlitchesOn = true;
 
     private void Awake()
     {
@@ -61,6 +69,11 @@ public class BoardManager : MonoBehaviour
             new HyeroUnityEssentials.Helpers.WeightedRandomList<PathNode.PickupType>(
                 new float[] { speedUpChance, speedDownChance, freezeChance, coinChance, },
                 new PathNode.PickupType[] { PickupType.SpeedUp, PickupType.SpeedDown, PickupType.Freeze, PickupType.Coin, });
+
+        weightedDistanceTable =
+                new HyeroUnityEssentials.Helpers.DynamicWeightedRandomListWithItems<PathNode>(
+                    nodes.ToArray(),
+                    pathNode => Vector3.Distance(pathNode.transform.position, player.transform.position));
 
 
         currentConnections = nodeConnections.ToHashSet();
@@ -105,9 +118,14 @@ public class BoardManager : MonoBehaviour
             }
             nodeNeighbours.Add(node, list.ToArray());
         }
-
-        InvokeRepeating("SpawnGlitches", startingTimeBetweenGlitches, timeBetweenGlitches);
-        InvokeRepeating("SpawnPickups", startingTimeBetweenPickups, timeBetweenPickups);
+        if (isSpawnGlitchesOn)
+        {
+            SetSpawnGlitches(true);
+        }
+        if (isSpawnPowerUpOn)
+        {
+            SetSpawnPowerUp(true);
+        }
     }
 
     private void Start()
@@ -286,11 +304,13 @@ public class BoardManager : MonoBehaviour
 
     private void SpawnPickups()
     {
-        var nodeCandidates = nodes.Where(x => !IsNodeInAnyPaths(x) && x.State == PathNode.DestructorState.Neutral && !x.IsPickup).Shuffle().ToList();
-        if (nodes.Count(x=>x.IsPickup) >= maxPickupsAtTime || nodeCandidates.Count == 0) return;
+        var nodeCandidates = nodes.Where(x => !IsNodeInAnyPaths(x) && x.State == PathNode.DestructorState.Neutral && !x.IsPickup).Shuffle().ToArray();
+        if (nodes.Count(x => x.IsPickup) >= maxPickupsAtTime || nodeCandidates.Length == 0) return;
 
-        var nodeBestCandidate = nodeCandidates[0];
-        
+        weightedDistanceTable.UpdateItems(nodeCandidates);
+
+        var nodeBestCandidate = weightedDistanceTable.GetRandomItem();
+
         nodeBestCandidate.ShowPickup(weightedPickupsRandom.GetRandomItem());
     }
 
@@ -302,7 +322,7 @@ public class BoardManager : MonoBehaviour
 
     public void OnPlayerStartFix(PathNode pathNode, float expectedTime, float percentOfDone)
     {
-        playerFixGlitchFeedback.DurationMultiplier = expectedTime; 
+        playerFixGlitchFeedback.DurationMultiplier = expectedTime;
         playerFixGlitchFeedback.PlayFeedbacks();
     }
 
@@ -310,5 +330,31 @@ public class BoardManager : MonoBehaviour
     {
         if (playerFixGlitchFeedback.IsPlaying)
             playerFixGlitchFeedback.SkipToTheEnd();
+    }
+
+    public void SetSpawnPowerUp(bool state)
+    {
+        isSpawnPowerUpOn = state;
+        if (state)
+        {
+            InvokeRepeating(SPAWN_POWERUP_CODE, startingTimeBetweenPickups, timeBetweenPickups);
+        }
+        else
+        {
+            CancelInvoke(SPAWN_POWERUP_CODE);
+        }
+    }
+    
+    public void SetSpawnGlitches(bool state)
+    {
+        isSpawnGlitchesOn = state;
+        if (state)
+        {
+            InvokeRepeating(SPAWN_GLITCHES_CODE, startingTimeBetweenGlitches, timeBetweenGlitches);
+        }
+        else
+        {
+            CancelInvoke(SPAWN_GLITCHES_CODE);
+        }
     }
 }

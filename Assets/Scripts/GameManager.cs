@@ -11,7 +11,6 @@ public class GameManager : MonoBehaviour
     public static GameManager instance;
     [SerializeField] private Timer currentTimer;
     [SerializeField] private UIWindow pauseMenuWindow;
-    [SerializeField] private Timer bestTimer;
     [SerializeField] private YouLostUI youLostUI;
     [SerializeField] private CoinCounterUI coinCounterUi;
     [SerializeField] private CoinCounterUI coinCounterUiShop;
@@ -27,23 +26,18 @@ public class GameManager : MonoBehaviour
     [SerializeField] private PocketUI pocketUi;
     private ShopItem itemInPocket;
 
-    [Header("Deleting nodes")]
-    [SerializeField] private AnimationCurve destructionCurve;
-    [SerializeField] private float maxDestructionTime;
-    [SerializeField] private int maxDestructorsAtTime;
-    [SerializeField] private int newDestructorsAmount;
-    [SerializeField] private float startingTimeBetweenDestructors;
-    [SerializeField] private float timeBetweenDestructors;
-    [SerializeField] private float timeToExplode;
-
-
     private bool shouldCountTime = true;
     private float startTimestamp;
 
     private int coinCounter = 0;
     private float gameSpeed = 1;
     private bool isPause = false;
-    private float Gamespeed => isPause ? 0 : gameSpeed;
+
+    private bool isEnemyOn = true;
+
+    // Turn off gamesystems
+    public bool isPowerUpOn = true;
+    public bool isDestructorsOn = true;
 
     private void Awake()
     {
@@ -59,10 +53,14 @@ public class GameManager : MonoBehaviour
             instance = this;
         }
 
-
         startTimestamp = Time.time;
 
         pocketUi.UpdateItem(itemInPocket);
+
+        if (isEnemyOn)
+        {
+            SetEnemyState(true);
+        }
     }
 
     private void Update()
@@ -197,5 +195,19 @@ public class GameManager : MonoBehaviour
     public void StartGame()
     {
         UpdateTimeScale(1);
+    }
+
+    public void SetEnemyState(bool state)
+    {
+        isEnemyOn = state;
+        enemy.gameObject.SetActive(state);
+        if (state)
+        {
+            
+        }
+        else
+        {
+
+        }
     }
 }
