@@ -1195,7 +1195,7 @@ MonoBehaviour:
   continueButton: {fileID: 6587164887997991359}
   quitButton: {fileID: 8157609305325723740}
   curtain: {fileID: 0}
-  menuFade: {fileID: 0}
+  uiWindow: {fileID: 6308047420570550016}
 --- !u!114 &6308047420570550016
 MonoBehaviour:
   m_ObjectHideFlags: 0

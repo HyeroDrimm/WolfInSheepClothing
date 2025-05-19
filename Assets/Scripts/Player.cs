@@ -1,11 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 using MoreMountains.Feedbacks;
 using Roy_T.AStar.Paths;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using static UnityEngine.GraphicsBuffer;
+using PathType = Roy_T.AStar.Paths.PathType;
 
 public class Player : MonoBehaviour, IFollowTarget
 {
@@ -14,6 +16,7 @@ public class Player : MonoBehaviour, IFollowTarget
     [SerializeField] private GameManager gameManager;
     [SerializeField] private float movementSpeed;
     [SerializeField] private float movementSpeedBase;
+    [SerializeField] private bool skipIntro;
 
     [SerializeField] private float waitAfterMoveTime;
     [SerializeField] private Doll dollPrefab;
@@ -33,12 +36,44 @@ public class Player : MonoBehaviour, IFollowTarget
 
     // Animation Names
     private const string RUN_ANIMATION = "Run";
-    private const string IDLE_ANIMATION = "Idle";
     private const string RUN_SLOWED_ANIMATION = "Run Slowed";
-    private const string IDLE_SLOWED_ANIMATION = "Idle Slowed";
+    private const string RUN_FAST_ANIMATION = "Run Fast";
 
-    private string currentRunAnimation => powerUpSpeedModifier < 1 ? RUN_SLOWED_ANIMATION : RUN_ANIMATION;
-    private string currentIdleAnimation => powerUpSpeedModifier < 1 ? IDLE_SLOWED_ANIMATION : IDLE_ANIMATION;
+    private const string IDLE_ANIMATION = "Idle";
+    private const string IDLE_SLOWED_ANIMATION = "Idle Slowed";
+    private const string IDLE_FASR_ANIMATION = "Idle Fast";
+
+    private const string FROZEN_ANIMATION = "Frozen";
+
+    private string currentRunAnimation
+    {
+        get
+        {
+            if (isFrozen)
+                return FROZEN_ANIMATION;
+            else if (powerUpSpeedModifier < 1)
+                return RUN_SLOWED_ANIMATION;
+            else if (powerUpSpeedModifier > 1)
+                return RUN_FAST_ANIMATION;
+            else
+                return RUN_ANIMATION;
+        }
+    }
+
+    private string currentIdleAnimation
+    {
+        get
+        {
+            if (isFrozen)
+                return FROZEN_ANIMATION;
+            else if (powerUpSpeedModifier < 1)
+                return IDLE_SLOWED_ANIMATION;
+            else if (powerUpSpeedModifier > 1)
+                return IDLE_FASR_ANIMATION;
+            else
+                return IDLE_ANIMATION;
+        }
+    }
 
     // Speed
     private float powerUpSpeedModifier = 1;
@@ -51,11 +86,7 @@ public class Player : MonoBehaviour, IFollowTarget
     private bool useDoll = false;
     public Path Path => path;
 
-
-    PathNode IFollowTarget.CurrentPosition()
-    {
-        return currentPosition;
-    }
+    PathNode IFollowTarget.CurrentPosition() => currentPosition;
 
     private void Start()
     {
@@ -67,6 +98,25 @@ public class Player : MonoBehaviour, IFollowTarget
 
         transform.position = startingNode.transform.position;
         currentPosition = startingNode;
+
+        if (!skipIntro)
+        {
+            var duration = 2f;
+            visual.transform.localPosition = new Vector3(0, -0.76f, 0);
+            visual.transform.DOLocalMoveY(1.02f, duration).SetUpdate(true);
+
+
+            visual.transform.localScale = Vector3.zero;
+            animator?.ChangeAnimationState(RUN_ANIMATION);
+            animator?.SetUnscaledUpdateMode(true);
+            var scale = visual.transform.DOScale(1f, duration);
+            scale.SetUpdate(true);
+            scale.onComplete += () =>
+            {
+                animator?.ChangeAnimationState(IDLE_ANIMATION);
+                animator?.SetUnscaledUpdateMode(false);
+            };
+        }
     }
 
     private void Update()
@@ -104,8 +154,8 @@ public class Player : MonoBehaviour, IFollowTarget
                         isWaitingAfterMove = true;
                         transform.position = currentPosition.transform.position;
                         currentPosition = target;
+                        UpdateAnimation();
 
-                        animator?.ChangeAnimationState(currentRunAnimation);
                         SoundEffectPlayer.Instance.PlaySoundClip(SoundEffectPlayer.SELECT);
                     }
                 }
@@ -128,7 +178,7 @@ public class Player : MonoBehaviour, IFollowTarget
                 currentPosition = queuedPlace;
                 queuedPlace = null;
 
-                animator?.ChangeAnimationState(currentRunAnimation);
+                UpdateAnimation();
                 SoundEffectPlayer.Instance.PlaySoundClip(SoundEffectPlayer.SELECT);
             }
         }
@@ -154,7 +204,7 @@ public class Player : MonoBehaviour, IFollowTarget
             {
                 path = null;
                 isMoving = false;
-                animator?.ChangeAnimationState(currentIdleAnimation);
+                UpdateAnimation();
 
                 if (IsInvoking("WaitAfterMove"))
                 {
@@ -185,7 +235,7 @@ public class Player : MonoBehaviour, IFollowTarget
     public void PickedUpSpeedChangePowerUp(float speedModifier, float duration)
     {
         powerUpSpeedModifier = speedModifier;
-        animator?.ChangeAnimationState(isMoving ? currentRunAnimation : currentIdleAnimation);
+        UpdateAnimation();
         UpdateStatusColor();
 
         if (powerUpSpeedModifier < 1)
@@ -218,7 +268,7 @@ public class Player : MonoBehaviour, IFollowTarget
         }
 
         powerUpSpeedModifier = 1;
-        animator?.ChangeAnimationState(isMoving ? currentRunAnimation : currentIdleAnimation);
+        UpdateAnimation();
         UpdateStatusColor();
     }
 
@@ -231,7 +281,7 @@ public class Player : MonoBehaviour, IFollowTarget
     {
         isFrozen = true;
         UpdateStatusColor();
-        animator?.ChangeAnimationState(isMoving ? currentRunAnimation : currentIdleAnimation);
+        UpdateAnimation();
         SoundEffectPlayer.Instance.PlaySoundClip(SoundEffectPlayer.FREEZE);
 
 
@@ -246,10 +296,7 @@ public class Player : MonoBehaviour, IFollowTarget
     {
         isFrozen = false;
         UpdateStatusColor();
-        if (isMoving)
-        {
-            animator?.ChangeAnimationState(isMoving ? currentRunAnimation : currentIdleAnimation);
-        }
+        UpdateAnimation();
     }
 
     public void UseDoll()
@@ -280,5 +327,10 @@ public class Player : MonoBehaviour, IFollowTarget
     {
         this.boardManager = boardManager;
         this.enemy = enemy;
+    }
+
+    private void UpdateAnimation()
+    {
+        animator?.ChangeAnimationState(isMoving ? currentRunAnimation : currentIdleAnimation);
     }
 }

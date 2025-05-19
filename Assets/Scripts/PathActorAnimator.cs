@@ -30,4 +30,8 @@ public class PathActorAnimator : MonoBehaviour
         transform.localScale = new Vector3(scale *(state ? -1 : 1), transform.localScale.y, transform.localScale.z);
     }
 
+    public void SetUnscaledUpdateMode(bool state)
+    {
+        animator.updateMode = state ? AnimatorUpdateMode.UnscaledTime : AnimatorUpdateMode.Normal;
+    }
 }

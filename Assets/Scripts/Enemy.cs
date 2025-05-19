@@ -1,8 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 using Roy_T.AStar.Paths;
 using Roy_T.AStar.Primitives;
 using UnityEngine;
+using PathType = Roy_T.AStar.Paths.PathType;
 
 public class Enemy : MonoBehaviour
 {
@@ -15,6 +17,8 @@ public class Enemy : MonoBehaviour
     [SerializeField] private float waitAfterMoveTime;
     [SerializeField] private SpriteRenderer visual;
     [SerializeField] private Collider2D enemyCollider;
+    [SerializeField] private bool skipIntro;
+
     [Header("Teleport")]
     [SerializeField] private GameObject teleportVisualsEnemy;
     [SerializeField] private GameObject teleportVisualsDestination;
@@ -33,12 +37,44 @@ public class Enemy : MonoBehaviour
 
     // Animation Names
     private const string RUN_ANIMATION = "Run";
-    private const string IDLE_ANIMATION = "Idle";
     private const string RUN_SLOWED_ANIMATION = "Run Slowed";
-    private const string IDLE_SLOWED_ANIMATION = "Idle Slowed";
+    private const string RUN_FAST_ANIMATION = "Run Fast";
 
-    private string currentRunAnimation => powerUpSpeedModifier < 1 ? RUN_SLOWED_ANIMATION : RUN_ANIMATION;
-    private string currentIdleAnimation => powerUpSpeedModifier < 1 ? IDLE_SLOWED_ANIMATION : IDLE_ANIMATION;
+    private const string IDLE_ANIMATION = "Idle";
+    private const string IDLE_SLOWED_ANIMATION = "Idle Slowed";
+    private const string IDLE_FASR_ANIMATION = "Idle Fast";
+
+    private const string FROZEN_ANIMATION = "Frozen";
+
+    private string currentRunAnimation
+    {
+        get
+        {
+            if (isFrozen)
+                return FROZEN_ANIMATION;
+            else if (powerUpSpeedModifier < 1)
+                return RUN_SLOWED_ANIMATION;
+            else if (powerUpSpeedModifier > 1)
+                return RUN_FAST_ANIMATION;
+            else
+                return RUN_ANIMATION;
+        }
+    }
+
+    private string currentIdleAnimation
+    {
+        get
+        {
+            if (isFrozen)
+                return FROZEN_ANIMATION;
+            else if (powerUpSpeedModifier < 1)
+                return IDLE_SLOWED_ANIMATION;
+            else if (powerUpSpeedModifier > 1)
+                return IDLE_FASR_ANIMATION;
+            else
+                return IDLE_ANIMATION;
+        }
+    }
 
     // Speed
     private float powerUpSpeedModifier = 1;
@@ -65,6 +101,26 @@ public class Enemy : MonoBehaviour
 
         isWaitingAfterMove = true;
         Invoke("WaitAfterMove", waitAfterMoveTimeProper);
+
+
+        if (!skipIntro)
+        {
+            var duration = 2f;
+            visual.transform.localPosition = new Vector3(0, -0.93f, 0);
+            visual.transform.DOLocalMoveY(1.02f, duration).SetUpdate(true);
+
+
+            visual.transform.localScale = Vector3.zero;
+            animator?.ChangeAnimationState(RUN_ANIMATION);
+            animator?.SetUnscaledUpdateMode(true);
+            var scale = visual.transform.DOScale(0.79f, duration);
+            scale.SetUpdate(true);
+            scale.onComplete += () =>
+            {
+                animator?.ChangeAnimationState(IDLE_ANIMATION);
+                animator?.SetUnscaledUpdateMode(false);
+            };
+        }
     }
 
     void Update()
@@ -82,7 +138,7 @@ public class Enemy : MonoBehaviour
                 transform.position = currentPosition.transform.position;
                 currentPosition = followTarget.CurrentPosition();
 
-                animator?.ChangeAnimationState(currentRunAnimation);
+                UpdateAnimation();
             }
             else
             {
@@ -111,7 +167,8 @@ public class Enemy : MonoBehaviour
             {
                 path = null;
                 isMoving = false;
-                animator?.ChangeAnimationState(currentIdleAnimation);
+
+                UpdateAnimation();
 
                 if (IsInvoking("WaitAfterMove"))
                 {
@@ -158,13 +215,14 @@ public class Enemy : MonoBehaviour
         this.boardManager = boardManager;
         this.player = player;
     }
-    
+
     #region PowerUps
 
     public void PickedUpSpeedChangePowerUp(float speedModifier, float duration)
     {
         powerUpSpeedModifier = speedModifier;
         UpdateStatusColor();
+        UpdateAnimation();
 
         if (IsInvoking("DeleteSpeedPowerUp"))
         {
@@ -177,6 +235,7 @@ public class Enemy : MonoBehaviour
     {
         powerUpSpeedModifier = 1;
         UpdateStatusColor();
+        UpdateAnimation();
     }
 
     public void PickedUpEnemyFreezePowerUp(float duration)
@@ -190,7 +249,8 @@ public class Enemy : MonoBehaviour
         enemyCollider.enabled = false;
         UpdateStatusColor();
 
-        animator?.ChangeAnimationState(currentIdleAnimation);
+        UpdateAnimation();
+
         SoundEffectPlayer.Instance.PlaySoundClip(SoundEffectPlayer.FREEZE);
 
         if (IsInvoking("RemoveFreezeAddon"))
@@ -205,10 +265,7 @@ public class Enemy : MonoBehaviour
         isFrozen = false;
         enemyCollider.enabled = true;
         UpdateStatusColor();
-        if (isMoving)
-        {
-            animator?.ChangeAnimationState(currentRunAnimation);
-        }
+        UpdateAnimation();
     }
 
     private void UpdateStatusColor()
@@ -232,4 +289,9 @@ public class Enemy : MonoBehaviour
     }
 
     #endregion
+
+    private void UpdateAnimation()
+    {
+        animator?.ChangeAnimationState(isMoving ? currentRunAnimation : currentIdleAnimation);
+    }
 }

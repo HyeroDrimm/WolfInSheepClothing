@@ -239,10 +239,13 @@ MonoBehaviour:
   gameManager: {fileID: 0}
   movementSpeed: 0.5
   movementSpeedBase: 2
+  skipIntro: 0
   waitAfterMoveTime: 0
   dollPrefab: {fileID: 5573991695787880675, guid: 1fb3e9f054ff6b741b3b0915c281aa96, type: 3}
   useDollPopup: {fileID: 0}
   visual: {fileID: 1891011967460997901}
+  speedUpFeedback: {fileID: 0}
+  speedDownFeedback: {fileID: 0}
 --- !u!50 &4753256301699612090
 Rigidbody2D:
   serializedVersion: 4

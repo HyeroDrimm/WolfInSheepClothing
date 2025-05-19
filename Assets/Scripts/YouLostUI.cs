@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
+using HyeroUnityEssentials.WindowSystem;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -16,7 +17,7 @@ public class YouLostUI : MonoBehaviour
     [SerializeField] private Button continueButton;
     [SerializeField] private Button quitButton;
     [SerializeField] private Curtain curtain;
-    [SerializeField] private MenuFade menuFade;
+    [SerializeField] private UIWindow uiWindow;
     private const string timePreset = "TIME: {0}";
     private const string cointPreset = "{0}x";
     private const string finalTimePreset = "FINAL TIME: {0}";
@@ -30,7 +31,7 @@ public class YouLostUI : MonoBehaviour
 
     public void Show(float time, float finalTime, float oldTime, int coinCounter)
     {
-        menuFade.In().SetUpdate(true).Play();
+        WindowManager.Instance.Show(uiWindow);
 
         timeText.text = string.Format(timePreset, TimeSpan.FromSeconds(time).ToString("mm':'ss"));
         coinText.text = string.Format(cointPreset, coinCounter);
