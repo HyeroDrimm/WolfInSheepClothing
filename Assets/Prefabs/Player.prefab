@@ -80,7 +80,7 @@ GameObject:
   - component: {fileID: 3627261144328805971}
   - component: {fileID: 348085823099632562}
   m_Layer: 7
-  m_Name: Sheep_run_0
+  m_Name: Visual
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
