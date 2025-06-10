@@ -526,6 +526,12 @@ MonoBehaviour:
   boardManager: {fileID: 0}
   taskUIGameObject: {fileID: 4634358557029204728}
   taskUIText: {fileID: 4942989369007560880}
+  clickingOnCastlesSprite: {fileID: 0}
+  clickingOnCastlesHeaderText: Click on castle
+  clickingOnCastlesText: "This should explain how to click on castles\t\t"
+  runningFromWolfSprite: {fileID: 0}
+  runningFromWolfHeaderText: Run from wolf
+  runningFromWolfText: This explains how to run from wolfs
 --- !u!1 &1683961695010869093
 GameObject:
   m_ObjectHideFlags: 0

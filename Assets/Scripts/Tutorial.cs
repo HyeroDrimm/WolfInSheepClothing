@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 [DefaultExecutionOrder(-1)]
 public class Tutorial : MonoBehaviour
@@ -12,9 +13,36 @@ public class Tutorial : MonoBehaviour
     [SerializeField] private GameObject taskUIGameObject;
     [SerializeField] private TMP_Text taskUIText;
 
+    [Header("Clicking on Castles")] 
+    [SerializeField] private Sprite clickingOnCastlesSprite;
+    [SerializeField] private String clickingOnCastlesHeaderText;
+    [SerializeField, Multiline] private String clickingOnCastlesText;
+
+    [Header("Running from Wolf")] 
+    [SerializeField] private Sprite runningFromWolfSprite;
+    [SerializeField] private String runningFromWolfHeaderText;
+    [SerializeField, Multiline] private String runningFromWolfText;
+
     private float timestamp = 0;
-    private bool DidTimePass(float time) => Time.time - timestamp >= time;
-    private void ResetTimestamp() => timestamp = Time.time;
+    private bool isTimerOn = false;
+    private bool DidTimePass(float time)
+    {
+        if (!isTimerOn) return false;
+        
+        var state = Time.time - timestamp >= time;
+        if (state)
+            StopTimer();
+
+        return state;
+    }
+
+    private void StopTimer() => isTimerOn = false;
+    private void StartTimer()
+    {
+        timestamp = Time.time;
+        isTimerOn = true;
+    }
+
 
     private void Awake()
     {
@@ -22,17 +50,22 @@ public class Tutorial : MonoBehaviour
         boardManager.SetSpawnPowerUp(false);
         gameManager.SetEnemyState(false);
 
-        var testPhase = new TutorialPhase(()=> DidTimePass(2f), onStart:ResetTimestamp, onEnd:() =>
+        var clickingOnCastlePhase = new TutorialPhase(()=> DidTimePass(2f), onStart:()=>
         {
-            Debug.Log("phase 1");
-        });
-        var testPhase2 = new TutorialPhase(()=> DidTimePass(2f), onStart:ResetTimestamp, onEnd:()=>
+            ModalWindow.ShowOk(clickingOnCastlesHeaderText, clickingOnCastlesText, image: clickingOnCastlesSprite, onButtonPressed: StartTimer);
+        }, onEnd:() =>
         {
-            Debug.Log("phase 2");
         });
 
-        testPhase.AddNextPhase(testPhase2);
-        testPhase.Start();
+        var runningFromEnemyPhase = new TutorialPhase(()=> DidTimePass(2f), onStart:()=>
+        {
+            ModalWindow.ShowOk(runningFromWolfHeaderText, runningFromWolfText, image: runningFromWolfSprite, onButtonPressed: StartTimer);
+        }, onEnd:() =>
+        {
+        });
+
+        clickingOnCastlePhase.AddNextPhase(runningFromEnemyPhase);
+        clickingOnCastlePhase.Start();
     }
 
     private void Update()
