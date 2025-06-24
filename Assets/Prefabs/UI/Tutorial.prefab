@@ -528,10 +528,21 @@ MonoBehaviour:
   taskUIText: {fileID: 4942989369007560880}
   clickingOnCastlesSprite: {fileID: 0}
   clickingOnCastlesHeaderText: Click on castle
-  clickingOnCastlesText: "This should explain how to click on castles\t\t"
+  clickingOnCastlesText: 'S.H.E.E.P. needed to run, to create distance between itself
+    and Wolf. These castles were perfect for it, setting up levels for Wolf would
+    take time, but so will clearing them.
+
+
+
+    You can press castle to make sheep
+    move to it.'
   runningFromWolfSprite: {fileID: 0}
   runningFromWolfHeaderText: Run from wolf
-  runningFromWolfText: This explains how to run from wolfs
+  runningFromWolfText: "Princess Were resigned to her fate as yet another devious
+    villain captured her. It was just another Tuesday for her. When she spotted familiar
+    silhouette wielding sword and shield, she became a little bit more lively. S.H.E.E.P.
+    noticed her agitation, and then the Hero on the horizon. It needed to move, fast...\r\n\nWolf
+    The Hero will chase you! If he catches you, it\u2019s game over!"
 --- !u!1 &1683961695010869093
 GameObject:
   m_ObjectHideFlags: 0

@@ -134,8 +134,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PickUpPlace: {fileID: 0}
   isShown: 0
-  collider: {fileID: 0}
-  appearPlayer: {fileID: 0}
+  appearPlayer: {fileID: 357986102064022050}
   duration: 5
 --- !u!212 &3673795190457697603
 SpriteRenderer:

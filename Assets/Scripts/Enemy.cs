@@ -221,7 +221,6 @@ public class Enemy : MonoBehaviour
     public void PickedUpSpeedChangePowerUp(float speedModifier, float duration)
     {
         powerUpSpeedModifier = speedModifier;
-        UpdateStatusColor();
         UpdateAnimation();
 
         if (IsInvoking("DeleteSpeedPowerUp"))
@@ -234,7 +233,6 @@ public class Enemy : MonoBehaviour
     private void DeleteSpeedPowerUp()
     {
         powerUpSpeedModifier = 1;
-        UpdateStatusColor();
         UpdateAnimation();
     }
 
@@ -247,8 +245,6 @@ public class Enemy : MonoBehaviour
     {
         isFrozen = true;
         enemyCollider.enabled = false;
-        UpdateStatusColor();
-
         UpdateAnimation();
 
         SoundEffectPlayer.Instance.PlaySoundClip(SoundEffectPlayer.FREEZE);
@@ -264,28 +260,7 @@ public class Enemy : MonoBehaviour
     {
         isFrozen = false;
         enemyCollider.enabled = true;
-        UpdateStatusColor();
         UpdateAnimation();
-    }
-
-    private void UpdateStatusColor()
-    {
-        if (isFrozen)
-        {
-            visual.color = Color.blue;
-        }
-        else if (powerUpSpeedModifier < 1)
-        {
-            visual.color = Color.red;
-        }
-        else if (powerUpSpeedModifier > 1)
-        {
-            visual.color = Color.green;
-        }
-        else
-        {
-            visual.color = Color.white;
-        }
     }
 
     #endregion

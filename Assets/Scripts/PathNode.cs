@@ -192,6 +192,11 @@ public class PathNode : MonoBehaviour
         }
     }
 
+    [NaughtyAttributes.Button] public void ShowCoin() => ShowPickup(PickupType.Coin);
+    [NaughtyAttributes.Button] public void ShowSpeedUp() => ShowPickup(PickupType.SpeedUp);
+    [NaughtyAttributes.Button] public void ShowSpeedDown() => ShowPickup(PickupType.SpeedDown);
+    [NaughtyAttributes.Button] public void ShowFreeze() => ShowPickup(PickupType.Freeze);
+
     public void ShowPickup(PickupType pickupType)
     {
         switch (pickupType)

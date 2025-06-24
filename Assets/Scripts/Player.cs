@@ -236,7 +236,6 @@ public class Player : MonoBehaviour, IFollowTarget
     {
         powerUpSpeedModifier = speedModifier;
         UpdateAnimation();
-        UpdateStatusColor();
 
         if (powerUpSpeedModifier < 1)
         {
@@ -269,7 +268,6 @@ public class Player : MonoBehaviour, IFollowTarget
 
         powerUpSpeedModifier = 1;
         UpdateAnimation();
-        UpdateStatusColor();
     }
 
     public void PickedUpEnemyFreezePowerUp(float duration)
@@ -280,7 +278,6 @@ public class Player : MonoBehaviour, IFollowTarget
     public void ChangeFreezeAddon(float duration)
     {
         isFrozen = true;
-        UpdateStatusColor();
         UpdateAnimation();
         SoundEffectPlayer.Instance.PlaySoundClip(SoundEffectPlayer.FREEZE);
 
@@ -295,7 +292,6 @@ public class Player : MonoBehaviour, IFollowTarget
     private void RemoveFreezeAddon()
     {
         isFrozen = false;
-        UpdateStatusColor();
         UpdateAnimation();
     }
 
@@ -303,22 +299,6 @@ public class Player : MonoBehaviour, IFollowTarget
     {
         useDollPopup.SetVisible(true);
         useDoll = true;
-    }
-
-    private void UpdateStatusColor()
-    {
-        if (isFrozen)
-        {
-            visual.color = Color.blue;
-        }
-        else if (powerUpSpeedModifier > 1)
-        {
-            visual.color = Color.green;
-        }
-        else
-        {
-            visual.color = Color.white;
-        }
     }
 
     #endregion

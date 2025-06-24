@@ -1081,11 +1081,11 @@ MonoBehaviour:
   - {fileID: 6234832436757272932}
   shopItems:
   - type: PowerUpSpeedUp
-    icon: {fileID: 21300000, guid: 089609959e3904c4e8899914936fc99e, type: 3}
+    icon: {fileID: 1345326247, guid: 4d1653c4e8a0c884f94d5875a82fd1ca, type: 3}
     name: Speed Up
     price: 5
   - type: PowerUpSpeedDown
-    icon: {fileID: 21300000, guid: e2babc806046e26448fea469371cdaa8, type: 3}
+    icon: {fileID: 522713448, guid: 10026d409fa64e343a002672fec7a185, type: 3}
     name: Speed Down
     price: 2
   - type: PowerUpFreeze
@@ -1093,7 +1093,7 @@ MonoBehaviour:
     name: Freeze Enemy
     price: 6
   - type: PowerUpDoll
-    icon: {fileID: 21300000, guid: 4d7f10539ac89074d8323564f822d2e3, type: 3}
+    icon: {fileID: 21300000, guid: af1d6acb441d96e43bc8fa7e9a816ca2, type: 3}
     name: Bait Doll
     price: 4
   notEnoughCoinsPopup: {fileID: 2262188835878092648}
