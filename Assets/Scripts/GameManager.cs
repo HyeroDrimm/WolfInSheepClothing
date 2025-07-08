@@ -1,11 +1,14 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using HyeroUnityEssentials.WindowSystem;
+using HyeroUnityEssentials;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+[DefaultExecutionOrder(-10)]
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
@@ -16,6 +19,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private CoinCounterUI coinCounterUiShop;
     [SerializeField] private Player player;
     [SerializeField] private Enemy enemy;
+    [SerializeField] private Tutorial tutorial;
 
     [Header("Shop")]
     [SerializeField] private float shopSlowDown;
@@ -35,13 +39,23 @@ public class GameManager : MonoBehaviour
 
     private bool isEnemyOn = true;
 
+    public Action onCollectCoin;
+    public Action onItemBougth;
+
+    // Time scales
+    private TimeScaleModifier shopTimeScaleModifier;
+    private TimeScaleModifier gameStartTimeScaleModifier;
+
     // Turn off gamesystems
     public bool isPowerUpOn = true;
     public bool isDestructorsOn = true;
 
     private void Awake()
     {
-        UpdateTimeScale(0);
+        shopTimeScaleModifier = new TimeScaleModifier("shop", shopSlowDown, 2);
+        gameStartTimeScaleModifier = new TimeScaleModifier("game start", 0, 5);
+        
+        TimeController.AddModifier(gameStartTimeScaleModifier);
 
         if (instance != null)
         {
@@ -61,6 +75,8 @@ public class GameManager : MonoBehaviour
         {
             SetEnemyState(true);
         }
+
+        tutorial.Setup(player);
     }
 
     private void Update()
@@ -83,7 +99,8 @@ public class GameManager : MonoBehaviour
 
     public void EndGame()
     {
-        UpdateTimeScale(0);
+        TimeController.Clear(0);
+
         shouldCountTime = false;
         var time = Time.time - startTimestamp;
         var finalTime = time + coinCounter * 10;
@@ -106,6 +123,7 @@ public class GameManager : MonoBehaviour
 
     public void CollectCoin()
     {
+        onCollectCoin?.Invoke();
         coinCounter++;
         coinCounterUi.UpdateCounter(coinCounter);
         coinCounterUiShop.UpdateCounter(coinCounter);
@@ -116,15 +134,21 @@ public class GameManager : MonoBehaviour
         if (state)
         {
             coinCounterUiShop.UpdateCounter(coinCounter);
+            WindowManager.Instance.Show(shopWindow);
+            TimeController.AddModifier(shopTimeScaleModifier);
         }
-        WindowManager.Instance.Show(shopWindow);
-        UpdateTimeScale(state ? shopSlowDown : baseGameSpeed);
+        else
+        {
+            WindowManager.Instance.CloseIfOpen(shopWindow);
+            TimeController.RemoveModifier(shopTimeScaleModifier);
+        }
     }
 
     public void UpdatePocket(ShopItem shopItem)
     {
         if (itemInPocket != null)
         {
+            onItemBougth?.Invoke();
             UsePocketItem(itemInPocket);
         }
         pocketUi.UpdateItem(shopItem);
@@ -194,20 +218,12 @@ public class GameManager : MonoBehaviour
 
     public void StartGame()
     {
-        UpdateTimeScale(1);
+        TimeController.RemoveModifier(gameStartTimeScaleModifier);
     }
 
     public void SetEnemyState(bool state)
     {
         isEnemyOn = state;
         enemy.gameObject.SetActive(state);
-        if (state)
-        {
-            
-        }
-        else
-        {
-
-        }
     }
 }

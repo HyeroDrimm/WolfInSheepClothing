@@ -18,10 +18,12 @@ public class BoardManager : MonoBehaviour
 {
     [SerializeField] private List<PathNode> nodes;
     [SerializeField] private List<NodeConnection> nodeConnections;
+    [SerializeField] private List<Shop> shops;
     [SerializeField] private Dictionary<PathNode, Node> pathNodeToNode;
     [SerializeField] private Dictionary<Node, PathNode> nodeToPathNode;
     [SerializeField] private Player player;
     [SerializeField] private Enemy enemy;
+    [SerializeField] private GameManager gameManager;
 
     [Header("Destruction")]
     [SerializeField] private AnimationCurve destructionCurve;
@@ -62,6 +64,9 @@ public class BoardManager : MonoBehaviour
 
     public bool isSpawnPowerUpOn = true;
     public bool isSpawnGlitchesOn = true;
+    public bool isShopOn = true;
+
+    public Action onPlayerFixGlitch;
 
     private void Awake()
     {
@@ -104,6 +109,11 @@ public class BoardManager : MonoBehaviour
 
         player.Setup(this, enemy);
         enemy.Setup(this, player);
+
+        foreach (var shop in shops)
+        {
+            shop.Setup(gameManager);
+        }
 
         // Create neighbours dict
         foreach (var node in nodes)
@@ -328,12 +338,15 @@ public class BoardManager : MonoBehaviour
 
     public void OnPlayerEndFix(PathNode pathNode)
     {
+        onPlayerFixGlitch?.Invoke();
         if (playerFixGlitchFeedback.IsPlaying)
             playerFixGlitchFeedback.SkipToTheEnd();
     }
 
     public void SetSpawnPowerUp(bool state)
     {
+        if (state == isSpawnPowerUpOn) return;
+
         isSpawnPowerUpOn = state;
         if (state)
         {
@@ -347,6 +360,7 @@ public class BoardManager : MonoBehaviour
     
     public void SetSpawnGlitches(bool state)
     {
+        if (state == isSpawnGlitchesOn) return;
         isSpawnGlitchesOn = state;
         if (state)
         {
@@ -355,6 +369,19 @@ public class BoardManager : MonoBehaviour
         else
         {
             CancelInvoke(SPAWN_GLITCHES_CODE);
+        }
+    }
+
+    public void SetShopActive(bool state)
+    {
+        if (state == isShopOn) return;
+        isShopOn = state;
+        if (state)
+        {
+            foreach (var shop in shops)
+            {
+                shop.SetShopActive(state);
+            }
         }
     }
 }

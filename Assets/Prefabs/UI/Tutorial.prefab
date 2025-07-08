@@ -315,8 +315,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 428.01544, y: 0}
-  m_SizeDelta: {x: 776.0309, y: 0}
+  m_AnchoredPosition: {x: 428.01538, y: 0}
+  m_SizeDelta: {x: 776.03076, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &420554220450800687
 CanvasRenderer:
@@ -369,10 +369,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Padding:
-    m_Left: 0
-    m_Right: 0
-    m_Top: 0
-    m_Bottom: 0
+    m_Left: 10
+    m_Right: 10
+    m_Top: 15
+    m_Bottom: 15
   m_ChildAlignment: 0
   m_Spacing: 0
   m_ChildForceExpandWidth: 1
@@ -526,23 +526,61 @@ MonoBehaviour:
   boardManager: {fileID: 0}
   taskUIGameObject: {fileID: 4634358557029204728}
   taskUIText: {fileID: 4942989369007560880}
-  clickingOnCastlesSprite: {fileID: 0}
-  clickingOnCastlesHeaderText: Click on castle
+  clickingOnCastlesVideo: {fileID: 32900000, guid: f7081f3ad6add94479995e37881a5407, type: 3}
+  clickingOnCastlesHeaderText: Moving
+  clickingOnCastlesTask: Move through {0}/{1} castles
   clickingOnCastlesText: 'S.H.E.E.P. needed to run, to create distance between itself
-    and Wolf. These castles were perfect for it, setting up levels for Wolf would
-    take time, but so will clearing them.
+    and Wolf The Hero. These castles were perfect for it, setting up levels for Wolf
+    would take time, but so will clearing them.
 
 
 
-    You can press castle to make sheep
-    move to it.'
-  runningFromWolfSprite: {fileID: 0}
-  runningFromWolfHeaderText: Run from wolf
+    You can press castle to make
+    sheep move to it.'
+  castlesVisitedRequired: 3
+  pickingUpPickupsVideo: {fileID: 32900000, guid: f7081f3ad6add94479995e37881a5407, type: 3}
+  pickingUpPickupsHeaderText: Pick ups
+  pickingUpPickupsTask: Pick up {0}/{1} pickups!
+  pickingUpPickupsText: "S.H.E.E.P. was by now used to setting up levels, it was
+    getting pretty good at it. But there must be a way to do it faster. Then a green
+    bouncing arrows caught it\u2019s attention\u2026\r\n\r\nSometimes castles will
+    spawn pickups, which can be picked up by you or the enemy.\r\nGreen arrows are
+    speed up\r\nRed arrows are speed downs\r\nIce cubes freeze other character for
+    a while\r\nAnd coins would be useful if there was a shop\u2026"
+  pickupsPickedUpRequired: 3
+  buyingInShopVideo: {fileID: 32900000, guid: f7081f3ad6add94479995e37881a5407, type: 3}
+  buyingInShopHeaderText: Shop
+  buyingInShopTask: Buy {0}/{1} things in shop
+  buyingInShopText: 'On its dire dash S.H.E.E.P. stumbled upon humble shop. There
+    freshly picked up coins begged to be spent. That decoy-doll-that-looks-exactly-like-princess
+    was especially enticing.
+
+
+
+    If you think you have enough coins you can visit
+    shop, to buy pickups, which you can use on command at any time! Also shop is
+    the only source of decoy doll, a powerful item that compels wolf to chase after
+    it, instead of you!'
+  thingsBoughtRequired: 3
+  fixingGlitchesVideo: {fileID: 32900000, guid: f7081f3ad6add94479995e37881a5407, type: 3}
+  fixingGlitchesHeaderText: Glitches
+  fixingGlitchesTask: Fix {0}/{1} glitches!
+  fixingGlitchesText: "Something was not right, S.H.E.E.P. was doing too well. It
+    felt that he broke the rules of this world by being this awesome. And world bend
+    backwards trying to block his path. But little did this world knew S.H.E.E.P.
+    was a practiced chiropractor.\r\n\r\nWith time, castles will start to \u2018Glitch\u2019.
+    If you don't stop the process by standing on castle for while, it will become
+    blocked and you wont be able to walk through it."
+  fixedGlitchesRequired: 3
+  runningFromWolfVideo: {fileID: 32900000, guid: f7081f3ad6add94479995e37881a5407, type: 3}
+  runningFromWolfHeaderText: Wolf
+  runningFromWolfTask: "Don\u2019t let wolf catch you!"
   runningFromWolfText: "Princess Were resigned to her fate as yet another devious
     villain captured her. It was just another Tuesday for her. When she spotted familiar
     silhouette wielding sword and shield, she became a little bit more lively. S.H.E.E.P.
-    noticed her agitation, and then the Hero on the horizon. It needed to move, fast...\r\n\nWolf
-    The Hero will chase you! If he catches you, it\u2019s game over!"
+    noticed her agitation, and then the Hero on the horizon. It needed to move, fast...\r\n\r\nFrom
+    now on Wolf The Hero will chase you! If he catches you, it\u2019s game over!
+    Good luck!"
 --- !u!1 &1683961695010869093
 GameObject:
   m_ObjectHideFlags: 0

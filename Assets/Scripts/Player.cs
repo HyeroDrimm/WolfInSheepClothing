@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using Codice.Client.GameUI.Explorer;
 using DG.Tweening;
 using MoreMountains.Feedbacks;
 using Roy_T.AStar.Paths;
@@ -33,6 +35,8 @@ public class Player : MonoBehaviour, IFollowTarget
     private PathNode currentPosition;
     private PathNode queuedPlace;
     private BoardManager boardManager;
+    public Action onCastleVisited;
+    public Action onPickup;
 
     // Animation Names
     private const string RUN_ANIMATION = "Run";
@@ -205,6 +209,7 @@ public class Player : MonoBehaviour, IFollowTarget
                 path = null;
                 isMoving = false;
                 UpdateAnimation();
+                onCastleVisited?.Invoke();
 
                 if (IsInvoking("WaitAfterMove"))
                 {
@@ -253,6 +258,8 @@ public class Player : MonoBehaviour, IFollowTarget
             CancelInvoke("DeleteSpeedPowerUp");
         }
         Invoke("DeleteSpeedPowerUp", duration);
+
+        onPickup?.Invoke();
     }
 
     private void DeleteSpeedPowerUp()
@@ -273,6 +280,7 @@ public class Player : MonoBehaviour, IFollowTarget
     public void PickedUpEnemyFreezePowerUp(float duration)
     {
         enemy.ChangeFreezeAddon(duration);
+        onPickup?.Invoke();
     }
 
     public void ChangeFreezeAddon(float duration)

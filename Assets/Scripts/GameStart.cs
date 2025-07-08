@@ -16,8 +16,6 @@ public class GameStart : MonoBehaviour
 
     public void StartGame()
     {
-        gameManager.UpdateTimeScale(0);
-
         curtain.Out(gameManager.StartGame);
     }
 }

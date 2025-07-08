@@ -1,15 +1,27 @@
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Shop : PickUp
+public class Shop : MonoBehaviour
 {
-    [SerializeField] private GameManager shopUi;
-
-    public override void OnPlayerPickedUp(Player player)
+    private GameManager gameManager;
+    private bool shouldShowShop = false;
+    private void OnTriggerEnter2D(Collider2D other)
     {
-        shopUi.ShowShop(true);
+        if (other.CompareTag("Player") && shouldShowShop)
+        {
+            gameManager.ShowShop(true);
+        }
     }
 
-    public override void OnEnemyPickedUp(Enemy enemy) { }
+    public void SetShopActive(bool state)
+    {
+        shouldShowShop = state;
+    }
+
+    public void Setup(GameManager gameManager)
+    {
+        this.gameManager = gameManager;
+    }
 }
