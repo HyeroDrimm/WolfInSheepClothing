@@ -75,6 +75,7 @@
     <Compile Include="Assets\Scripts\Timer.cs" />
     <Compile Include="Assets\Scripts\ShopUIItem.cs" />
     <Compile Include="Assets\Scripts\ChooseMapScreenController.cs" />
+    <Compile Include="Assets\Scripts\Steamworks.NET\SteamManager.cs" />
     <Compile Include="Assets\Scripts\YouLostUI.cs" />
     <Compile Include="Assets\Scripts\PickUp\PickUp.cs" />
     <Compile Include="Assets\Scripts\Helpers.cs" />
@@ -1011,6 +1012,10 @@
     <ProjectReference Include="HyeroUnityEssentials.csproj">
       <Project>{802443AD-E549-31D3-BA27-0787AB1FDA80}</Project>
       <Name>HyeroUnityEssentials</Name>
+    </ProjectReference>
+    <ProjectReference Include="com.rlabrecque.steamworks.net.csproj">
+      <Project>{7FF9ACBD-781E-EA1F-8AFE-D2029A0F061C}</Project>
+      <Name>com.rlabrecque.steamworks.net</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
