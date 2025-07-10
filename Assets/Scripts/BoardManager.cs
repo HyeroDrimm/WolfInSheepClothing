@@ -66,7 +66,8 @@ public class BoardManager : MonoBehaviour
     public bool isSpawnGlitchesOn = true;
     public bool isShopOn = true;
 
-    public Action onPlayerFixGlitch;
+    public Action onPlayerStopFixing;
+    public Action onPlayerDoneFixing;
 
     private void Awake()
     {
@@ -336,9 +337,14 @@ public class BoardManager : MonoBehaviour
         playerFixGlitchFeedback.PlayFeedbacks();
     }
 
-    public void OnPlayerEndFix(PathNode pathNode)
+    public void OnPlayerDoneFixing()
     {
-        onPlayerFixGlitch?.Invoke();
+        onPlayerDoneFixing?.Invoke();
+    }
+
+    public void OnPlayerStopFixing(PathNode pathNode)
+    {
+        onPlayerStopFixing?.Invoke();
         if (playerFixGlitchFeedback.IsPlaying)
             playerFixGlitchFeedback.SkipToTheEnd();
     }

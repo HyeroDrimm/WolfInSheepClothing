@@ -27,7 +27,7 @@ public class PathActorAnimator : MonoBehaviour
 
     public void Flip(bool state)
     {
-        transform.localScale = new Vector3(scale *(state ? -1 : 1), transform.localScale.y, transform.localScale.z);
+        transform.localScale = new Vector3(scale * (state ? -1 : 1), transform.localScale.y, transform.localScale.z);
     }
 
     public void SetUnscaledUpdateMode(bool state)

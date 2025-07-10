@@ -11,6 +11,7 @@ using UnityEngine.SceneManagement;
 [DefaultExecutionOrder(-10)]
 public class GameManager : MonoBehaviour
 {
+    public static bool playTutorial;
     public static GameManager instance;
     [SerializeField] private Timer currentTimer;
     [SerializeField] private UIWindow pauseMenuWindow;
@@ -52,6 +53,11 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
+        if (playTutorial)
+        {
+            tutorial.gameObject.SetActive(true);
+            playTutorial = false;
+        }
         shopTimeScaleModifier = new TimeScaleModifier("shop", shopSlowDown, 2);
         gameStartTimeScaleModifier = new TimeScaleModifier("game start", 0, 5);
         

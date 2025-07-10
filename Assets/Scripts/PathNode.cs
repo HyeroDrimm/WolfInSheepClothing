@@ -105,9 +105,9 @@ public class PathNode : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D other)
     {
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("Player") && state == DestructorState.InProcess)
         {
-            boardManager.OnPlayerEndFix(this);
+            boardManager.OnPlayerStopFixing(this);
         }
     }
 
@@ -121,6 +121,7 @@ public class PathNode : MonoBehaviour
             {
                 SetState(DestructorState.Cooldown);
                 Invoke("AfterCooldown", glitchCooldown);
+                boardManager.OnPlayerDoneFixing();
             }
         }
 

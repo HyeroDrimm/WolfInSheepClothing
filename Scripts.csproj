@@ -98,6 +98,7 @@
     <Compile Include="Assets\Scripts\ConfirmPopup.cs" />
     <Compile Include="Assets\Scripts\PickUp\Coin.cs" />
     <Compile Include="Assets\Scripts\PathNode.cs" />
+    <Compile Include="Assets\Scripts\TutorialWindow.cs" />
     <Compile Include="Assets\Scripts\BoardManager.cs" />
     <Compile Include="Assets\Scripts\GameStart.cs" />
   </ItemGroup>

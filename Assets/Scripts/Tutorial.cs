@@ -93,7 +93,7 @@ public class Tutorial : MonoBehaviour
                 ResetIntCounter();
                 UpdateTaskUI(true, String.Format(currentTaskString, intCounter, currentTaskMax));
                 player.onCastleVisited += IncrementIntCounter;
-                ModalWindow.ShowOk(clickingOnCastlesHeaderText, clickingOnCastlesText, video: clickingOnCastlesVideo);
+                TutorialWindow.ShowOk(clickingOnCastlesHeaderText, clickingOnCastlesText, video: clickingOnCastlesVideo);
             }, 
             onEnd:() =>
             {
@@ -113,7 +113,7 @@ public class Tutorial : MonoBehaviour
                 UpdateTaskUI(true, String.Format(currentTaskString, intCounter, currentTaskMax));
                 player.onPickup += IncrementIntCounter;
                 gameManager.onCollectCoin += IncrementIntCounter;
-                ModalWindow.ShowOk(pickingUpPickupsHeaderText, pickingUpPickupsText, video: pickingUpPickupsVideo);
+                TutorialWindow.ShowOk(pickingUpPickupsHeaderText, pickingUpPickupsText, video: pickingUpPickupsVideo);
             },
             onEnd: () =>
             {
@@ -132,7 +132,7 @@ public class Tutorial : MonoBehaviour
                 ResetIntCounter();
                 UpdateTaskUI(true, String.Format(currentTaskString, intCounter, currentTaskMax));
                 gameManager.onItemBougth += IncrementIntCounter;
-                ModalWindow.ShowOk(buyingInShopHeaderText, buyingInShopText, video: buyingInShopVideo);
+                TutorialWindow.ShowOk(buyingInShopHeaderText, buyingInShopText, video: buyingInShopVideo);
             },
             onEnd: () =>
             {
@@ -149,17 +149,19 @@ public class Tutorial : MonoBehaviour
                 currentTaskString = fixingGlitchesTask;
                 ResetIntCounter();
                 UpdateTaskUI(true, String.Format(currentTaskString, intCounter, currentTaskMax));
-                boardManager.onPlayerFixGlitch += IncrementIntCounter;
-                ModalWindow.ShowOk(fixingGlitchesHeaderText, fixingGlitchesText, video: fixingGlitchesVideo);
+                boardManager.onPlayerDoneFixing += IncrementIntCounter;
+                TutorialWindow.ShowOk(fixingGlitchesHeaderText, fixingGlitchesText, video: fixingGlitchesVideo);
             },
             onEnd: () =>
             {
-                boardManager.onPlayerFixGlitch -= IncrementIntCounter;
+                boardManager.onPlayerStopFixing -= IncrementIntCounter;
             });
 
         var runningFromEnemyPhase = new TutorialPhase(()=> DidTimePass(2f), onStart:()=>
         {
-            ModalWindow.ShowOk(runningFromWolfHeaderText, runningFromWolfText, video: runningFromWolfVideo, onButtonPressed: StartTimer);
+            gameManager.SetEnemyState(true);
+            UpdateTaskUI(true, currentTaskString);
+            TutorialWindow.ShowOk(runningFromWolfHeaderText, runningFromWolfText, video: runningFromWolfVideo, onButtonPressed: StartTimer);
         }, onEnd:() =>
         {
         });
