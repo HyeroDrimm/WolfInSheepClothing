@@ -16,7 +16,6 @@ public class Doll : MonoBehaviour, IFollowTarget
 
             enemy.Doll = null;
 
-            SoundEffectPlayer.Instance.PlaySoundClip(SoundEffectPlayer.KILL);
             Destroy(gameObject);
         }
     }

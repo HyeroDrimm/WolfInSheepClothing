@@ -40,7 +40,6 @@ public class ShopUI : MonoBehaviour
         if (gameManager.PayCoins(item.price) || skipCheckForCoins)
         {
             gameManager.UpdatePocket(item);
-            SoundEffectPlayer.Instance.PlaySoundClip(SoundEffectPlayer.KACHING);
             OnExitButtonClicked();
             return true;
         }

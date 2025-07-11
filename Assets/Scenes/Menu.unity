@@ -2250,6 +2250,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 669494617}
   m_CullTransparentMesh: 1
+--- !u!1 &669813989 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7150362057952068389, guid: b642b1e3ed979aa42a0c7614c641bc94, type: 3}
+  m_PrefabInstance: {fileID: 1478174855}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &690085934
 GameObject:
   m_ObjectHideFlags: 0
@@ -4344,7 +4349,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   menuScreen: {fileID: 1462239473}
-  settingsScreen: {fileID: 0}
+  settingsScreen: {fileID: 1316048446}
   chooseLevelScreen: {fileID: 1089981153}
   creditsScreen: {fileID: 736182753}
   playButton: {fileID: 1525130791}
@@ -4506,6 +4511,44 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 1585435738756395326, guid: b642b1e3ed979aa42a0c7614c641bc94, type: 3}
   m_PrefabInstance: {fileID: 1478174855}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1316048446 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8975928166881023233, guid: b642b1e3ed979aa42a0c7614c641bc94, type: 3}
+  m_PrefabInstance: {fileID: 1478174855}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 669813989}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1bdeeafe1525a3540bc1a5982a29b6e5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1316048447
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 669813989}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 49a7d027114f0c84baa45040b1b03a16, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  slideFrom: {x: 0, y: 0}
+  duration: 0.2
+  timeOffset: 0
+--- !u!225 &1316048449
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 669813989}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &1360559001
 GameObject:
   m_ObjectHideFlags: 0
@@ -5127,6 +5170,14 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1212002653}
+    - target: {fileID: 3233610554925927613, guid: b642b1e3ed979aa42a0c7614c641bc94, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ShowMenuScreen
+      objectReference: {fileID: 0}
+    - target: {fileID: 3233610554925927613, guid: b642b1e3ed979aa42a0c7614c641bc94, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: MenuController, Scripts
+      objectReference: {fileID: 0}
     - target: {fileID: 7150362057952068389, guid: b642b1e3ed979aa42a0c7614c641bc94, type: 3}
       propertyPath: m_Name
       value: Settings
@@ -5135,10 +5186,25 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 8975928166881023233, guid: b642b1e3ed979aa42a0c7614c641bc94, type: 3}
+      propertyPath: menuElements.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8975928166881023233, guid: b642b1e3ed979aa42a0c7614c641bc94, type: 3}
+      propertyPath: menuElements.Array.data[1]
+      value: 
+      objectReference: {fileID: 1316048447}
+    m_RemovedComponents:
+    - {fileID: 3324726987967607483, guid: b642b1e3ed979aa42a0c7614c641bc94, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 7150362057952068389, guid: b642b1e3ed979aa42a0c7614c641bc94, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1316048447}
+    - targetCorrespondingSourceObject: {fileID: 7150362057952068389, guid: b642b1e3ed979aa42a0c7614c641bc94, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1316048449}
   m_SourcePrefab: {fileID: 100100000, guid: b642b1e3ed979aa42a0c7614c641bc94, type: 3}
 --- !u!1 &1515043720
 GameObject:

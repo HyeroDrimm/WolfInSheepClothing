@@ -137,8 +137,6 @@ public class Player : MonoBehaviour, IFollowTarget
                 enemy.Doll = doll;
                 useDoll = false;
                 useDollPopup.SetVisible(false);
-
-                SoundEffectPlayer.Instance.PlaySoundClip(SoundEffectPlayer.SELECT);
             }
         }
         else if (Input.GetKeyDown(KeyCode.Mouse0) && !EventSystem.current.IsPointerOverGameObject())
@@ -159,8 +157,6 @@ public class Player : MonoBehaviour, IFollowTarget
                         transform.position = currentPosition.transform.position;
                         currentPosition = target;
                         UpdateAnimation();
-
-                        SoundEffectPlayer.Instance.PlaySoundClip(SoundEffectPlayer.SELECT);
                     }
                 }
                 else
@@ -183,7 +179,6 @@ public class Player : MonoBehaviour, IFollowTarget
                 queuedPlace = null;
 
                 UpdateAnimation();
-                SoundEffectPlayer.Instance.PlaySoundClip(SoundEffectPlayer.SELECT);
             }
         }
 
@@ -230,7 +225,6 @@ public class Player : MonoBehaviour, IFollowTarget
         if (collision.transform.CompareTag("Enemy"))
         {
             gameManager.EndGame();
-            SoundEffectPlayer.Instance.PlaySoundClip(SoundEffectPlayer.KILL);
             Destroy(gameObject);
         }
     }
@@ -266,11 +260,9 @@ public class Player : MonoBehaviour, IFollowTarget
     {
         if (powerUpSpeedModifier < 1)
         {
-            SoundEffectPlayer.Instance.PlaySoundClip(SoundEffectPlayer.POWER_UP);
         }
         else if (powerUpSpeedModifier > 1)
         {
-            SoundEffectPlayer.Instance.PlaySoundClip(SoundEffectPlayer.POWER_DOWN);
         }
 
         powerUpSpeedModifier = 1;
@@ -287,7 +279,6 @@ public class Player : MonoBehaviour, IFollowTarget
     {
         isFrozen = true;
         UpdateAnimation();
-        SoundEffectPlayer.Instance.PlaySoundClip(SoundEffectPlayer.FREEZE);
 
 
         if (IsInvoking("RemoveFreezeAddon"))

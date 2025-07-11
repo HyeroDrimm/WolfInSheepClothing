@@ -203,7 +203,6 @@ public class Enemy : MonoBehaviour
             CancelInvoke("WaitAfterMove");
         }
         Invoke("WaitAfterMove", waitAfterMoveTimeProper);
-        SoundEffectPlayer.Instance.PlaySoundClip(SoundEffectPlayer.TELEPORT);
     }
 
     private void WaitAfterMove()
@@ -246,8 +245,6 @@ public class Enemy : MonoBehaviour
         isFrozen = true;
         enemyCollider.enabled = false;
         UpdateAnimation();
-
-        SoundEffectPlayer.Instance.PlaySoundClip(SoundEffectPlayer.FREEZE);
 
         if (IsInvoking("RemoveFreezeAddon"))
         {

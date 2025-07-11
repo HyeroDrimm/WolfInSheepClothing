@@ -15,11 +15,9 @@ public class SpeedChangePowerUp : PickUp
     {
         if (speedModifier < 1)
         {
-            SoundEffectPlayer.Instance.PlaySoundClip(SoundEffectPlayer.POWER_DOWN);
         }
         else if (speedModifier > 1)
         {
-            SoundEffectPlayer.Instance.PlaySoundClip(SoundEffectPlayer.POWER_UP);
         }
         player.PickedUpSpeedChangePowerUp(speedModifier, duration);
     }

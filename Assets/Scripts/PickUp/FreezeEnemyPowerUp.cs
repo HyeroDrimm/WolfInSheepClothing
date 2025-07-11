@@ -13,15 +13,11 @@ public class FreezeEnemyPowerUp : PickUp
 
     public override void OnPlayerPickedUp(Player player)
     {
-        SoundEffectPlayer.Instance.PlaySoundClip(SoundEffectPlayer.POWER_UP);
-
         player.PickedUpEnemyFreezePowerUp(duration);
     }
 
     public override void OnEnemyPickedUp(Enemy enemy)
     {
-        SoundEffectPlayer.Instance.PlaySoundClip(SoundEffectPlayer.POWER_DOWN);
-
         enemy.PickedUpEnemyFreezePowerUp(duration);
     }
 }

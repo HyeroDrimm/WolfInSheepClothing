@@ -184,7 +184,6 @@ public class GameManager : MonoBehaviour
                     break;
             }
 
-            SoundEffectPlayer.Instance.PlaySoundClip(SoundEffectPlayer.POWER_UP);
             pocketUi.UpdateItem(null);
         }
     }
