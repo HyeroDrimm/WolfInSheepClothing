@@ -21,6 +21,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Player player;
     [SerializeField] private Enemy enemy;
     [SerializeField] private Tutorial tutorial;
+    [SerializeField] private BoardManager boardManager;
 
     [Header("Shop")]
     [SerializeField] private float shopSlowDown;
@@ -38,7 +39,6 @@ public class GameManager : MonoBehaviour
     private float gameSpeed = 1;
     private bool isPause = false;
 
-    private bool isEnemyOn = true;
 
     public Action onCollectCoin;
     public Action onItemBougth;
@@ -58,6 +58,13 @@ public class GameManager : MonoBehaviour
             tutorial.gameObject.SetActive(true);
             playTutorial = false;
         }
+        else
+        {
+            boardManager.SetSpawnPowerUp(true);
+            boardManager.SetShopActive(true);
+            boardManager.SetSpawnGlitches(true);
+        }
+
         shopTimeScaleModifier = new TimeScaleModifier("shop", shopSlowDown, 2);
         gameStartTimeScaleModifier = new TimeScaleModifier("game start", 0, 5);
         
@@ -76,11 +83,6 @@ public class GameManager : MonoBehaviour
         startTimestamp = Time.time;
 
         pocketUi.UpdateItem(itemInPocket);
-
-        if (isEnemyOn)
-        {
-            SetEnemyState(true);
-        }
 
         tutorial.Setup(player);
     }
@@ -224,11 +226,5 @@ public class GameManager : MonoBehaviour
     public void StartGame()
     {
         TimeController.RemoveModifier(gameStartTimeScaleModifier);
-    }
-
-    public void SetEnemyState(bool state)
-    {
-        isEnemyOn = state;
-        enemy.gameObject.SetActive(state);
     }
 }

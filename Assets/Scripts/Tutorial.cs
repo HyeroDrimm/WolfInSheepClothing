@@ -81,7 +81,7 @@ public class Tutorial : MonoBehaviour
         boardManager.SetSpawnGlitches(false);
         boardManager.SetSpawnPowerUp(false);
         boardManager.SetShopActive(false);
-        gameManager.SetEnemyState(false);
+        boardManager.SetEnemyState(false);
 
         var clickingOnCastlePhase = new TutorialPhase(
             () => intCounter >= castlesVisitedRequired, 
@@ -159,7 +159,7 @@ public class Tutorial : MonoBehaviour
 
         var runningFromEnemyPhase = new TutorialPhase(()=> DidTimePass(2f), onStart:()=>
         {
-            gameManager.SetEnemyState(true);
+            boardManager.SetEnemyState(true);
             UpdateTaskUI(true, currentTaskString);
             TutorialWindow.ShowOk(runningFromWolfHeaderText, runningFromWolfText, video: runningFromWolfVideo, onButtonPressed: StartTimer);
         }, onEnd:() =>

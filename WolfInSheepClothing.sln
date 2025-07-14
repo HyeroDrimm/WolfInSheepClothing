@@ -13,8 +13,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MoreMountains.Tools.Editor"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MoreMountains.Feedbacks.TextMeshPro", "MoreMountains.Feedbacks.TextMeshPro.csproj", "{CAC12CB8-9414-F5EB-DE2C-1A4D5129FA3B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scripts", "Scripts.csproj", "{8034BD0D-0628-0680-5219-5CB848F6AD64}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FMODUnityEditor", "FMODUnityEditor.csproj", "{EB3888CD-6DB1-1E33-7058-DD108C20E5F7}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MoreMountains.Feedbacks.HDRP", "MoreMountains.Feedbacks.HDRP.csproj", "{645BA152-FC75-8F9A-874B-BB760ED774B2}"
@@ -36,6 +34,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assembly-CSharp-firstpass", "Assembly-CSharp-firstpass.csproj", "{8D7E2841-D2CA-25CF-432B-CB4A580017ED}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FMODUnityResonanceEditor", "FMODUnityResonanceEditor.csproj", "{9364DAD4-3937-0FA8-6A31-643183703FD0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scripts", "Scripts.csproj", "{8034BD0D-0628-0680-5219-5CB848F6AD64}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HyeroUnityEssentials", "HyeroUnityEssentials.csproj", "{802443AD-E549-31D3-BA27-0787AB1FDA80}"
 EndProject
@@ -85,10 +85,6 @@ Global
 		{CAC12CB8-9414-F5EB-DE2C-1A4D5129FA3B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CAC12CB8-9414-F5EB-DE2C-1A4D5129FA3B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CAC12CB8-9414-F5EB-DE2C-1A4D5129FA3B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{8034BD0D-0628-0680-5219-5CB848F6AD64}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8034BD0D-0628-0680-5219-5CB848F6AD64}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{8034BD0D-0628-0680-5219-5CB848F6AD64}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{8034BD0D-0628-0680-5219-5CB848F6AD64}.Release|Any CPU.Build.0 = Release|Any CPU
 		{EB3888CD-6DB1-1E33-7058-DD108C20E5F7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{EB3888CD-6DB1-1E33-7058-DD108C20E5F7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EB3888CD-6DB1-1E33-7058-DD108C20E5F7}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -133,6 +129,10 @@ Global
 		{9364DAD4-3937-0FA8-6A31-643183703FD0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9364DAD4-3937-0FA8-6A31-643183703FD0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9364DAD4-3937-0FA8-6A31-643183703FD0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8034BD0D-0628-0680-5219-5CB848F6AD64}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8034BD0D-0628-0680-5219-5CB848F6AD64}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8034BD0D-0628-0680-5219-5CB848F6AD64}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8034BD0D-0628-0680-5219-5CB848F6AD64}.Release|Any CPU.Build.0 = Release|Any CPU
 		{802443AD-E549-31D3-BA27-0787AB1FDA80}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{802443AD-E549-31D3-BA27-0787AB1FDA80}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{802443AD-E549-31D3-BA27-0787AB1FDA80}.Release|Any CPU.ActiveCfg = Release|Any CPU

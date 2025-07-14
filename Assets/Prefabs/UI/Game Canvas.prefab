@@ -308,8 +308,8 @@ RectTransform:
   - {fileID: 1013605143757645667}
   - {fileID: 6299397891689422896}
   - {fileID: 6974411595257177485}
-  - {fileID: 5478086900406692827}
   - {fileID: 4398341096015481446}
+  - {fileID: 5478086900406692827}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -1647,6 +1647,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4380430132102755944, guid: b05115941d41f9e42860dbedbc2298b1, type: 3}
+      propertyPath: curtain
+      value: 
+      objectReference: {fileID: 6683180577074778613}
     - target: {fileID: 5208048954838230309, guid: b05115941d41f9e42860dbedbc2298b1, type: 3}
       propertyPath: windowToShow
       value: 

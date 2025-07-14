@@ -62,9 +62,11 @@ public class BoardManager : MonoBehaviour
     private const string SPAWN_POWERUP_CODE = "SpawnPickups";
     private const string SPAWN_GLITCHES_CODE = "SpawnGlitches";
 
-    public bool isSpawnPowerUpOn = true;
-    public bool isSpawnGlitchesOn = true;
-    public bool isShopOn = true;
+    private bool isSpawnPowerUpOn;
+    private bool isSpawnGlitchesOn;
+    private bool isShopOn;
+    private bool isEnemyOn;
+
 
     public Action onPlayerStopFixing;
     public Action onPlayerDoneFixing;
@@ -128,14 +130,6 @@ public class BoardManager : MonoBehaviour
                     list.Add(connection.node1);
             }
             nodeNeighbours.Add(node, list.ToArray());
-        }
-        if (isSpawnGlitchesOn)
-        {
-            SetSpawnGlitches(true);
-        }
-        if (isSpawnPowerUpOn)
-        {
-            SetSpawnPowerUp(true);
         }
     }
 
@@ -389,5 +383,10 @@ public class BoardManager : MonoBehaviour
                 shop.SetShopActive(state);
             }
         }
+    }
+    public void SetEnemyState(bool state)
+    {
+        isEnemyOn = state;
+        enemy.gameObject.SetActive(state);
     }
 }

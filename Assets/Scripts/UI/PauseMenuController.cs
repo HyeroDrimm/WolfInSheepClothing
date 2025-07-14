@@ -8,6 +8,7 @@ using UnityEngine.UI;
 public class PauseMenuController : MonoBehaviour
 {
     [SerializeField] private GameManager gameManager;
+    [SerializeField] private Curtain curtain;
     [SerializeField] private Button resumeButton;
     [SerializeField] private Button mainMenuButton;
 
@@ -24,6 +25,6 @@ public class PauseMenuController : MonoBehaviour
 
     private void OnMainMenuClicked()
     {
-        ConfirmPopup.Instance.Show(() => SceneManager.LoadScene("Menu"), "Exit to Main Menu?");
+        ConfirmPopup.Instance.Show(() => curtain.In(() => SceneManager.LoadScene("Menu")), "Exit to Main Menu?");
     }
 }
