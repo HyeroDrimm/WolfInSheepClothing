@@ -64,6 +64,7 @@
     <Compile Include="Assets\Scripts\UI\SettingsMenu.cs" />
     <Compile Include="Assets\Scripts\FollowPlayerWithinBounds.cs" />
     <Compile Include="Assets\Scripts\UI\YouLostUI.cs" />
+    <Compile Include="Assets\Scripts\Sound\SoundManager.cs" />
     <Compile Include="Assets\Scripts\FollowGameObject.cs" />
     <Compile Include="Assets\Scripts\UI\ChooseMapScreenController.cs" />
     <Compile Include="Assets\Scripts\UI\SheepUIWindow.cs" />
@@ -71,6 +72,7 @@
     <Compile Include="Assets\Scripts\UI\TutorialWindow.cs" />
     <Compile Include="Assets\Scripts\UI\ShopUIItem.cs" />
     <Compile Include="Assets\Scripts\UI\PauseMenuController.cs" />
+    <Compile Include="Assets\Scripts\Sound\SoundButton.cs" />
     <Compile Include="Assets\Scripts\Board\BoardManager.cs" />
     <Compile Include="Assets\Scripts\UI\CoinCounterUI.cs" />
     <Compile Include="Assets\Scripts\IFollowTarget.cs" />
@@ -1014,6 +1016,10 @@
     <ProjectReference Include="com.rlabrecque.steamworks.net.csproj">
       <Project>{7FF9ACBD-781E-EA1F-8AFE-D2029A0F061C}</Project>
       <Name>com.rlabrecque.steamworks.net</Name>
+    </ProjectReference>
+    <ProjectReference Include="FMODUnity.csproj">
+      <Project>{BD3B05CF-7CEB-0166-75F3-F48A21057C81}</Project>
+      <Name>FMODUnity</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

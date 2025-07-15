@@ -313,6 +313,8 @@ GameObject:
   - component: {fileID: 2672708388479984399}
   - component: {fileID: 435337509977178720}
   - component: {fileID: 4860985943819511319}
+  - component: {fileID: 2878357284686397183}
+  - component: {fileID: 9107845605967604336}
   m_Layer: 5
   m_Name: Green Button
   m_TagString: Untagged
@@ -397,7 +399,7 @@ MonoBehaviour:
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
+  m_Transition: 3
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
@@ -482,6 +484,41 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_HorizontalFit: 2
   m_VerticalFit: 0
+--- !u!114 &2878357284686397183
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1744622165697112177}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 85576230a1074ab4c8eadbf5cc0e397f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  usePositiveSoundOnClick: 1
+  useNegativeSoundOnClick: 0
+--- !u!95 &9107845605967604336
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1744622165697112177}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: b222cda54f624da448bcfe63300e12aa, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 2
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &2036312356512111053
 GameObject:
   m_ObjectHideFlags: 0
@@ -536,6 +573,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   uiWindow: {fileID: 1859635342922144273}
   videoPlayer: {fileID: 6752949484079657103}
+  timeSlowDown: 0
   headerHolder: {fileID: 5446220799643565697}
   headerText: {fileID: 2832667220066620947}
   horizontalLayoutHolder: {fileID: 3355823003817535003}
@@ -1359,6 +1397,8 @@ GameObject:
   - component: {fileID: 7928572405756816951}
   - component: {fileID: 5586224155232751580}
   - component: {fileID: 4832701928029996063}
+  - component: {fileID: 4722564875088406032}
+  - component: {fileID: 5575207350793304514}
   m_Layer: 5
   m_Name: Red Button
   m_TagString: Untagged
@@ -1443,7 +1483,7 @@ MonoBehaviour:
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
+  m_Transition: 3
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
@@ -1528,6 +1568,41 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
+--- !u!114 &4722564875088406032
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5020206524635608963}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 85576230a1074ab4c8eadbf5cc0e397f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  usePositiveSoundOnClick: 1
+  useNegativeSoundOnClick: 0
+--- !u!95 &5575207350793304514
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5020206524635608963}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: b222cda54f624da448bcfe63300e12aa, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 2
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &5446220799643565697
 GameObject:
   m_ObjectHideFlags: 0
@@ -2573,6 +2648,8 @@ GameObject:
   - component: {fileID: 1110565866053928844}
   - component: {fileID: 919216865547432755}
   - component: {fileID: 3701781032843436546}
+  - component: {fileID: 4833605305422745983}
+  - component: {fileID: 245885491684258155}
   m_Layer: 5
   m_Name: Alternative Button
   m_TagString: Untagged
@@ -2657,7 +2734,7 @@ MonoBehaviour:
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
+  m_Transition: 3
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
@@ -2742,3 +2819,38 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
+--- !u!95 &4833605305422745983
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9129070017861262491}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: b222cda54f624da448bcfe63300e12aa, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 2
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &245885491684258155
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9129070017861262491}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 85576230a1074ab4c8eadbf5cc0e397f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  usePositiveSoundOnClick: 1
+  useNegativeSoundOnClick: 0

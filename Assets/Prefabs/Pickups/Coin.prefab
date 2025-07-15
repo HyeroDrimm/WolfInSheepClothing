@@ -156,6 +156,13 @@ MonoBehaviour:
   PickUpPlace: {fileID: 0}
   isShown: 0
   appearPlayer: {fileID: 1721089919224417834}
+  pickupSoundEventID:
+    Guid:
+      Data1: -988644062
+      Data2: 1268850564
+      Data3: 1285123771
+      Data4: 1669538984
+    Path: event:/sfx_coin_pickup
 --- !u!58 &5533479042058471677
 CircleCollider2D:
   m_ObjectHideFlags: 0

@@ -12,6 +12,8 @@ GameObject:
   - component: {fileID: 54809317700253084}
   - component: {fileID: 2236240717220636548}
   - component: {fileID: 4758832811582425088}
+  - component: {fileID: 2695196374584643541}
+  - component: {fileID: 2689560733475098272}
   m_Layer: 5
   m_Name: Increase Button
   m_TagString: Untagged
@@ -120,6 +122,34 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &2695196374584643541
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 957992955128672382}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 85576230a1074ab4c8eadbf5cc0e397f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  usePositiveSoundOnClick: 1
+  useNegativeSoundOnClick: 0
+--- !u!114 &2689560733475098272
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 957992955128672382}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 85576230a1074ab4c8eadbf5cc0e397f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  usePositiveSoundOnClick: 1
+  useNegativeSoundOnClick: 0
 --- !u!1 &2848871189498636291
 GameObject:
   m_ObjectHideFlags: 0
@@ -174,6 +204,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   minMax: {x: 0, y: 7}
   fillImage: {fileID: 1069890364678672091}
+  defaultValue: 0
   increaseButton: {fileID: 4758832811582425088}
   decreaseButton: {fileID: 8105173289163744191}
 --- !u!1 &5216817111330308971
@@ -338,6 +369,8 @@ GameObject:
   - component: {fileID: 786640594825677919}
   - component: {fileID: 7912820346805111257}
   - component: {fileID: 8105173289163744191}
+  - component: {fileID: 1495612035084909401}
+  - component: {fileID: 1960486595077225367}
   m_Layer: 5
   m_Name: Decrease Button
   m_TagString: Untagged
@@ -446,3 +479,31 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &1495612035084909401
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7634568486889682923}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 85576230a1074ab4c8eadbf5cc0e397f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  usePositiveSoundOnClick: 1
+  useNegativeSoundOnClick: 0
+--- !u!114 &1960486595077225367
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7634568486889682923}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 85576230a1074ab4c8eadbf5cc0e397f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  usePositiveSoundOnClick: 1
+  useNegativeSoundOnClick: 0

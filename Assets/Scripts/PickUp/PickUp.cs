@@ -1,4 +1,5 @@
 using System;
+using FMODUnity;
 using MoreMountains.Feedbacks;
 using UnityEngine;
 
@@ -6,7 +7,10 @@ public abstract class PickUp : MonoBehaviour
 {
     [HideInInspector] public Transform PickUpPlace;
     [HideInInspector] public bool isShown;
+
     [SerializeField] private MMF_Player appearPlayer;
+    [SerializeField] private EventReference pickupSoundEventID;
+
     private PathNode pathNode;
 
     protected virtual void Awake()
@@ -18,6 +22,11 @@ public abstract class PickUp : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
+            if (!pickupSoundEventID.IsNull)
+            {
+                RuntimeManager.PlayOneShot(pickupSoundEventID);
+            }
+
             var player = other.GetComponentInParent<Player>();
             OnPlayerPickedUp(player);
             pathNode.HidePickup();
