@@ -12,6 +12,7 @@ public class Curtain : MonoBehaviour
     [SerializeField] private RectTransform curtainLeft;
     [SerializeField] private RectTransform curtainRight;
     [SerializeField] private float moveDuration;
+    [SerializeField] private FMODUnity.EventReference curtainSoundReference;
 
     private void Awake()
     {
@@ -26,6 +27,7 @@ public class Curtain : MonoBehaviour
 
     public void In(Action actionOnEnd = null)
     {
+        FMODUnity.RuntimeManager.PlayOneShot(curtainSoundReference);
         DOTween.To(() => curtainLeft.anchorMax.x, value => curtainLeft.anchorMax = new Vector2(value, curtainLeft.anchorMax.y), 0.5f,
             moveDuration).SetUpdate(true);
 
